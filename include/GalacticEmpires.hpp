@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 
 //SELF
+#include "LuaState.hpp"
 
 class GalacticEmpires
 {
@@ -19,6 +20,8 @@ private:
     void handleEvent(const sf::Event& e);
     void update(float dt);
     void draw();
+
+    zge::LuaState m_lua;
 
     sf::RenderWindow m_window;
     sf::Event m_event;

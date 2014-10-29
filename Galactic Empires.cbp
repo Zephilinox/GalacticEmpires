@@ -43,20 +43,27 @@
 			<Add option="-fexceptions" />
 			<Add option="-DSFML_STATIC" />
 			<Add directory="Z:/Programming/C++/SFML-2.1/include" />
+			<Add directory="Z:/Programming/C++/Lua-5.2.3/include" />
+			<Add directory="Z:/Programming/C++/LuaBridge/Source" />
+			<Add directory="src" />
+			<Add directory="include" />
 		</Compiler>
 		<Linker>
 			<Add option="-static-libstdc++" />
 			<Add option="-static-libgcc" />
 			<Add option="-static" />
+			<Add library="Z:\Programming\C++\MinGW-Latest\lib\liblua.a" />
 			<Add directory="Z:/Programming/C++/SFML-2.1/lib" />
 		</Linker>
 		<Unit filename="include/Empire.hpp" />
 		<Unit filename="include/GalacticEmpires.hpp" />
+		<Unit filename="include/LuaState.hpp" />
 		<Unit filename="include/Planet.hpp" />
 		<Unit filename="include/SolarSystem.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Empire.cpp" />
 		<Unit filename="src/GalacticEmpires.cpp" />
+		<Unit filename="src/LuaState.cpp" />
 		<Unit filename="src/Planet.cpp" />
 		<Unit filename="src/SolarSystem.cpp" />
 		<Extensions>

@@ -1,9 +1,10 @@
 //STD
-#include <iostream>
 
 //3RD
+#include <Lua.hpp>
 
 //SELF
+
 #include "GalacticEmpires.hpp"
 
 int main()
@@ -11,5 +12,3 @@ int main()
     GalacticEmpires game;
     game.run();
 }
-
-
