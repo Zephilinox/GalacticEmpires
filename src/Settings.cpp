@@ -7,30 +7,12 @@ Settings::Settings()
 {
 }
 
-void Settings::loadSettings(zge::LuaState& state)
+void Settings::loadSettings()
 {
-    luabridge::LuaRef tbl = luabridge::getGlobal(state.getRawState(), "_G")["settings"];
 
-    for (luabridge::Iterator it(tbl); !it.isNil(); ++it)
-    {
-        std::string key = it.key().cast<std::string>(); //removes quotes
-
-        if (it.value().isBoolean())
-        {
-            m_boolSettings[key] = it.value().cast<bool>();
-        }
-        else if (it.value().isNumber())
-        {
-            m_numberSettings[key] = it.value().cast<double>();
-        }
-        else if (it.value().isString())
-        {
-            m_stringSettings[key] = it.value().cast<std::string>();
-        }
-    }
 }
 
-void Settings::saveSettings(zge::LuaState& state)
+void Settings::saveSettings()
 {
 
 }
@@ -47,7 +29,7 @@ double Settings::getNumberSetting(std::string settingName)
 
 std::string Settings::getStringSetting(std::string settingName)
 {
-    return m_stringSettings[settingName];
+    return "";
 }
 
 

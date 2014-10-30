@@ -6,7 +6,6 @@
 #include <string>
 
 //3RD
-#include <ZGE/LuaState.hpp>
 
 //SELF
 
@@ -14,8 +13,8 @@ class Settings
 {
 public:
     Settings();
-    void loadSettings(zge::LuaState& state);
-    void saveSettings(zge::LuaState& state);
+    void loadSettings();
+    void saveSettings();
 
     bool getBoolSetting(std::string settingName);
     double getNumberSetting(std::string settingName);

@@ -6,6 +6,7 @@
 //3RD
 #include <SFML/Graphics.hpp>
 #include <ZGE/LuaState.hpp>
+#include <SFGUI/SFGUI.hpp>
 
 //SELF
 #include "Settings.hpp"
@@ -22,10 +23,13 @@ private:
     void update(float dt);
     void draw();
 
+    sf::RenderWindow m_window;
+
     zge::LuaState m_lua;
     Settings m_settings;
+    sfg::SFGUI m_gui;
+    sfg::Window::Ptr m_guiWindow;
 
-    sf::RenderWindow m_window;
     sf::Event m_event;
     sf::Clock m_frameTime;
     sf::Time m_prevFrameTime;
