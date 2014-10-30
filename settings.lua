@@ -103,7 +103,7 @@ Keys =
 	Pause = 100
 }
 
-window = 
+settings = 
 {
 	title = "Galactic Empires",
 	w = 1280,

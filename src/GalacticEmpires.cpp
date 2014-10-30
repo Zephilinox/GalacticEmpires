@@ -17,9 +17,11 @@ void GalacticEmpires::run()
     if (m_lua.executeFile("settings.lua")) return;
 
     m_settings.loadSettings(m_lua);
-    std::cout << m_settings.getStringSetting("window.title") << "\n";
-    m_settings.setStringSetting("window.title", "Lol");
+    std::cout << m_settings.getStringSetting("title") << "\n";
+    m_settings.setStringSetting("title", "Lol");
     m_settings.saveSettings(m_lua);
+    m_settings.loadSettings(m_lua);
+    std::cout << m_settings.getStringSetting("title") << "\n";
 
     gameLoop();
 }
