@@ -65,6 +65,9 @@
 		<Unit filename="include/Settings.hpp" />
 		<Unit filename="include/SolarSystem.hpp" />
 		<Unit filename="include/ZGE/LuaState.hpp" />
+		<Unit filename="include/ZGE/State/BaseState.hpp" />
+		<Unit filename="include/ZGE/State/StateCollection.hpp" />
+		<Unit filename="include/ZGE/State/StateHandler.hpp" />
 		<Unit filename="include/ZGE/Utility.hpp" />
 		<Unit filename="include/ZGE/Vector.hpp" />
 		<Unit filename="main.cpp" />
@@ -74,6 +77,9 @@
 		<Unit filename="src/Settings.cpp" />
 		<Unit filename="src/SolarSystem.cpp" />
 		<Unit filename="src/ZGE/LuaState.cpp" />
+		<Unit filename="src/ZGE/State/BaseState.cpp" />
+		<Unit filename="src/ZGE/State/StateCollection.cpp" />
+		<Unit filename="src/ZGE/State/StateHandler.cpp" />
 		<Unit filename="src/ZGE/Utility.cpp" />
 		<Unit filename="src/ZGE/Vector.cpp" />
 		<Extensions>
