@@ -103,16 +103,13 @@ Keys =
 	Pause = 100
 }
 
-settings =
+window = 
 {
-	window = 
-	{
-		title = "Galactic Empires",
-		w = 1280,
-		h = 720,
-		bits = 32,
-		fullscreen = false,
-		verticalSync = false,
-		framerate = 60
-	}
+	title = "Galactic Empires",
+	w = 1280,
+	h = 720,
+	bits = 32,
+	fullscreen = false,
+	verticalSync = false,
+	framerate = 60
 }

@@ -1,12 +1,18 @@
-#include "LuaState.hpp"
+#include "ZGE/Utility.hpp"
 
-//STD
-#include <iostream>
-#include <string>
+namespace zge
+{
 
-//SELF
+void drawLine(sf::RenderTarget& target, float x1, float y1, float x2, float y2, sf::Color c)
+{
+    sf::VertexArray line(sf::Lines, 2);
+    line[0] = sf::Vertex(sf::Vector2f(x1, y1), c);
+    line[1] = sf::Vertex(sf::Vector2f(x2, y2), c);
+    target.draw(line);
+}
 
-std::string zge::luaErrorAsString(lua_State* L, int error)
+
+std::string luaErrorAsString(lua_State* L, int error)
 {
     switch (error)
     {
@@ -57,45 +63,5 @@ std::string zge::luaErrorAsString(lua_State* L, int error)
     }
 }
 
-using namespace zge;
-
-LuaState::LuaState()
-{
-    m_luaState = luaL_newstate();
-    if (!m_luaState) throw std::runtime_error("The Lua state could not be constructed.\n");
 }
 
-LuaState::~LuaState()
-{
-    lua_close(m_luaState);
-    m_luaState = nullptr;
-}
-
-int LuaState::loadFile(std::string file)
-{
-    int error = luaL_loadfile(m_luaState, "variables.lua");
-
-    if (error)
-    {
-        throw std::runtime_error(luaErrorAsString(m_luaState, error));
-    }
-
-    return error;
-}
-
-int LuaState::executeFile(std::string file)
-{
-    int error = lua_pcall(m_luaState, 0, 0, 0);
-
-    if (error)
-    {
-        throw std::runtime_error(luaErrorAsString(m_luaState, error));
-    }
-
-    return error;
-}
-
-lua_State* LuaState::getRawState()
-{
-    return m_luaState;
-}

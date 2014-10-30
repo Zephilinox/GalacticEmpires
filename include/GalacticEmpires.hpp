@@ -5,9 +5,10 @@
 
 //3RD
 #include <SFML/Graphics.hpp>
+#include <ZGE/LuaState.hpp>
 
 //SELF
-#include "LuaState.hpp"
+#include "Settings.hpp"
 
 class GalacticEmpires
 {
@@ -22,6 +23,7 @@ private:
     void draw();
 
     zge::LuaState m_lua;
+    Settings m_settings;
 
     sf::RenderWindow m_window;
     sf::Event m_event;

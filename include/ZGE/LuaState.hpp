@@ -32,25 +32,6 @@ private:
     lua_State* m_luaState;
 };
 
-std::string luaErrorAsString(lua_State* L, int error);
-
-template<class T>
-std::string toString(T var)
-{
-    std::stringstream ss;
-    ss << var;
-    return ss.str();
-}
-
-template<class T>
-T fromString(std::string str)
-{
-    std::stringstream ss(str);
-    T var;
-    ss >> var;
-    return var;
-}
-
 template <typename T>
 T LuaState::getGlobal(std::string varName)
 {

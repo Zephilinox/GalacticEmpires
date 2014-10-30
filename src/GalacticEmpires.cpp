@@ -8,16 +8,18 @@ GalacticEmpires::GalacticEmpires()
     : m_window(sf::VideoMode(1280, 720, 32), "Galactic Empires")
     , m_prevFrameTime(sf::seconds(1.f/60.f))
 {
+    luaL_openlibs(m_lua.getRawState());
 }
 
 void GalacticEmpires::run()
 {
-    luaL_openlibs(m_lua.getRawState());
+    if (m_lua.loadFile("settings.lua")) return;
+    if (m_lua.executeFile("settings.lua")) return;
 
-    if (m_lua.loadFile("variables.lua")) return;
-    if (m_lua.executeFile("variables.lua")) return;
-
-    std::cout << m_lua.getGlobal<std::string>("settings.window.title") << "\n";
+    m_settings.loadSettings(m_lua);
+    std::cout << m_settings.getStringSetting("window.title") << "\n";
+    m_settings.setStringSetting("window.title", "Lol");
+    m_settings.saveSettings(m_lua);
 
     gameLoop();
 }
