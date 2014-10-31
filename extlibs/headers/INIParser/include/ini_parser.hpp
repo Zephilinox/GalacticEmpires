@@ -1,16 +1,16 @@
 /*
  * Copyright (c) 2014 Jake Horsfield
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,16 +23,14 @@
 #ifndef INI_PARSER_H
 #define INI_PARSER_H
 
-
 #include <map>
 #include <string>
 #include <vector>
 #include <utility>
 #include <fstream>
 #include <stdexcept>
-#include <sstream>
 
-/*
+/* 
  * Adds support for functions not available in minGW.
  * http://pastebin.com/KMTd7Xtk#
  */
@@ -92,6 +90,36 @@ class ini_parser
             , current_section("")
         {
             parse(filename);
+        }
+
+        void create_property(const std::string& name, const std::string& value, const std::string& section = "")
+        {
+            if (name.empty() || value.empty())
+            {
+                throw std::runtime_error("when creating a property, the name or value cannot be empty");
+            }
+
+            if (section.empty())
+            {
+                create_property_no_section(name, value);
+            }
+            else
+            {
+                create_property_in_section(name, value, section);
+            }
+        }
+
+        /* Writes a new line at the bottom of the file, followed by the start of the section. */
+        void create_section(const std::string& name)
+        {
+            if (name.empty())
+            {
+                throw std::runtime_error("when creating section, its name cannot be empty");
+            }
+
+            std::string line = "\n[" + name + "]";
+            input.push_back(line);
+            write_input_to_file();
         }
 
         int get_int(const std::string& name, const std::string& section = "") const
@@ -206,11 +234,7 @@ class ini_parser
 
             if (replaced)
             {
-                std::fstream file(filename);
-                for (const std::string& line : input)
-                {
-                    file << line << std::endl;
-                }
+                write_input_to_file();
             }
             else
             {
@@ -219,6 +243,51 @@ class ini_parser
         }
 
     private:
+        void create_property_no_section(const std::string& name, const std::string& value)
+        {
+            std::string line = name + "=" + value;
+
+            input.insert(input.begin(), line);
+            write_input_to_file();
+
+            sections[""][name] = value;
+        }
+
+        void create_property_in_section(const std::string& name, const std::string& value, const std::string& section)
+        {
+            std::string line = name + "=" + value;
+            std::string tmp_current_section = "";
+
+            for (auto it = input.begin(); it != input.end(); ++it)
+            {
+                if (is_section_start_line(*it))
+                {
+                    tmp_current_section = extract_section_name(*it);
+
+                    if (tmp_current_section == section)
+                    {
+                        input.insert(it + 1, line);
+                        write_input_to_file();
+                        sections[section][name] = value;
+                        return;
+                    }
+                }
+            }
+
+            /* Section was not found. */
+            throw std::runtime_error("unable to create property in section");
+        }
+
+        void write_input_to_file()
+        {
+            std::fstream file(filename);
+            for (const std::string& line : input)
+            {
+                file << line << std::endl;
+            }
+            file.close();
+        }
+
         void parse(const std::string& filename)
         {
             std::fstream file;
@@ -324,7 +393,7 @@ class ini_parser
         }
 
         /*
-         * A line contains an assignment if it contains an equals sign and
+         * A line contains an assignment if it contains an equals sign and 
          * there is text before and after this equals sign.
          */
         bool is_assignment_line(const std::string& line) const
