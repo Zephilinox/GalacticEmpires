@@ -20,12 +20,63 @@
  * THE SOFTWARE.
  */
 
-#include "../include/ini_parser.h"
+#include "../include/ini_parser.hpp"
 
 #include <fstream>
 #include <stdexcept>
 #include <string>
 #include <sstream>
+
+#ifdef __MINGW32__
+/*
+Shitty hack because mingw32 does not support this functionality yet
+*/
+namespace std
+{
+    template <class T> std::string to_string(T val)
+    {
+        std::stringstream ss;
+        ss << val;
+        return ss.str();
+    }
+
+    int stoi(std::string str)
+    {
+        std::stringstream ss;
+        int ret;
+        ss << str;
+        ss >> ret;
+        return ret;
+    }
+
+    long stol(std::string str)
+    {
+        std::stringstream ss;
+        long ret;
+        ss << str;
+        ss >> ret;
+        return ret;
+    }
+
+    float stof(std::string str)
+    {
+        std::stringstream ss;
+        float ret;
+        ss << str;
+        ss >> ret;
+        return ret;
+    }
+
+    double stod(std::string str)
+    {
+        std::stringstream ss;
+        double ret;
+        ss << str;
+        ss >> ret;
+        return ret;
+    }
+}
+#endif // __MINGW32__
 
 const std::string ini_parser::BOOL_TRUE = "TRUE";
 const std::string ini_parser::BOOL_FALSE = "FALSE";

@@ -9,7 +9,7 @@ solution "GalacticEmpires"
 		objdir ("builds/".._ACTION.."/obj")
 		language "C++"
 		files {"main.cpp", "include/**.hpp", "src/**.cpp", "extlibs/INIParser/include/**.hpp", "extlibs/INIParser/src/**.cpp"}
-		includedirs {"include", "extlibs/SFML/include", "extlibs/SFGUI/include", "extlibs/LuaBridge/include", os.findlib("lua5.2")}
+		includedirs {"include", "extlibs/SFML/include", "extlibs/SFGUI/include", "extlibs/LuaBridge/include", "extlibs/INIParser/include", os.findlib("lua5.2")}
 		libdirs {"extlibs/SFML/lib", "extlibs/SFGUI/lib"}
 		defines {"SFML_STATIC", "SFGUI_STATIC"}
 		links {"lua", "sfgui-s"}
