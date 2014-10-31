@@ -1,8 +1,10 @@
-require "os_copydir"
+require "os_copydir" --usermade function to copy a directory
 
 local system = os.get()
 local compiler = ""
 
+--determine what is being used to compile and if that is supported
+--compiler is used to determine which subfolder of extlibs to use when looking for libraries
 if system == "windows" then
 	if _ACTION == "codeblocks" or _ACTION == "codelite" then
 		compiler = "mingw"
@@ -31,42 +33,58 @@ else
 	os.exit();
 end
 
+--little bit of debug info
 print("system = "..system)
 print("compiler = "..compiler)
 
 solution "GalacticEmpires"
 	configurations {"Debug", "Release"}
-	location ("builds/".._ACTION)
+	location ("builds/".._ACTION) --e.g. builds/codeblocks/GalacticEmpires.workspace
 	
 	project "GalacticEmpires"
-		location ("builds/".._ACTION)
-		objdir ("builds/".._ACTION.."/obj")
+		location ("builds/".._ACTION) --e.g builds/codeblocks/GalacticEmpires.cbp
+		objdir ("builds/".._ACTION.."/obj") --e.g builds/codeblocks/obj/Debug/main.o
 		language "C++"
 		files {"main.cpp", "include/**.hpp", "src/**.cpp"}
 		
+		--For windows we want to ensure that we link to the STD statically
+		--That we utilise the library headers in extlibs, e.g. extlibs/headers/SFML/include
+		--And that we utilise the library lib's, e.g. extlibs/mingw/SFML/lib
 		if system == "windows" then
+			linkoptions {"-static-libgcc", "-static-libstdc++"}
 			includedirs {"include", "extlibs/headers/SFML/include", "extlibs/headers/SFGUI/include", "extlibs/headers/INIParser/include"}
 			libdirs {"builds/".._ACTION.."/dll", "extlibs/"..compiler.."/SFML/lib", "extlibs/"..compiler.."/SFGUI/lib"}
-		else
+		else --For linux (possibly mac) we will link dynamically, therefore we don't need to include any headers or lib's from built libraries.
 			includedirs {"include", "extlibs/headers/INIParser/include"}
 			libdirs {"builds/".._ACTION.."/dll"}
 		end
 		
-		linkoptions {"-static-libgcc", "-static-libstdc++"}
 		buildoptions "-std=c++11"
-		os.copydir("data", "builds/".._ACTION.."/data")
+		os.copydir("data", "builds/".._ACTION.."/data") --copy data such as settings, scripts, images, and audio in to the same dir as the project file, e.g. builds/codeblocks/data
+		os.copydir("data", "builds/".._ACTION.."/bin/Debug/data")
+		os.copydir("data", "builds/".._ACTION.."/bin/Release/data") 
 		
+		--For windows we will want to copy over the .dll's of libraries to the dll folder, e.g. builds/codeblocks/dll
 		if system == "windows" then
-			os.copydir("extlibs/"..compiler.."/SFML/bin", "builds/".._ACTION.."/dll")
-			os.copydir("extlibs/"..compiler.."/SFGUI/bin", "builds/".._ACTION.."/dll")
+			os.mkdir("builds/".._ACTION.."/dll/")
+			--Static is used on windows, so don't copy over every .dll used by libraries
+			--os.copydir("extlibs/"..compiler.."/SFML/bin", "builds/".._ACTION.."/dll")
+			--os.copydir("extlibs/"..compiler.."/SFGUI/bin", "builds/".._ACTION.."/dll")
+			
+			os.copyfile("extlibs/"..compiler.."/SFML/bin/openal32.dll", "builds/".._ACTION.."/dll/openal32.dll") --not currently used
+			os.copyfile("extlibs/"..compiler.."/SFML/bin/libsndfile-1.dll", "builds/".._ACTION.."/dll/libsndfile-1.dll") --not currently used
+			
+			os.copydir("builds/".._ACTION.."/dll", "builds/".._ACTION.."/bin/Debug/") --place alongside executable
+			os.copydir("builds/".._ACTION.."/dll", "builds/".._ACTION.."/bin/Release/")
 		end
 		
 		configuration "Debug"
 			kind "ConsoleApp"
-			targetdir ("builds/".._ACTION.."/bin/Debug/")
+			targetdir ("builds/".._ACTION.."/bin/Debug/") --location for output, e.g. builds/codeblocks/bin/Debug/GalacticEmpires.exe
 			defines {"DEBUG"}
 			flags {"Symbols"}
 			
+			--In windows SFGUI will break itself and SFML, if they aren't static and if they are in debug configuration
 			if system == "windows" then
 				defines {"SFML_STATIC", "SFGUI_STATIC"}
 				links {"sfgui-s", "sfml-graphics-s-d", "sfml-window-s-d", "sfml-system-s-d"}
@@ -76,8 +94,15 @@ solution "GalacticEmpires"
 
 		configuration "Release"
 			kind "WindowedApp"
-			targetdir ("builds/".._ACTION.."/bin/Release/")
+			targetdir ("builds/".._ACTION.."/bin/Release/") --location for output, e.g. builds/codeblocks/bin/Release/GalacticEmpires.exe
 			defines {"NDEBUG"}
 			flags {"Optimize"}
-			links {"sfgui", "sfml-graphics", "sfml-window", "sfml-system"}
+			
+			--Better to use static in windows to reduce .dll's spamming directory
+			if system == "windows" then
+				defines {"SFML_STATIC", "SFGUI_STATIC"}
+				links {"sfgui-s", "sfml-graphics-s-d", "sfml-window-s-d", "sfml-system-s-d"}
+			else 
+				links {"sfgui", "sfml-graphics", "sfml-window", "sfml-system"}
+			end
 			
