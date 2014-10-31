@@ -22,9 +22,9 @@ solution "GalacticEmpires"
 		location ("builds/".._ACTION)
 		objdir ("builds/".._ACTION.."/obj")
 		language "C++"
-		files {"main.cpp", "include/**.hpp", "src/**.cpp", "extlibs/INIParser/include/**.hpp", "extlibs/INIParser/src/**.cpp"}
-		includedirs {"include", "extlibs/headers/SFML/include", "extlibs/headers/SFGUI/include", "extlibs/headers/LuaBridge/include", "extlibs/headers/INIParser/include", "extlibs/headers/Lua/include"}
-		libdirs {"extlibs/"..compiler.."/SFML/lib", "extlibs/"..compiler.."/SFGUI/lib", "extlibs/"..compiler.."/Lua/lib"}
+		files {"main.cpp", "include/**.hpp", "src/**.cpp"}
+		includedirs {"include", "extlibs/headers/SFML/include", "extlibs/headers/SFGUI/include", "extlibs/headers/INIParser/include"}
+		libdirs {"extlibs/"..compiler.."/SFML/lib", "extlibs/"..compiler.."/SFGUI/lib"}
 		defines {"SFML_STATIC", "SFGUI_STATIC"}
 		links {"sfgui-s"}
 		linkoptions {"-static", "-static-libgcc", "-static-libstdc++"}
