@@ -26,7 +26,7 @@ solution "GalacticEmpires"
 		includedirs {"include", "extlibs/headers/SFML/include", "extlibs/headers/SFGUI/include", "extlibs/headers/LuaBridge/include", "extlibs/headers/INIParser/include", "extlibs/headers/Lua/include"}
 		libdirs {"extlibs/"..compiler.."/SFML/lib", "extlibs/"..compiler.."/SFGUI/lib", "extlibs/"..compiler.."/Lua/lib"}
 		defines {"SFML_STATIC", "SFGUI_STATIC"}
-		links {"lua", "sfgui-s"}
+		links {"lua", "lua52", "sfgui-s"}
 		linkoptions {"-static", "-static-libgcc", "-static-libstdc++"}
 		buildoptions "-std=c++11"
 		os.copydir("data", "builds/".._ACTION.."/data")
