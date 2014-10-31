@@ -1,5 +1,19 @@
 require "os_copydir"
 
+local compiler = ""
+
+if _ACTION == "codeblocks" or _ACTION == "codelite" then
+	compiler = "mingw"
+elseif _ACTION == "vs2010" or _ACTION == "vs2008" or _ACTION == "vs2005" or _ACTION == "vs2003" or _ACTION == "vs20002" then
+	compiler = "msvc"
+elseif _ACTION == "gmake" then
+	compiler = "linux"
+elseif _ACTION == "xcode3" then
+	compiler = "mac"
+else
+	print("Unknown compiler or system")
+end
+
 solution "GalacticEmpires"
 	configurations {"Debug", "Release"}
 	location ("builds/".._ACTION)
@@ -9,8 +23,8 @@ solution "GalacticEmpires"
 		objdir ("builds/".._ACTION.."/obj")
 		language "C++"
 		files {"main.cpp", "include/**.hpp", "src/**.cpp", "extlibs/INIParser/include/**.hpp", "extlibs/INIParser/src/**.cpp"}
-		includedirs {"include", "extlibs/SFML/include", "extlibs/SFGUI/include", "extlibs/LuaBridge/include", "extlibs/INIParser/include", os.findlib("lua5.2")}
-		libdirs {"extlibs/SFML/lib", "extlibs/SFGUI/lib"}
+		includedirs {"include", "extlibs/headers/SFML/include", "extlibs/headers/SFGUI/include", "extlibs/headers/LuaBridge/include", "extlibs/headers/INIParser/include", "extlibs/headers/Lua/include"}
+		libdirs {"extlibs/"..compiler.."/SFML/lib", "extlibs/"..compiler.."/SFGUI/lib", "extlibs/"..compiler.."/Lua/lib"}
 		defines {"SFML_STATIC", "SFGUI_STATIC"}
 		links {"lua", "sfgui-s"}
 		linkoptions {"-static", "-static-libgcc", "-static-libstdc++"}
@@ -23,7 +37,7 @@ solution "GalacticEmpires"
 			defines {"DEBUG"}
 			flags {"Symbols"}
 			links {"sfml-graphics-s-d", "sfml-window-s-d", "sfml-system-s-d"}
- 
+
 		configuration "Release"
 			kind "WindowedApp"
 			targetdir ("builds/".._ACTION.."/bin/Release/")
