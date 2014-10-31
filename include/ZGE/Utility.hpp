@@ -5,7 +5,7 @@
 #include <sstream>
 
 //3RD
-#include <lua.hpp>
+//#include <lua.hpp>
 #include <SFML/Graphics.hpp>
 
 //SELF
@@ -32,7 +32,7 @@ T fromString(std::string str)
     return var;
 }
 
-std::string luaErrorAsString(lua_State* L, int error);
+//std::string luaErrorAsString(lua_State* L, int error);
 
 } //ZGE
 

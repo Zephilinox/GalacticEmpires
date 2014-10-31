@@ -12,7 +12,7 @@ void drawLine(sf::RenderTarget& target, float x1, float y1, float x2, float y2, 
 }
 
 
-std::string luaErrorAsString(lua_State* L, int error)
+/*std::string luaErrorAsString(lua_State* L, int error)
 {
     switch (error)
     {
@@ -61,7 +61,7 @@ std::string luaErrorAsString(lua_State* L, int error)
             return std::string("Unknown Lua Error. Code = " + zge::toString(error));
         }
     }
-}
+}*/
 
 }
 

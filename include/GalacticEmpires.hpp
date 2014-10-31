@@ -5,7 +5,6 @@
 
 //3RD
 #include <SFML/Graphics.hpp>
-#include <ZGE/LuaState.hpp>
 #include <ZGE/State/StateHandler.hpp>
 #include <SFGUI/SFGUI.hpp>
 
@@ -27,7 +26,6 @@ private:
     sf::RenderWindow m_window;
 
     Settings m_settings;
-    zge::LuaState m_lua;
     zge::StateHandler m_stateHandler;
 
     sfg::SFGUI m_gui;

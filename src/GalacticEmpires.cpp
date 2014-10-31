@@ -15,7 +15,6 @@ GalacticEmpires::GalacticEmpires()
 {
     m_guiWindow->SetTitle("Galactic Empires");
     m_guiWindow->SetAllocation(sf::FloatRect(1280/4, 720/4, 1280/2, 720/2));
-    luaL_openlibs(m_lua.getRawState());
 }
 
 void GalacticEmpires::run()
