@@ -6,6 +6,7 @@
 //3RD
 #include <SFML/Graphics.hpp>
 #include <ZGE/State/BaseState.hpp>
+#include <SFGUI/SFGUI.hpp>
 
 //SELF
 
@@ -19,6 +20,8 @@ public:
     void postDraw() override;
 
 private:
+    sfg::Window::Ptr m_guiWindow;
+    sfg::Spinner::Ptr m_guiSpinner;
 };
 
 #endif // SPLASHSTATE_HPP
