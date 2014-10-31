@@ -23,12 +23,65 @@
 #ifndef INI_PARSER_H
 #define INI_PARSER_H
 
+
 #include <map>
 #include <string>
 #include <vector>
 #include <utility>
 #include <fstream>
 #include <stdexcept>
+
+/* 
+ * Adds support for functions not available in minGW.
+ * http://pastebin.com/KMTd7Xtk#
+ */
+#ifdef __MINGW32__
+namespace std
+{
+    template <class T> std::string to_string(T val)
+    {
+        std::stringstream ss;
+        ss << val;
+        return ss.str();
+    }
+
+    int stoi(const std::string& str)
+    {
+        std::stringstream ss;
+        int ret;
+        ss << str;
+        ss >> ret;
+        return ret;
+    }
+
+    long stol(const std::string& str)
+    {
+        std::stringstream ss;
+        long ret;
+        ss << str;
+        ss >> ret;
+        return ret;
+    }
+
+    float stof(const std::string& str)
+    {
+        std::stringstream ss;
+        float ret;
+        ss << str;
+        ss >> ret;
+        return ret;
+    }
+
+    double stod(const std::string& str)
+    {
+        std::stringstream ss;
+        double ret;
+        ss << str;
+        ss >> ret;
+        return ret;
+    }
+}
+#endif // __MINGW32__
 
 class ini_parser
 {
