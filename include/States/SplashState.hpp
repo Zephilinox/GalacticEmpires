@@ -6,6 +6,7 @@
 //3RD
 #include <SFML/Graphics.hpp>
 #include <ZGE/State/BaseState.hpp>
+#include <ZGE/State/StateCollection.hpp>
 #include <SFGUI/SFGUI.hpp>
 
 //SELF
@@ -22,6 +23,7 @@ public:
 private:
     sfg::Window::Ptr m_guiWindow;
     sfg::Spinner::Ptr m_guiSpinner;
+    sf::Clock m_clock;
 };
 
 #endif // SPLASHSTATE_HPP

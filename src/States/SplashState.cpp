@@ -32,5 +32,8 @@ void SplashState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void SplashState::postDraw()
 {
-
+    if (m_clock.getElapsedTime().asSeconds() > 1.f)
+    {
+        m_stateCollection.pop();
+    }
 }
