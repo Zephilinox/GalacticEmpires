@@ -9,7 +9,6 @@
 #include <SFGUI/SFGUI.hpp>
 
 //SELF
-#include "Settings.hpp"
 
 class GalacticEmpires
 {
@@ -25,7 +24,6 @@ private:
 
     sf::RenderWindow m_window;
 
-    Settings m_settings;
     zge::StateHandler m_stateHandler;
 
     sfg::SFGUI m_gui;

@@ -24,7 +24,7 @@ solution "GalacticEmpires"
 		language "C++"
 		files {"main.cpp", "include/**.hpp", "src/**.cpp"}
 		includedirs {"include", "extlibs/headers/SFML/include", "extlibs/headers/SFGUI/include", "extlibs/headers/INIParser/include"}
-		libdirs {"builds/"..compiler.."/dll", "extlibs/"..compiler.."/SFML/lib", "extlibs/"..compiler.."/SFGUI/lib"}
+		libdirs {"builds/".._ACTION.."/dll", "extlibs/"..compiler.."/SFML/lib", "extlibs/"..compiler.."/SFGUI/lib"}
 		--defines {"SFML_STATIC", "SFGUI_STATIC"}
 		links {"sfgui"}
 		linkoptions {"-static", "-static-libgcc", "-static-libstdc++"}
