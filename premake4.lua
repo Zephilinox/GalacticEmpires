@@ -8,7 +8,7 @@ solution "GalacticEmpires"
 		location ("builds/".._ACTION)
 		objdir ("builds/".._ACTION.."/obj")
 		language "C++"
-		files {"main.cpp", "include/**.hpp", "src/**.cpp"}
+		files {"main.cpp", "include/**.hpp", "src/**.cpp", "extlibs/INIParser/include/**.h", "extlibs/INIParser/src/**.cpp"}
 		includedirs {"include", "extlibs/SFML/include", "extlibs/SFGUI/include", "extlibs/LuaBridge/include"}
 		libdirs {"extlibs/SFML/lib", "extlibs/SFGUI/lib"}
 		defines {"SFML_STATIC", "SFGUI_STATIC"}
