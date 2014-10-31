@@ -22,7 +22,7 @@
 
 bin/*
 obj/*
-build/*
+builds/*
 gmon.out
 *.depend
 *.layout
