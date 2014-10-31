@@ -7,14 +7,19 @@
 //3RD
 
 //SELF
+#include "States/SplashState.hpp"
 
 GalacticEmpires::GalacticEmpires()
     : m_window(sf::VideoMode(1280, 720, 32), "Galactic Empires")
+    , m_gui()
     , m_guiWindow(sfg::Window::Create(sfg::Window::Style::TOPLEVEL))
     , m_prevFrameTime(sf::seconds(1.f/60.f))
 {
+    m_window.resetGLStates();
+
     m_guiWindow->SetTitle("Galactic Empires");
     m_guiWindow->SetAllocation(sf::FloatRect(1280/4, 720/4, 1280/2, 720/2));
+    m_stateHandler.getStateCollection().push<SplashState>(m_window);
 }
 
 void GalacticEmpires::run()
@@ -70,6 +75,7 @@ void GalacticEmpires::draw()
 {
     m_window.clear(sf::Color(40, 40, 40));
     m_stateHandler.draw(m_window);
+
     m_gui.Display(m_window);
     m_window.display();
 }
