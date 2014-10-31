@@ -24,6 +24,8 @@
 
 #include <fstream>
 #include <stdexcept>
+#include <string>
+#include <sstream>
 
 const std::string ini_parser::BOOL_TRUE = "TRUE";
 const std::string ini_parser::BOOL_FALSE = "FALSE";
