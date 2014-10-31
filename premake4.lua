@@ -1,9 +1,9 @@
--- A solution contains projects, and defines the available configurations
+require "os_copydir"
+
 solution "GalacticEmpires"
 	configurations {"Debug", "Release"}
 	location ("builds/".._ACTION)
 	
-	-- A project defines one build target
 	project "GalacticEmpires"
 		location ("builds/".._ACTION)
 		objdir ("builds/".._ACTION.."/obj")
@@ -15,6 +15,7 @@ solution "GalacticEmpires"
 		links {"lua", "sfgui-s"}
 		linkoptions {"-static", "-static-libgcc", "-static-libstdc++"}
 		buildoptions "-std=c++11"
+		os.copydir("data", "builds/".._ACTION.."/data")
 		
 		configuration "Debug"
 			kind "ConsoleApp"
@@ -29,3 +30,4 @@ solution "GalacticEmpires"
 			defines {"NDEBUG"}
 			flags {"Optimize"}
 			links {"sfml-graphics-s", "sfml-window-s", "sfml-system-s"}
+			
