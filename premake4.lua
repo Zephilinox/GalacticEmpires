@@ -52,7 +52,7 @@ solution "GalacticEmpires"
 			libdirs {"builds/".._ACTION.."/dll"}
 		end
 		
-		linkoptions {"-static", "-static-libgcc", "-static-libstdc++"}
+		linkoptions {"-static-libgcc", "-static-libstdc++"}
 		buildoptions "-std=c++11"
 		os.copydir("data", "builds/".._ACTION.."/data")
 		
@@ -71,7 +71,7 @@ solution "GalacticEmpires"
 				defines {"SFML_STATIC", "SFGUI_STATIC"}
 				links {"sfgui-s", "sfml-graphics-s-d", "sfml-window-s-d", "sfml-system-s-d"}
 			else 
-				links {"sfgui", "sfml-graphics-d", "sfml-window", "sfml-system"}
+				links {"sfgui", "sfml-graphics", "sfml-window", "sfml-system"}
 			end
 
 		configuration "Release"
