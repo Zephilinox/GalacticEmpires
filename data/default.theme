@@ -1,0 +1,151 @@
+* {
+	BackgroundColor: #333333ff;
+	BorderColor: #333333ff;
+	BorderColorShift: 32;
+	BorderWidth: 1.0f;
+	Color: #ffa400ff;
+	FontName: Default;
+	FontSize: 12;
+	Padding: 5.0f;
+	Thickness: 2.0f;
+}
+
+Window {
+	Gap: 10.0f;
+	TitleBackgroundColor: #222222ff;
+	TitlePadding: 5.0f;
+	HandleSize: 10.0f;
+	ShadowDistance: 3.0f;
+	ShadowAlpha: 100.0f;
+	
+	BorderColor: #111111ff;
+}
+
+Button {
+	BackgroundColor: #333333ff;
+	BorderColor: #111111ff;
+	BorderColorShift: 32;
+	BorderWidth: 1.0f;
+	Color: #ffffffff;
+	FontName: Default;
+	FontSize: 12;
+	Spacing: 5.0f;
+}
+
+Button:PRELIGHT {
+	BackgroundColor: #444444ff;
+	Color: #ffffffff;
+}
+
+Button:ACTIVE {
+	BackgroundColor: #444444ff;
+	Color: #ffa400ff;
+}
+
+CheckButton, RadioButton {
+	Spacing: 5.0f;
+	BoxSize: 14.0f;
+	CheckSize: 6.0f;
+	BorderColor: #111111ff;
+	BackgroundColor: #222222ff;
+	CheckColor: #ffffffff;
+}
+
+CheckButton:PRELIGHT, CheckButton:PRELIGHT {
+	BackgroundColor: #444444ff;
+}
+
+CheckButton:ACTIVE, CheckButton:ACTIVE {
+	BackgroundColor: #555555ff;
+}
+
+Entry {
+	BackgroundColor: #111111ff;
+	Color: #ffffffff;
+}
+
+Scale {
+	SliderColor: #ffa400ff;
+	SliderLength: 15.0f;
+	TroughColor: #111111ff;
+	ThroughWidth: 5.0f;
+}
+
+Scrollbar {
+	SliderColor: #ffa400ff;
+	TroughColor: #111111ff;
+	StepperBackgroundColor: #ffa400ff;
+	StepperArrowColor: #222222ff;
+	StepperSpeed: 10.0f;
+	StepperRepeatDelay: 300;
+	SliderMinimumLength: 15.0f;
+}
+
+ScrolledWindow {
+	ScrollbarWidth: 20.0f;
+	ScrollbarSpacing: 5.0f;
+	BorderColor: #111111ff;
+}
+
+ProgressBar {
+	BackgroundColor: #111111ff;
+	BorderColor: #111111ff;
+	BarColor: #ffa400ff;
+	BarBorderColor: #111111ff;
+	BarBorderColorShift: 32;
+	BarBorderWidth: 1.0f;
+}
+
+Seperator {
+	Color: #444444ff;
+}
+
+Frame {
+	BorderColor: #111111ff;
+	Padding: 7.0f;
+	LabelPadding: 5.0f;
+}
+
+Notebook {
+	BorderColor: #111111ff;
+	BackgroundColor: #222222ff;
+	BackgroundColorDark: #111111ff;
+	BackgroundColorPrelight: #333333ff;
+	ScrollButtonSize: 20.0f;
+	ScrollButtonPrelightColor: #ff0000ff;
+	ScrollSpeed: 2.0f;
+}
+
+Spinner {
+	CycleDuration: 800.0f;
+	Steps: 13;
+	StoppedAlpha: 47;
+	InnerRadius: 8.0f;
+	RodThickness: 3.0f;
+}
+
+ComboBox {
+	BackgroundColor: #333333ff;
+	BorderColor: #111111ff;
+	HighlightedColor: #444444ff;
+	ArrowColor: #ffa400ff;
+	ItemPadding: 4.0f;
+}
+
+ComboBox:PRELIGHT {
+	BackgroundColor: #444444ff;
+}
+
+ComboBox:ACTIVE {
+	BackgroundColor: #222222ff;
+}
+
+SpinButton {
+	BackgroundColor: #222222ff;
+	Color: #ffffffff;
+	StepperAspectRatio: 1.2f;
+	StepperBackgroundColor: #333333ff;
+	StepperArrowColor: #ffa400ff;
+	StepperSpeed: 1.0f;
+	StepperRepeatDelay: 500;
+}
