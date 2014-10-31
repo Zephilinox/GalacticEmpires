@@ -29,6 +29,7 @@
 #include <utility>
 #include <fstream>
 #include <stdexcept>
+#include <sstream>
 
 /* 
  * Adds support for functions not available in minGW.
