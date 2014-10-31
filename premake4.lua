@@ -24,24 +24,26 @@ solution "GalacticEmpires"
 		language "C++"
 		files {"main.cpp", "include/**.hpp", "src/**.cpp"}
 		includedirs {"include", "extlibs/headers/SFML/include", "extlibs/headers/SFGUI/include", "extlibs/headers/INIParser/include"}
-		libdirs {"extlibs/"..compiler.."/SFML/lib", "extlibs/"..compiler.."/SFGUI/lib"}
-		defines {"SFML_STATIC", "SFGUI_STATIC"}
-		links {"sfgui-s"}
+		libdirs {"builds/"..compiler.."/dll", "extlibs/"..compiler.."/SFML/lib", "extlibs/"..compiler.."/SFGUI/lib"}
+		--defines {"SFML_STATIC", "SFGUI_STATIC"}
+		links {"sfgui"}
 		linkoptions {"-static", "-static-libgcc", "-static-libstdc++"}
 		buildoptions "-std=c++11"
 		os.copydir("data", "builds/".._ACTION.."/data")
+		os.copydir("extlibs/"..compiler.."/SFML/bin", "builds/".._ACTION.."/dll")
+		os.copydir("extlibs/"..compiler.."/SFGUI/bin", "builds/".._ACTION.."/dll")
 		
 		configuration "Debug"
 			kind "ConsoleApp"
 			targetdir ("builds/".._ACTION.."/bin/Debug/")
 			defines {"DEBUG"}
 			flags {"Symbols"}
-			links {"sfml-graphics-s-d", "sfml-window-s-d", "sfml-system-s-d"}
+			links {"sfml-graphics-d", "sfml-window-d", "sfml-system-d"}
 
 		configuration "Release"
 			kind "WindowedApp"
 			targetdir ("builds/".._ACTION.."/bin/Release/")
 			defines {"NDEBUG"}
 			flags {"Optimize"}
-			links {"sfml-graphics-s", "sfml-window-s", "sfml-system-s"}
+			links {"sfml-graphics", "sfml-window", "sfml-system"}
 			
