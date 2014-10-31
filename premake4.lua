@@ -82,7 +82,7 @@ solution "GalacticEmpires"
 			kind "ConsoleApp"
 			targetdir ("builds/".._ACTION.."/bin/Debug/") --location for output, e.g. builds/codeblocks/bin/Debug/GalacticEmpires.exe
 			defines {"DEBUG"}
-			flags {"Symbols"}
+			flags {"Symbols", "ExtraWarnings"}
 			
 			--In windows SFGUI will break itself and SFML, if they aren't static and if they are in debug configuration
 			if system == "windows" then
