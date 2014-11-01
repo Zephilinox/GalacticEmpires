@@ -1,16 +1,16 @@
-#ifndef TESTSTATE_HPP
-#define TESTSTATE_HPP
+#ifndef MAINMENUSTATE_HPP
+#define MAINMENUSTATE_HPP
 
 #include <SFML/Graphics.hpp>
 #include <SFGUI/SFGUI.hpp>
 
-#include "BaseState.hpp"
+#include "State/BaseState.hpp"
 #include "GalacticEmpires.hpp"
 
-class TestState: public BaseState
+class MainMenuState : public BaseState
 {
 public:
-    TestState(GalacticEmpires* galpires);
+    MainMenuState(GalacticEmpires* galpires);
     void handleEvent(const sf::Event& e) override;
     void update(float dt) override;
     void draw(sf::RenderWindow& window) const override;
@@ -18,14 +18,14 @@ public:
     void onInactive() override;
 
 private:
-    void doShit();
+    void newGame();
+    void loadGame();
+    void options();
+    void exit();
 
     GalacticEmpires* m_galpires;
-    sf::RectangleShape rs;
-    bool m_hasShat;
 
     sfg::Window::Ptr m_guiWindow;
-    sfg::Button::Ptr m_guiBtn;
 };
 
-#endif //TESTSTATE_HPP
+#endif //MAINMENUSTATE_HPP
