@@ -17,7 +17,7 @@ public:
     void run();
 
     sf::RenderWindow* getWindow() {return &m_window;}
-    StateManager* getStateManager() {return &m_stateMan;}
+    StateManager<GalacticEmpires>* getStateManager() {return &m_stateMan;}
 private:
     void loadSettings();
 
@@ -28,7 +28,7 @@ private:
     void postDraw();
 
     sf::RenderWindow m_window;
-    StateManager m_stateMan;
+    StateManager<GalacticEmpires> m_stateMan;
 
     sfg::SFGUI m_gui;
     sfg::Desktop m_guiDesktop;

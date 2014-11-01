@@ -10,27 +10,44 @@
 //SELF
 #include "BaseState.hpp"
 
-//IDEA: Make class template and use it to determine the pointer to the class
-
-class GalacticEmpires;
-
-class StateManager
+template <class Owner> class StateManager
 {
 public:
-    StateManager();
+    StateManager() = default;
 
     std::shared_ptr<BaseState> top();
-    template <class T> void push(GalacticEmpires* galpires);
+    template <class T> void push(Owner* owner);
     void pop();
 
 private:
     std::stack<std::shared_ptr<BaseState>> m_states;
 };
 
-template <class T>
-void StateManager::push(GalacticEmpires* galpires)
+template <class Owner>
+std::shared_ptr<BaseState> StateManager<Owner>::top()
 {
-    m_states.push(std::make_shared<T>(galpires));
+    if (m_states.size())
+    {
+        return m_states.top();
+    }
+
+    return std::shared_ptr<BaseState>(nullptr);
+}
+
+template <class Owner>
+template <class T>
+void StateManager<Owner>::push(Owner* owner)
+{
+    m_states.push(std::make_shared<T>(owner));
+}
+
+template <class Owner>
+void StateManager<Owner>::pop()
+{
+    if (m_states.size())
+    {
+        m_states.pop();
+    }
 }
 
 #endif //STATEMANAGER_HPP
