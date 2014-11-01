@@ -6,6 +6,7 @@
 
 //3RD
 #include <ini_parser.hpp>
+#include <ZGE/Utility.hpp>
 
 //SELF
 #include "States/SplashState.hpp"
@@ -15,9 +16,7 @@ GalacticEmpires::GalacticEmpires()
     , m_guiDesktop()
     , m_prevFrameTime(sf::seconds(1.f/60.f))
 {
-    ini_parser iniParser("data/settings.ini");
-    iniParser.set_value("hi", false, "greeting");
-    std::cout << iniParser.get_bool("hi", "greeting") << "\n";
+    loadSettings();
     m_stateHandler.getStateCollection().push<SplashState>(m_window);
     m_guiDesktop.LoadThemeFromFile("data/default.theme");
 }
@@ -25,6 +24,28 @@ GalacticEmpires::GalacticEmpires()
 void GalacticEmpires::run()
 {
     gameLoop();
+}
+
+void GalacticEmpires::loadSettings()
+{
+    ini_parser iniParser("data/settings.ini");
+    int width = iniParser.get_int("width", "Video");
+    int height = iniParser.get_int("height", "Video");
+    int bitDepth = iniParser.get_int("bitDepth", "Video");
+    bool fullscreen = iniParser.get_bool("fullscreen", "Video");
+    bool vsync = iniParser.get_bool("vsync", "Video");
+    int maxFPS = iniParser.get_int("maxFPS", "Video");
+
+    std::string version = "v";
+    version += zge::toString(VERSION_MAJOR);
+    version += ".";
+    version += zge::toString(VERSION_MINOR);
+    version += ".";
+    version += zge::toString(VERSION_REVISION);
+
+    m_window.create(sf::VideoMode(width, height, bitDepth), "Galactic Empires " + version, fullscreen ? sf::Style::Fullscreen : sf::Style::Default);
+    m_window.setVerticalSyncEnabled(vsync);
+    if (maxFPS) m_window.setFramerateLimit(maxFPS);
 }
 
 void GalacticEmpires::gameLoop()

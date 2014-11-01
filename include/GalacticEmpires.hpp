@@ -17,6 +17,8 @@ public:
     void run();
 
 private:
+    void loadSettings();
+
     void gameLoop();
     void handleEvent(const sf::Event& e);
     void update(float dt);
@@ -33,6 +35,10 @@ private:
     sf::Event m_event;
     sf::Clock m_frameTime;
     sf::Time m_prevFrameTime;
+
+    static const unsigned VERSION_MAJOR = 0;
+    static const unsigned VERSION_MINOR = 0;
+    static const unsigned VERSION_REVISION = 0;
 };
 
 #endif //GALACTICEMPIRES_HPP
