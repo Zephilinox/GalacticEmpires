@@ -5,6 +5,7 @@
 #include <string>
 
 //3RD
+#include <ini_parser.hpp>
 
 //SELF
 #include "States/SplashState.hpp"
@@ -14,6 +15,9 @@ GalacticEmpires::GalacticEmpires()
     , m_guiDesktop()
     , m_prevFrameTime(sf::seconds(1.f/60.f))
 {
+    ini_parser iniParser("data/settings.ini");
+    iniParser.set_value("hi", false, "greeting");
+    std::cout << iniParser.get_bool("hi", "greeting") << "\n";
     m_stateHandler.getStateCollection().push<SplashState>(m_window);
     m_guiDesktop.LoadThemeFromFile("data/default.theme");
 }
