@@ -34,11 +34,11 @@ Button {
 
 Button:PRELIGHT {
 	BackgroundColor: #444444ff;
-	Color: #ffffffff;
+	Color: #ffa400ff;
 }
 
 Button:ACTIVE {
-	BackgroundColor: #444444ff;
+	BackgroundColor: #555555ff;
 	Color: #ffa400ff;
 }
 

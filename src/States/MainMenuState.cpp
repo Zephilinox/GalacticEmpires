@@ -11,17 +11,26 @@ MainMenuState::MainMenuState(sf::RenderWindow& window, zge::StateCollection& sta
     , m_guiMainMenu(sfg::Window::Create(sfg::Window::BACKGROUND))
 {
     m_stateID = "MainMenuState";
-    m_guiMainMenu->SetAllocation(sf::FloatRect(1280/3, 720/8, 1280/3, 720 - 720/4));
-    sfg::Box::Ptr box(sfg::Box::Create());
-    sfg::Button::Ptr btnNewGame(sfg::Button::Create("New Game"));
+
+    sfg::Box::Ptr box(sfg::Box::Create(sfg::Box::Orientation::VERTICAL));
+    auto btnNewGame(sfg::Button::Create("New Game"));
     sfg::Button::Ptr btnLoadGame(sfg::Button::Create("Load Game"));
     sfg::Button::Ptr btnOptions(sfg::Button::Create("Options"));
     sfg::Button::Ptr btnExit(sfg::Button::Create("Exit"));
-    m_guiMainMenu->Add(box);
+    sfg::Desktop desk;
+    btnNewGame->SetId("MainMenuButton");
+    btnLoadGame->SetId("MainMenuButton");
+    btnOptions->SetId("MainMenuButton");
+    btnExit->SetId("MainMenuButton");
+    desk.SetProperty("#MainMenuButton", "FontSize", 36);
+
+    box->SetSpacing(20.f);
     box->Pack(btnNewGame);
     box->Pack(btnLoadGame);
     box->Pack(btnOptions);
     box->Pack(btnExit);
+    m_guiMainMenu->Add(box);
+    m_guiMainMenu->SetAllocation(sf::FloatRect(1280/3, 720/8, 1280/3, 720 - 720/4));
 }
 
 void MainMenuState::handleEvent(const sf::Event& event)
