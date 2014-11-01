@@ -12,8 +12,9 @@ public:
     GalacticEmpires();
     void run();
 
-    sf::RenderWindow* getWindow() {return &m_window;}
-    StateManager<GalacticEmpires>* getStateManager() {return &m_stateMan;}
+    sf::RenderWindow* getWindow();
+    StateManager<GalacticEmpires>* getStateManager();
+
 private:
     void loadSettings();
 

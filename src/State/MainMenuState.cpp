@@ -1,5 +1,7 @@
 #include "State/MainMenuState.hpp"
 
+#include "State/NewGameState.hpp"
+
 MainMenuState::MainMenuState(GalacticEmpires* galpires)
     : m_galpires(galpires)
     , m_guiWindow(sfg::Window::Create(sfg::Window::BACKGROUND))
@@ -58,9 +60,10 @@ void MainMenuState::onInactive()
 {
     m_guiWindow->Show(false);
 }
+
 void MainMenuState::newGame()
 {
-
+    m_galpires->getStateManager()->push<NewGameState>(m_galpires);
 }
 
 void MainMenuState::loadGame()

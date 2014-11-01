@@ -25,6 +25,16 @@ void GalacticEmpires::run()
     gameLoop();
 }
 
+sf::RenderWindow* GalacticEmpires::getWindow()
+{
+    return &m_window;
+}
+
+StateManager<GalacticEmpires>* GalacticEmpires::getStateManager()
+{
+    return &m_stateMan;
+}
+
 void GalacticEmpires::loadSettings()
 {
     ini_parser iniParser("data/settings.ini");
@@ -44,7 +54,11 @@ void GalacticEmpires::loadSettings()
 
     m_window.create(sf::VideoMode(width, height, bitDepth), "Galactic Empires " + version, fullscreen ? sf::Style::Fullscreen : sf::Style::Default);
     m_window.setVerticalSyncEnabled(vsync);
-    if (maxFPS) m_window.setFramerateLimit(maxFPS);
+
+    if (maxFPS)
+    {
+        m_window.setFramerateLimit(maxFPS);
+    }
 }
 
 void GalacticEmpires::gameLoop()
