@@ -13,6 +13,7 @@
 
 GalacticEmpires::GalacticEmpires()
     : m_window(sf::VideoMode(1280, 720, 32), "Galactic Empires")
+    , m_curState(nullptr)
     , m_prevFrameTime(sf::seconds(1.f/60.f))
 {
     std::cout << this << ", " << getStateManager() << ", " << getStateManager()->top() << "\n";
@@ -54,6 +55,8 @@ void GalacticEmpires::gameLoop()
     m_frameTime.restart();
     while (m_window.isOpen())
     {
+        m_curState = m_stateMan.top();
+
         while (m_window.pollEvent(m_event))
         {
             handleEvent(m_event);
@@ -67,7 +70,7 @@ void GalacticEmpires::gameLoop()
 
 void GalacticEmpires::handleEvent(const sf::Event& e)
 {
-    m_stateMan.top()->handleEvent(e);
+    m_curState->handleEvent(e);
 
     switch (e.type)
     {
@@ -86,7 +89,7 @@ void GalacticEmpires::handleEvent(const sf::Event& e)
 
 void GalacticEmpires::update(float dt)
 {
-    m_stateMan.top()->update(dt);
+    m_curState->update(dt);
 }
 
 void GalacticEmpires::draw()

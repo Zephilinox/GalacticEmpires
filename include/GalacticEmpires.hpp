@@ -29,6 +29,7 @@ private:
 
     sf::RenderWindow m_window;
     StateManager<GalacticEmpires> m_stateMan;
+    std::shared_ptr<BaseState> m_curState;
 
     sfg::SFGUI m_gui;
     sfg::Desktop m_guiDesktop;

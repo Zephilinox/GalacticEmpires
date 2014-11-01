@@ -38,6 +38,7 @@ template <class Owner>
 template <class T>
 void StateManager<Owner>::push(Owner* owner)
 {
+    if (top()) top()->onInactive();
     m_states.push(std::make_shared<T>(owner));
 }
 
@@ -47,6 +48,7 @@ void StateManager<Owner>::pop()
     if (m_states.size())
     {
         m_states.pop();
+        if (top()) top()->onActive();
     }
 }
 

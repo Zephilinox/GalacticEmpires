@@ -48,6 +48,17 @@ void TestState::draw(sf::RenderWindow& window) const
     }
 }
 
+void TestState::onActive()
+{
+
+}
+
+void TestState::onInactive()
+{
+
+}
+
+
 void TestState::doShit()
 {
     m_hasShat = true;
