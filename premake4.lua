@@ -52,11 +52,11 @@ solution "GalacticEmpires"
 		--And that we utilise the library lib's, e.g. extlibs/mingw/SFML/lib
 		if system == "windows" then
 			linkoptions {"-static-libgcc", "-static-libstdc++"}
-			includedirs {"include", "extlibs/headers/SFML/include", "extlibs/headers/SFGUI/include", "extlibs/headers/Thor/include", "extlibs/headers/Aurora/include", "extlibs/headers/INIParser/include"}
-			libdirs {"builds/".._ACTION.."/dll", "extlibs/"..compiler.."/SFML/lib", "extlibs/"..compiler.."/SFGUI/lib", "extlibs/"..compiler.."/Thor/lib"}
+			includedirs {"include", "extlibs/headers/SFML/include", "extlibs/headers/SFGUI/include", "extlibs/headers/Thor/include", "extlibs/headers/Lua/include", "extlibs/headers/LuaBridge/include", "extlibs/headers/Aurora/include", "extlibs/headers/INIParser/include"}
+			libdirs {"builds/".._ACTION.."/dll", "extlibs/"..compiler.."/SFML/lib", "extlibs/"..compiler.."/SFGUI/lib", "extlibs/"..compiler.."/Thor/lib", "extlibs/"..compiler.."/Lua/lib"}
 		else
 			--For linux (possibly mac) we will link dynamically, therefore we don't need to include any headers or lib's from built libraries.
-			includedirs {"include", "extlibs/headers/Aurora/include", "extlibs/headers/INIParser/include"}
+			includedirs {"include", "extlibs/headers/Aurora/include", "extlibs/headers/Lua/include", "extlibs/headers/LuaBridge/include", "extlibs/headers/INIParser/include"}
 		end
 		
 		buildoptions "-std=c++11"
@@ -70,6 +70,8 @@ solution "GalacticEmpires"
 			--Static is used on windows, so don't copy over every .dll used by libraries
 			--os.copydir("extlibs/"..compiler.."/SFML/bin", "builds/".._ACTION.."/dll")
 			--os.copydir("extlibs/"..compiler.."/SFGUI/bin", "builds/".._ACTION.."/dll")
+			--os.copydir("extlibs/"..compiler.."/Thor/bin", "builds/".._ACTION.."/dll")
+			--os.copydir("extlibs/"..compiler.."/Lua/bin", "builds/".._ACTION.."/dll")
 			
 			os.copyfile("extlibs/"..compiler.."/SFML/bin/openal32.dll", "builds/".._ACTION.."/dll/openal32.dll") --not currently used
 			os.copyfile("extlibs/"..compiler.."/SFML/bin/libsndfile-1.dll", "builds/".._ACTION.."/dll/libsndfile-1.dll") --not currently used
@@ -87,10 +89,10 @@ solution "GalacticEmpires"
 			--In windows SFGUI will break itself and SFML, if they aren't static and if they are in debug configuration
 			if system == "windows" then
 				defines {"SFML_STATIC", "SFGUI_STATIC"}
-				links {"sfgui-s", "thor-s-d", "sfml-graphics-s-d", "sfml-window-s-d", "sfml-system-s-d"}
+				links {"lua52", "sfgui-s", "thor-s-d", "sfml-graphics-s-d", "sfml-window-s-d", "sfml-system-s-d"}
 			else 
 				--Linux has no debug option for SFML
-				links {"sfgui", "thor", "sfml-graphics", "sfml-window", "sfml-system"}
+				links {"lua52", "sfgui", "thor", "sfml-graphics", "sfml-window", "sfml-system"}
 			end
 
 		configuration "Release"
@@ -102,8 +104,8 @@ solution "GalacticEmpires"
 			--Better to use static in windows to reduce .dll's spamming directory
 			if system == "windows" then
 				defines {"SFML_STATIC", "SFGUI_STATIC"}
-				links {"sfgui-s", "thor-s", "sfml-graphics-s", "sfml-window-s", "sfml-system-s"}
+				links {"lua52", "sfgui-s", "thor-s", "sfml-graphics-s", "sfml-window-s", "sfml-system-s"}
 			else 
-				links {"sfgui", "thor", "sfml-graphics", "sfml-window", "sfml-system"}
+				links {"lua52", "sfgui", "thor", "sfml-graphics", "sfml-window", "sfml-system"}
 			end
 			
