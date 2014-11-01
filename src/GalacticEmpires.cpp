@@ -10,14 +10,16 @@
 
 //SELF
 #include "State/TestState.hpp"
+#include "State/SplashState.hpp"
 
 GalacticEmpires::GalacticEmpires()
     : m_window(sf::VideoMode(1280, 720, 32), "Galactic Empires")
     , m_curState(nullptr)
     , m_prevFrameTime(sf::seconds(1.f/60.f))
 {
-    std::cout << this << ", " << getStateManager() << ", " << getStateManager()->top() << "\n";
-    m_stateMan.push<TestState>(this);
+    m_window.resetGLStates(); //This is required to show SFGUI if we don't draw with SFML at any point
+
+    m_stateMan.push<SplashState>(this);
 
     loadSettings();
     m_guiDesktop.LoadThemeFromFile("data/default.theme");
