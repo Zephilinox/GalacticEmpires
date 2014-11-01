@@ -22,7 +22,11 @@ public:
     void postDraw() override;
 
 private:
+    void exit();
+
     sfg::Window::Ptr m_guiMainMenu;
+
+    bool m_exit;
 };
 
 #endif // MAINMENUSTATE_HPP

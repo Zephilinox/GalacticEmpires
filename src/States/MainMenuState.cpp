@@ -9,6 +9,7 @@
 MainMenuState::MainMenuState(sf::RenderWindow& window, zge::StateCollection& stateCollection)
     : BaseState(window, stateCollection)
     , m_guiMainMenu(sfg::Window::Create(sfg::Window::BACKGROUND))
+    , m_exit(false)
 {
     m_stateID = "MainMenuState";
 
@@ -17,11 +18,14 @@ MainMenuState::MainMenuState(sf::RenderWindow& window, zge::StateCollection& sta
     sfg::Button::Ptr btnLoadGame(sfg::Button::Create("Load Game"));
     sfg::Button::Ptr btnOptions(sfg::Button::Create("Options"));
     sfg::Button::Ptr btnExit(sfg::Button::Create("Exit"));
-    sfg::Desktop desk;
+
     btnNewGame->SetId("MainMenuButton");
     btnLoadGame->SetId("MainMenuButton");
     btnOptions->SetId("MainMenuButton");
     btnExit->SetId("MainMenuButton");
+    btnExit->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&MainMenuState::exit, this));
+
+    sfg::Desktop desk;
     desk.SetProperty("#MainMenuButton", "FontSize", 36);
 
     box->SetSpacing(20.f);
@@ -50,4 +54,14 @@ void MainMenuState::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 
 void MainMenuState::postDraw()
 {
+    if (m_exit)
+    {
+        m_stateCollection.pop();
+    }
+}
+
+void MainMenuState::exit()
+{
+    std::cout << "Exiting\n";
+    m_exit = true;
 }
