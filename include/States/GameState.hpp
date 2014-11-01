@@ -1,5 +1,5 @@
-#ifndef SPLASHSTATE_HPP
-#define SPLASHSTATE_HPP
+#ifndef GAMESTATE_HPP
+#define GAMESTATE_HPP
 
 //STD
 
@@ -7,23 +7,22 @@
 #include <SFML/Graphics.hpp>
 #include <ZGE/State/BaseState.hpp>
 #include <ZGE/State/StateCollection.hpp>
-#include <SFGUI/SFGUI.hpp>
 
 //SELF
+#include "Game/SolarSystem.hpp"
 
-class SplashState : public zge::BaseState
+class GameState : public zge::BaseState
 {
 public:
-    SplashState(sf::RenderWindow& window, zge::StateCollection& stateCollection);
+    GameState();
+    GameState(sf::RenderWindow& window, zge::StateCollection& stateCollection);
     void handleEvent(const sf::Event& event) override;
     void update(float dt) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     void postDraw() override;
 
 private:
-    sfg::Window::Ptr m_guiWindow;
-    sfg::Spinner::Ptr m_guiSpinner;
-    sf::Clock m_clock;
+    SolarSystem m_solSys;
 };
 
-#endif //SPLASHSTATE_HPP
+#endif //GAMESTATE_HPP
