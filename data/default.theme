@@ -1,6 +1,6 @@
 * {
-	BackgroundColor: #333333ff;
-	BorderColor: #333333ff;
+	BackgroundColor: #222222ff;
+	BorderColor: #222222ff;
 	BorderColorShift: 32;
 	BorderWidth: 1.0f;
 	Color: #ffa400ff;
@@ -51,11 +51,11 @@ CheckButton, RadioButton {
 	CheckColor: #ffffffff;
 }
 
-CheckButton:PRELIGHT, CheckButton:PRELIGHT {
+CheckButton:PRELIGHT, RadioButton:PRELIGHT {
 	BackgroundColor: #444444ff;
 }
 
-CheckButton:ACTIVE, CheckButton:ACTIVE {
+CheckButton:ACTIVE, RadioButton:ACTIVE {
 	BackgroundColor: #555555ff;
 }
 
