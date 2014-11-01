@@ -3,10 +3,9 @@
 #include <iostream>
 #include <string>
 
-#include <ZGE/Utility.hpp>
+#include <Helper/Utility.hpp>
 #include <ini_parser.hpp>
 
-#include "State/TestState.hpp"
 #include "State/SplashState.hpp"
 
 GalacticEmpires::GalacticEmpires()
@@ -37,11 +36,11 @@ void GalacticEmpires::loadSettings()
     int maxFPS = iniParser.get_int("maxFPS", "Video");
 
     std::string version = "v";
-    version += zge::toString(VERSION_MAJOR);
+    version += toString(VERSION_MAJOR);
     version += ".";
-    version += zge::toString(VERSION_MINOR);
+    version += toString(VERSION_MINOR);
     version += ".";
-    version += zge::toString(VERSION_REVISION);
+    version += toString(VERSION_REVISION);
 
     m_window.create(sf::VideoMode(width, height, bitDepth), "Galactic Empires " + version, fullscreen ? sf::Style::Fullscreen : sf::Style::Default);
     m_window.setVerticalSyncEnabled(vsync);
