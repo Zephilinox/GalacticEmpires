@@ -5,9 +5,6 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace zge
-{
-
 void drawLine(sf::RenderTarget& target, float x1, float y1, float x2, float y2, sf::Color c);
 
 template<class T>
@@ -28,7 +25,5 @@ T fromString(std::string str)
 }
 
 //std::string luaErrorAsString(lua_State* L, int error);
-
-} //ZGE
 
 #endif //UTILITY_HPP

@@ -1,7 +1,4 @@
-#include "ZGE/Utility.hpp"
-
-namespace zge
-{
+#include "Helper/Utility.hpp"
 
 void drawLine(sf::RenderTarget& target, float x1, float y1, float x2, float y2, sf::Color c)
 {
@@ -10,7 +7,6 @@ void drawLine(sf::RenderTarget& target, float x1, float y1, float x2, float y2, 
     line[1] = sf::Vertex(sf::Vector2f(x2, y2), c);
     target.draw(line);
 }
-
 
 /*std::string luaErrorAsString(lua_State* L, int error)
 {
@@ -62,6 +58,3 @@ void drawLine(sf::RenderTarget& target, float x1, float y1, float x2, float y2, 
         }
     }
 }*/
-
-}
-

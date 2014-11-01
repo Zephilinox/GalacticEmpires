@@ -1,6 +1,4 @@
-#include "ZGE/Vector.hpp"
-
-using namespace zge;
+#include "Math/Vector.hpp"
 
 Vector::Vector(double argX, double argY) :
 x(argX),
@@ -25,7 +23,7 @@ Vector Vector::degToVector(double deg)
 
 Vector Vector::radToVector(double rad)
 {
-    return zge::Vector(std::sin(rad), -std::cos(rad));
+    return Vector(std::sin(rad), -std::cos(rad));
 }
 
 Vector& Vector::operator=(const Vector& argVec)
@@ -177,7 +175,7 @@ Vector Vector::turnedRight()
 
 void Vector::rotateWithDeg(double argDeg)
 {
-    argDeg = zge::Vector::degToRad(argDeg);
+    argDeg = Vector::degToRad(argDeg);
 
     //we use them both twice so store them, sin and cos are expensive calls.
     double sinResult = std::sin(argDeg);

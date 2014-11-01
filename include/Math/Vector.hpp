@@ -1,13 +1,9 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#include <iostream>
 #include <cmath>
 
 const double PI = 3.141592653;
-
-namespace zge
-{
 
 class Vector
 {
@@ -55,16 +51,14 @@ public:
     double radians();
 };
 
-} //ZGE
+Vector operator+(const Vector& vec, const Vector& vec2);
+Vector operator-(const Vector& vec, const Vector& vec2);
+Vector operator*(const Vector& vec, const Vector& vec2);
+Vector operator/(const Vector& vec, const Vector& vec2);
 
-zge::Vector operator+(const zge::Vector& vec, const zge::Vector& vec2);
-zge::Vector operator-(const zge::Vector& vec, const zge::Vector& vec2);
-zge::Vector operator*(const zge::Vector& vec, const zge::Vector& vec2);
-zge::Vector operator/(const zge::Vector& vec, const zge::Vector& vec2);
-
-zge::Vector operator+(const zge::Vector& vec, double scalar);
-zge::Vector operator-(const zge::Vector& vec, double scalar);
-zge::Vector operator*(const zge::Vector& vec, double scalar);
-zge::Vector operator/(const zge::Vector& vec, double scalar);
+Vector operator+(const Vector& vec, double scalar);
+Vector operator-(const Vector& vec, double scalar);
+Vector operator*(const Vector& vec, double scalar);
+Vector operator/(const Vector& vec, double scalar);
 
 #endif
