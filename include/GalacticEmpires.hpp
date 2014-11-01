@@ -8,6 +8,7 @@
 #include <SFGUI/SFGUI.hpp>
 
 //SELF
+#include "TestState.hpp"
 
 class GalacticEmpires
 {
@@ -25,6 +26,7 @@ private:
     void postDraw();
 
     sf::RenderWindow m_window;
+    TestState m_state;
 
     sfg::SFGUI m_gui;
     sfg::Desktop m_guiDesktop;
