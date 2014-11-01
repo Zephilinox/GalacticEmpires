@@ -35,10 +35,9 @@ Vector& Vector::operator=(const Vector& argVec)
     return *this;
 }
 
-Vector Vector::operator+(const Vector& argVec)
+Vector operator+(const Vector& argVec, const Vector& argVec2)
 {
-    Vector vec(x + argVec.x, y + argVec.y);
-    return vec;
+    return Vector(argVec.x + argVec.x, argVec2.y + argVec.y);
 }
 
 Vector& Vector::operator+=(const Vector& argVec)
@@ -47,10 +46,9 @@ Vector& Vector::operator+=(const Vector& argVec)
     return *this;
 }
 
-Vector Vector::operator-(const Vector& argVec)
+Vector operator-(const Vector& argVec, const Vector& argVec2)
 {
-    Vector vec(x - argVec.x, y - argVec.y);
-    return vec;
+    return Vector(argVec.x - argVec2.x, argVec.y - argVec2.y);
 }
 
 Vector& Vector::operator-=(const Vector& argVec)
@@ -59,10 +57,9 @@ Vector& Vector::operator-=(const Vector& argVec)
     return *this;
 }
 
-Vector Vector::operator*(const Vector& argVec)
+Vector operator*(const Vector& argVec, const Vector& argVec2)
 {
-    Vector vec(x * argVec.x, y * argVec.y);
-    return vec;
+    return Vector(argVec.x * argVec2.x, argVec.y * argVec2.y);
 }
 
 Vector& Vector::operator*=(const Vector& argVec)
@@ -71,10 +68,9 @@ Vector& Vector::operator*=(const Vector& argVec)
     return *this;
 }
 
-Vector Vector::operator/(const Vector& argVec)
+Vector operator/(const Vector& argVec, const Vector& argVec2)
 {
-    Vector vec(x / argVec.x, y / argVec.y);
-    return vec;
+    return Vector(argVec.x / argVec2.x, argVec.y / argVec2.y);
 }
 
 Vector& Vector::operator/=(const Vector& argVec)
@@ -83,10 +79,9 @@ Vector& Vector::operator/=(const Vector& argVec)
     return *this;
 }
 
-Vector Vector::operator+(double argScalar)
+Vector operator+(const Vector& vec, double argScalar)
 {
-    Vector vec(x + argScalar, y + argScalar);
-    return vec;
+    return Vector(vec.x + argScalar, vec.y + argScalar);
 }
 
 Vector& Vector::operator+=(double argScalar)
@@ -95,10 +90,9 @@ Vector& Vector::operator+=(double argScalar)
     return *this;
 }
 
-Vector Vector::operator-(double argScalar)
+Vector operator-(const Vector& vec, double argScalar)
 {
-    Vector vec(x - argScalar, y - argScalar);
-    return vec;
+    return Vector(vec.x - argScalar, vec.y - argScalar);
 }
 
 Vector& Vector::operator-=(double argScalar)
@@ -107,10 +101,9 @@ Vector& Vector::operator-=(double argScalar)
     return *this;
 }
 
-Vector Vector::operator*(double argScalar)
+Vector operator*(const Vector& vec, double argScalar)
 {
-    Vector vec(x * argScalar, y * argScalar);
-    return vec;
+    return Vector(vec.x * argScalar, vec.y * argScalar);
 }
 
 Vector& Vector::operator*=(double argScalar)
@@ -119,10 +112,9 @@ Vector& Vector::operator*=(double argScalar)
     return *this;
 }
 
-Vector Vector::operator/(double argScalar)
+Vector operator/(const Vector& vec, double argScalar)
 {
-    Vector vec(x / argScalar, y / argScalar);
-    return vec;
+    return Vector(vec.x / argScalar, vec.y / argScalar);
 }
 
 Vector& Vector::operator/=(double argScalar)

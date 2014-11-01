@@ -26,22 +26,14 @@ public:
     static Vector radToVector(double rad);
 
     Vector& operator=(const Vector& vec);
-    Vector operator+(const Vector& vec);
     Vector& operator+=(const Vector& vec);
-    Vector operator-(const Vector& vec);
     Vector& operator-=(const Vector& vec);
-    Vector operator*(const Vector& vec);
     Vector& operator*=(const Vector& vec);
-    Vector operator/(const Vector& vec);
     Vector& operator/=(const Vector& vec);
 
-    Vector operator+(double scalar);
     Vector& operator+=(double scalar);
-    Vector operator-(double scalar);
     Vector& operator-=(double scalar);
-    Vector operator*(double scalar);
     Vector& operator*=(double scalar);
-    Vector operator/(double scalar);
     Vector& operator/=(double scalar);
 
     double x;
@@ -68,6 +60,16 @@ public:
     double degrees();
     double radians();
 };
+
+Vector operator+(const Vector& vec, const Vector& vec2);
+Vector operator-(const Vector& vec, const Vector& vec2);
+Vector operator*(const Vector& vec, const Vector& vec2);
+Vector operator/(const Vector& vec, const Vector& vec2);
+
+Vector operator+(const Vector& vec, double scalar);
+Vector operator-(const Vector& vec, double scalar);
+Vector operator*(const Vector& vec, double scalar);
+Vector operator/(const Vector& vec, double scalar);
 
 } //ZGE
 
