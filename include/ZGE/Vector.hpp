@@ -10,7 +10,7 @@
 
 //SELF
 
-const double pi = 3.141592653;
+const double PI = 3.141592653;
 
 namespace zge
 {
@@ -47,7 +47,7 @@ public:
     double x;
     double y;
 
-    double dot(Vector vec);
+    double dot(const Vector& vec);
     double length();
     double lengthSquared();
     void normalize();

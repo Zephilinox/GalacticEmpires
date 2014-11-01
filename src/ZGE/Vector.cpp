@@ -10,12 +10,12 @@ y(argY)
 
 double Vector::radToDeg(double argRad)
 {
-    return argRad * (180.f / pi);
+    return argRad * (180.f / PI);
 }
 
 double Vector::degToRad(double argDeg)
 {
-    return argDeg * (pi / 180.f);
+    return argDeg * (PI / 180.f);
 }
 
 Vector Vector::degToVector(double deg)
@@ -131,7 +131,7 @@ Vector& Vector::operator/=(double argScalar)
     return *this;
 }
 
-double Vector::dot(Vector argVec)
+double Vector::dot(const Vector& argVec)
 {
     return (x * argVec.x) + (y * argVec.y);
 }
@@ -231,7 +231,7 @@ Vector Vector::rotatedWithRad(double argRad)
 
 double Vector::degrees()
 {
-    return std::atan2(x, -y) * (180.f / pi);
+    return std::atan2(x, -y) * (180.f / PI);
 }
 
 double Vector::radians()
