@@ -17,7 +17,7 @@ public:
     void run();
 
     sf::RenderWindow* getWindow() {return &m_window;}
-
+    StateManager* getStateManager() {return &m_stateMan;}
 private:
     void loadSettings();
 

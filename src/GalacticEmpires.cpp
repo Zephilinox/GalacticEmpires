@@ -15,6 +15,7 @@ GalacticEmpires::GalacticEmpires()
     : m_window(sf::VideoMode(1280, 720, 32), "Galactic Empires")
     , m_prevFrameTime(sf::seconds(1.f/60.f))
 {
+    std::cout << this << ", " << getStateManager() << ", " << getStateManager()->m_state << "\n";
     m_stateMan.push<TestState>(this);
 
     loadSettings();
