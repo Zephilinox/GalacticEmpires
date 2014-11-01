@@ -13,9 +13,10 @@
 
 GalacticEmpires::GalacticEmpires()
     : m_window(sf::VideoMode(1280, 720, 32), "Galactic Empires")
-    , m_state(new TestState(this))
     , m_prevFrameTime(sf::seconds(1.f/60.f))
 {
+    m_stateMan.push<TestState>(this);
+
     loadSettings();
     m_guiDesktop.LoadThemeFromFile("data/default.theme");
 }
@@ -65,7 +66,7 @@ void GalacticEmpires::gameLoop()
 
 void GalacticEmpires::handleEvent(const sf::Event& e)
 {
-    m_state->handleEvent(e);
+    m_stateMan.m_state->handleEvent(e);
 
     switch (e.type)
     {
@@ -84,13 +85,13 @@ void GalacticEmpires::handleEvent(const sf::Event& e)
 
 void GalacticEmpires::update(float dt)
 {
-    m_state->update(dt);
+    m_stateMan.m_state->update(dt);
 }
 
 void GalacticEmpires::draw()
 {
     m_window.clear(sf::Color(40, 40, 40));
-    m_state->draw(m_window);
+    m_stateMan.m_state->draw(m_window);
     m_gui.Display(m_window);
     m_window.display();
 }

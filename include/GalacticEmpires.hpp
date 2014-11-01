@@ -8,7 +8,7 @@
 #include <SFGUI/SFGUI.hpp>
 
 //SELF
-#include "BaseState.hpp"
+#include "StateManager.hpp"
 
 class GalacticEmpires
 {
@@ -28,7 +28,7 @@ private:
     void postDraw();
 
     sf::RenderWindow m_window;
-    BaseState* m_state;
+    StateManager m_stateMan;
 
     sfg::SFGUI m_gui;
     sfg::Desktop m_guiDesktop;

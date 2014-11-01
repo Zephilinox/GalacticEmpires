@@ -18,12 +18,18 @@ TestState::TestState(GalacticEmpires* galpires)
 
 void TestState::handleEvent(const sf::Event& e)
 {
-
+    switch(e.type)
+    {
+        default:
+        {
+            break;
+        }
+    }
 }
 
 void TestState::update(float dt)
 {
-
+    rs.move(1*dt, 1*dt);
 }
 
 void TestState::draw(sf::RenderWindow& window) const
