@@ -1,12 +1,7 @@
 #include "State/TestState.hpp"
 
-//STD
 #include <cmath>
 #include <iostream>
-
-//3RD
-
-//SELF
 
 TestState::TestState(GalacticEmpires* galpires)
     : m_galpires(galpires)

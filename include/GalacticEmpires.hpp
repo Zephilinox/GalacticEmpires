@@ -1,13 +1,9 @@
 #ifndef GALACTICEMPIRES_HPP
 #define GALACTICEMPIRES_HPP
 
-//STD
-
-//3RD
 #include <SFML/Graphics.hpp>
 #include <SFGUI/SFGUI.hpp>
 
-//SELF
 #include "State/StateManager.hpp"
 
 class GalacticEmpires
