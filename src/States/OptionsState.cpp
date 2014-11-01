@@ -1,6 +1,7 @@
 #include "States/OptionsState.hpp"
 
 //STD
+#include <iostream>
 
 //3RD
 #include <ini_parser.hpp>
