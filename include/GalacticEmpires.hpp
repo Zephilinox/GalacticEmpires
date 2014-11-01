@@ -5,7 +5,6 @@
 
 //3RD
 #include <SFML/Graphics.hpp>
-#include <ZGE/State/StateHandler.hpp>
 #include <SFGUI/SFGUI.hpp>
 
 //SELF
@@ -26,8 +25,6 @@ private:
     void postDraw();
 
     sf::RenderWindow m_window;
-
-    zge::StateHandler m_stateHandler;
 
     sfg::SFGUI m_gui;
     sfg::Desktop m_guiDesktop;

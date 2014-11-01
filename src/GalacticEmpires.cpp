@@ -8,16 +8,12 @@
 //#include <ini_parser.hpp>
 #include <ZGE/Utility.hpp>
 
-//SELF
-#include "States/SplashState.hpp"
-
 GalacticEmpires::GalacticEmpires()
     : m_window(sf::VideoMode(1280, 720, 32), "Galactic Empires")
     , m_guiDesktop()
     , m_prevFrameTime(sf::seconds(1.f/60.f))
 {
     loadSettings();
-    m_stateHandler.getStateCollection().push<SplashState>(&m_window);
     m_guiDesktop.LoadThemeFromFile("data/default.theme");
 }
 
@@ -66,8 +62,6 @@ void GalacticEmpires::gameLoop()
 
 void GalacticEmpires::handleEvent(const sf::Event& e)
 {
-    m_stateHandler.handleEvent(m_event);
-
     switch (e.type)
     {
         case sf::Event::Closed:
@@ -85,13 +79,11 @@ void GalacticEmpires::handleEvent(const sf::Event& e)
 
 void GalacticEmpires::update(float dt)
 {
-    m_stateHandler.update(dt);
 }
 
 void GalacticEmpires::draw()
 {
     m_window.clear(sf::Color(40, 40, 40));
-    m_stateHandler.draw(m_window);
 
     m_gui.Display(m_window);
     m_window.display();
@@ -99,7 +91,6 @@ void GalacticEmpires::draw()
 
 void GalacticEmpires::postDraw()
 {
-    m_stateHandler.postDraw();
     m_prevFrameTime = m_frameTime.getElapsedTime();
     m_frameTime.restart();
 }
