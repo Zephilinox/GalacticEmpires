@@ -28,9 +28,12 @@ OptionsState::OptionsState(sf::RenderWindow& window, zge::StateCollection& state
     sfg::Entry::Ptr enterWidth = sfg::Entry::Create(std::to_string(iniParser.get_int("width", "Video")));
     sfg::Entry::Ptr enterHeight = sfg::Entry::Create(std::to_string(iniParser.get_int("height", "Video")));
     sfg::Entry::Ptr enterBits = sfg::Entry::Create(std::to_string(iniParser.get_int("bitDepth", "Video")));
-    sfg::Entry::Ptr enterFullscreen = sfg::Entry::Create(std::to_string(iniParser.get_int("fullscreen", "Video")));
-    sfg::Entry::Ptr enterVSync = sfg::Entry::Create(std::to_string(iniParser.get_int("vsync", "Video")));
     sfg::Entry::Ptr enterMaxFPS = sfg::Entry::Create(std::to_string(iniParser.get_int("maxFPS", "Video")));
+
+    sfg::CheckButton::Ptr enterFullscreen = sfg::CheckButton::Create("");
+    sfg::CheckButton::Ptr enterVSync = sfg::CheckButton::Create("");
+    enterFullscreen->SetActive(iniParser.get_bool("fullscreen", "Video"));
+    enterVSync->SetActive(iniParser.get_bool("vsync", "Video"));
 
     sfg::Label::Ptr lblWidth = sfg::Label::Create("Window Width: ");
     sfg::Label::Ptr lblHeight = sfg::Label::Create("Window Height: ");
