@@ -1,14 +1,10 @@
 #include "GalacticEmpires.hpp"
 
-//STD
 #include <iostream>
 #include <string>
 
-//3RD
-//#include <ini_parser.hpp>
 #include <ZGE/Utility.hpp>
 
-//SELF
 #include "State/TestState.hpp"
 
 GalacticEmpires::GalacticEmpires()

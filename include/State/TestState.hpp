@@ -1,13 +1,9 @@
 #ifndef TESTSTATE_HPP
 #define TESTSTATE_HPP
 
-//STD
-
-//3RD
 #include <SFML/Graphics.hpp>
 #include <SFGUI/SFGUI.hpp>
 
-//SELF
 #include "BaseState.hpp"
 #include "GalacticEmpires.hpp"
 

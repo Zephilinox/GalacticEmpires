@@ -1,13 +1,9 @@
 #ifndef STATEMANAGER_HPP
 #define STATEMANAGER_HPP
 
-//STD
 #include <memory>
 #include <stack>
 
-//3RD
-
-//SELF
 #include "State/BaseState.hpp"
 
 template <class Owner> class StateManager

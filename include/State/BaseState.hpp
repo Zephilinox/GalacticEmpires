@@ -1,12 +1,7 @@
 #ifndef BASESTATE_HPP
 #define BASESTATE_HPP
 
-//STD
-
-//3RD
 #include <SFML/Graphics.hpp>
-
-//SELF
 
 class BaseState
 {

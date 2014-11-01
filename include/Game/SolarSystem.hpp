@@ -1,12 +1,7 @@
 #ifndef SOLARSYSTEM_HPP
 #define SOLARSYSTEM_HPP
 
-//STD
-
-//3RD
 #include <SFML/Graphics.hpp>
-
-//SELF
 
 class SolarSystem : public sf::Drawable
 {

@@ -1,14 +1,9 @@
 #ifndef UTILITY_HPP
 #define UTILITY_HPP
 
-//STD
 #include <sstream>
 
-//3RD
-//#include <lua.hpp>
 #include <SFML/Graphics.hpp>
-
-//SELF
 
 namespace zge
 {

@@ -1,14 +1,8 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-
-//STD
 #include <iostream>
 #include <cmath>
-
-//3RD
-
-//SELF
 
 const double PI = 3.141592653;
 
