@@ -3,7 +3,7 @@
 	BorderColor: #222222ff;
 	BorderColorShift: 32;
 	BorderWidth: 1.0f;
-	Color: #ffa400ff;
+	Color: #ffffffff;
 	FontName: Default;
 	FontSize: 12;
 	Padding: 5.0f;
@@ -18,7 +18,8 @@ Window {
 	ShadowDistance: 3.0f;
 	ShadowAlpha: 100.0f;
 	
-	BorderColor: #111111ff;
+	BorderColor: #000000ff;
+	BackgroundColor: #1c1c1cff;
 }
 
 Button {
@@ -96,7 +97,7 @@ ProgressBar {
 	BarBorderWidth: 1.0f;
 }
 
-Seperator {
+Separator {
 	Color: #444444ff;
 }
 
