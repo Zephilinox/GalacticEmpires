@@ -11,14 +11,19 @@
 TestState::TestState(GalacticEmpires* galpires)
     : m_galpires(galpires)
     , rs(sf::Vector2f(std::rand()%200, std::rand()%200))
+    , m_hasShat(false)
+    , m_guiWindow(sfg::Window::Create())
+    , m_guiBtn(sfg::Button::Create("Clickz"))
 {
+    m_guiBtn->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&TestState::doShit, this));
+    m_guiWindow->Add(m_guiBtn);
     rs.setFillColor(sf::Color(std::rand()%255, std::rand()%255, std::rand()%255));
-    //can't get self from stateMan. this will ptr to last active state.
-    std::cout << this << ", " << m_galpires << ", " << m_galpires->getStateManager() << ", " << m_galpires->getStateManager()->m_state << "\n";
 }
 
 void TestState::handleEvent(const sf::Event& e)
 {
+    m_guiWindow->HandleEvent(e);
+
     switch(e.type)
     {
         default:
@@ -30,12 +35,20 @@ void TestState::handleEvent(const sf::Event& e)
 
 void TestState::update(float dt)
 {
+    m_guiWindow->Update(dt);
+
     rs.move(1*dt, 1*dt);
-    std::cout << this << ", " << m_galpires << ", " << m_galpires->getStateManager() << ", " << m_galpires->getStateManager()->m_state << "\n";
-    sf::sleep(sf::seconds(1.0f));
 }
 
 void TestState::draw(sf::RenderWindow& window) const
 {
-    window.draw(rs);
+    if (!m_hasShat)
+    {
+        window.draw(rs);
+    }
+}
+
+void TestState::doShit()
+{
+    m_hasShat = true;
 }

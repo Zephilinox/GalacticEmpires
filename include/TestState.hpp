@@ -5,6 +5,7 @@
 
 //3RD
 #include <SFML/Graphics.hpp>
+#include <SFGUI/SFGUI.hpp>
 
 //SELF
 #include "BaseState.hpp"
@@ -19,8 +20,14 @@ public:
     void draw(sf::RenderWindow& window) const override;
 
 private:
+    void doShit();
+
     GalacticEmpires* m_galpires;
     sf::RectangleShape rs;
+    bool m_hasShat;
+
+    sfg::Window::Ptr m_guiWindow;
+    sfg::Button::Ptr m_guiBtn;
 };
 
 #endif //TESTSTATE_HPP
