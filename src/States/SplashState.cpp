@@ -1,5 +1,12 @@
 #include "States/SplashState.hpp"
 
+//STD
+
+//3RD
+
+//SELF
+#include "States/MainMenuState.hpp"
+
 SplashState::SplashState(sf::RenderWindow& window, zge::StateCollection& stateCollection)
     : BaseState(window, stateCollection)
     , m_guiWindow(sfg::Window::Create(sfg::Window::Style::TOPLEVEL))
@@ -24,6 +31,7 @@ void SplashState::update(float dt)
 
 void SplashState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+    m_guiWindow->Show(true);
     sf::RectangleShape rs({100, 100});
     rs.setPosition(200, 200);
     rs.setFillColor(sf::Color::Red);
@@ -34,6 +42,7 @@ void SplashState::postDraw()
 {
     if (m_clock.getElapsedTime().asSeconds() > 1.f)
     {
-        m_stateCollection.pop();
+        m_guiWindow->Show(false);
+        m_stateCollection.push<MainMenuState>(m_window);
     }
 }
