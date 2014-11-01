@@ -8,13 +8,15 @@
 #include <SFGUI/SFGUI.hpp>
 
 //SELF
-#include "TestState.hpp"
+#include "BaseState.hpp"
 
 class GalacticEmpires
 {
 public:
     GalacticEmpires();
     void run();
+
+    sf::RenderWindow* getWindow() {return &m_window;}
 
 private:
     void loadSettings();
@@ -26,7 +28,7 @@ private:
     void postDraw();
 
     sf::RenderWindow m_window;
-    TestState m_state;
+    BaseState* m_state;
 
     sfg::SFGUI m_gui;
     sfg::Desktop m_guiDesktop;

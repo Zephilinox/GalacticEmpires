@@ -11,14 +11,11 @@
 class BaseState
 {
 public:
-    BaseState();
-    virtual void handleEvent(const sf::Event& e);
-    virtual void update(float dt);
-    virtual void draw(sf::RenderWindow& window) const;
+    virtual void handleEvent(const sf::Event& e) = 0;
+    virtual void update(float dt) = 0;
+    virtual void draw(sf::RenderWindow& window) const = 0;
 
     virtual ~BaseState() = default;
-
-private:
 };
 
 #endif //BASESTATE_HPP

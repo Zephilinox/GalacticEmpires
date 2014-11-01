@@ -8,16 +8,18 @@
 
 //SELF
 #include "BaseState.hpp"
+#include "GalacticEmpires.hpp"
 
 class TestState: public BaseState
 {
 public:
-    TestState();
+    TestState(GalacticEmpires* galpires);
     void handleEvent(const sf::Event& e) override;
     void update(float dt) override;
     void draw(sf::RenderWindow& window) const override;
 
 private:
+    GalacticEmpires* m_galpires;
     sf::RectangleShape rs;
 };
 
