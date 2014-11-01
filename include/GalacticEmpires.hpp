@@ -28,6 +28,7 @@ private:
     zge::StateHandler m_stateHandler;
 
     sfg::SFGUI m_gui;
+    sfg::Desktop m_guiDesktop;
 
     sf::Event m_event;
     sf::Clock m_frameTime;

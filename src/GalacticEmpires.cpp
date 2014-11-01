@@ -11,9 +11,11 @@
 
 GalacticEmpires::GalacticEmpires()
     : m_window(sf::VideoMode(1280, 720, 32), "Galactic Empires")
+    , m_guiDesktop()
     , m_prevFrameTime(sf::seconds(1.f/60.f))
 {
     m_stateHandler.getStateCollection().push<SplashState>(m_window);
+    m_guiDesktop.LoadThemeFromFile("data/default.theme");
 }
 
 void GalacticEmpires::run()
