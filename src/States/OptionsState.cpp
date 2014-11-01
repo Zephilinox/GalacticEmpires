@@ -10,6 +10,7 @@
 OptionsState::OptionsState(sf::RenderWindow& window, zge::StateCollection& stateCollection)
     : BaseState(window, stateCollection)
     , m_guiWindow(sfg::Window::Create(sfg::Window::BACKGROUND))
+    , m_works(false)
 {
     m_stateID = "OptionsState";
 
@@ -44,7 +45,9 @@ OptionsState::OptionsState(sf::RenderWindow& window, zge::StateCollection& state
 
     sfg::Button::Ptr btnDefault = sfg::Button::Create("Reset to Default");
     sfg::Button::Ptr btnApply = sfg::Button::Create("Apply");
-
+    std::cout << this << " " << m_stateID << "\n";
+    btnDefault->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&OptionsState::loadDefaults, this));
+    std::cout << this << " " << m_stateID << "\n";
     sfg::Separator::Ptr sprSettings1 = sfg::Separator::Create();
     sfg::Separator::Ptr sprSettings2 = sfg::Separator::Create();
     sfg::Separator::Ptr sprSettings3 = sfg::Separator::Create();
@@ -109,4 +112,11 @@ void OptionsState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void OptionsState::postDraw()
 {
+    if (m_works) std::cout << "yay\n"; //doesn't work
+}
+
+void OptionsState::loadDefaults()
+{
+    std::cout << "hi " << this << " " << (*this).m_stateID << "\n";
+    m_works = true; //lies
 }

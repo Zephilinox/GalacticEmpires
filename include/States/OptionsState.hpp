@@ -21,7 +21,10 @@ public:
     void postDraw() override;
 
 private:
+    void loadDefaults();
+
     sfg::Window::Ptr m_guiWindow;
+    bool m_works;
 };
 
 #endif //OPTIONSSTATE_HPP
