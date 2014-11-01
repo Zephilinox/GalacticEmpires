@@ -9,7 +9,7 @@
 #include <ZGE/Utility.hpp>
 
 //SELF
-#include "TestState.hpp"
+#include "State/TestState.hpp"
 
 GalacticEmpires::GalacticEmpires()
     : m_window(sf::VideoMode(1280, 720, 32), "Galactic Empires")

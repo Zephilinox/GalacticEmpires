@@ -8,7 +8,7 @@
 #include <SFGUI/SFGUI.hpp>
 
 //SELF
-#include "StateManager.hpp"
+#include "State/StateManager.hpp"
 
 class GalacticEmpires
 {

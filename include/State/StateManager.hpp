@@ -8,7 +8,7 @@
 //3RD
 
 //SELF
-#include "BaseState.hpp"
+#include "State/BaseState.hpp"
 
 template <class Owner> class StateManager
 {
@@ -38,7 +38,7 @@ template <class Owner>
 template <class T>
 void StateManager<Owner>::push(Owner* owner)
 {
-    if (m_states.size)
+    if (m_states.size())
     {
         top()->onInactive();
     }
