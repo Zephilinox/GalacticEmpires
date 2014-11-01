@@ -37,7 +37,7 @@ Vector& Vector::operator=(const Vector& argVec)
 
 Vector operator+(const Vector& argVec, const Vector& argVec2)
 {
-    return Vector(argVec.x + argVec.x, argVec2.y + argVec.y);
+    return Vector(argVec.x + argVec2.x, argVec.y + argVec2.y);
 }
 
 Vector& Vector::operator+=(const Vector& argVec)
