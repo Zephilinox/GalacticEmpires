@@ -9,7 +9,7 @@
 #include "States/GameState.hpp"
 #include "States/OptionsState.hpp"
 
-SplashState::SplashState(sf::RenderWindow& window, zge::StateCollection& stateCollection)
+SplashState::SplashState(sf::RenderWindow* window, zge::StateCollection* stateCollection)
     : BaseState(window, stateCollection)
     , m_guiWindow(sfg::Window::Create(sfg::Window::Style::TOPLEVEL))
     , m_guiSpinner(sfg::Spinner::Create())
@@ -47,6 +47,6 @@ void SplashState::postDraw()
         m_guiWindow->Show(false);
         //m_stateCollection.push<MainMenuState>(m_window);
         //m_stateCollection.push<GameState>(m_window);
-        m_stateCollection.push<OptionsState>(m_window);
+        m_stateCollection->push<OptionsState>(m_window);
     }
 }

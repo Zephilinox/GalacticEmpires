@@ -20,7 +20,7 @@ public:
     StateCollection();
 
     template <class T>
-    void push(sf::RenderWindow& window);
+    void push(sf::RenderWindow* window);
 
     void pop();
 
@@ -34,9 +34,9 @@ private:
 
 //Template functions
 template <class T>
-void StateCollection::push(sf::RenderWindow& window)
+void StateCollection::push(sf::RenderWindow* window)
 {
-    m_states.push_back(std::make_shared<T>(T(window, *this)));
+    m_states.push_back(std::make_shared<T>(T(window, this)));
 }
 
 } //ZGE

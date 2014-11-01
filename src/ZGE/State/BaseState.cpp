@@ -6,7 +6,7 @@
 namespace zge
 {
 
-BaseState::BaseState(sf::RenderWindow& window, StateCollection& stateCollection):
+BaseState::BaseState(sf::RenderWindow* window, StateCollection* stateCollection):
 transparent(false),
 m_window(window),
 m_stateCollection(stateCollection),
@@ -45,7 +45,7 @@ void BaseState::postDraw()
     //std::cout << "[BaseState] postDraw\n";
 }
 
-std::string BaseState::getStateID()
+const std::string& BaseState::getStateID()
 {
     return m_stateID;
 }

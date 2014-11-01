@@ -15,7 +15,7 @@ class GameState : public zge::BaseState
 {
 public:
     GameState();
-    GameState(sf::RenderWindow& window, zge::StateCollection& stateCollection);
+    GameState(sf::RenderWindow* window, zge::StateCollection* stateCollection);
     void handleEvent(const sf::Event& event) override;
     void update(float dt) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

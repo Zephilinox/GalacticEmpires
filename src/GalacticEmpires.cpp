@@ -17,7 +17,7 @@ GalacticEmpires::GalacticEmpires()
     , m_prevFrameTime(sf::seconds(1.f/60.f))
 {
     loadSettings();
-    m_stateHandler.getStateCollection().push<SplashState>(m_window);
+    m_stateHandler.getStateCollection().push<SplashState>(&m_window);
     m_guiDesktop.LoadThemeFromFile("data/default.theme");
 }
 

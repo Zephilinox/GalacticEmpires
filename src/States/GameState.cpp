@@ -1,6 +1,6 @@
 #include "States/GameState.hpp"
 
-GameState::GameState(sf::RenderWindow& window, zge::StateCollection& stateCollection)
+GameState::GameState(sf::RenderWindow* window, zge::StateCollection* stateCollection)
     : BaseState(window, stateCollection)
 {
     m_stateID = "GameState";

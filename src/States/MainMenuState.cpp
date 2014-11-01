@@ -7,7 +7,7 @@
 
 //SELF
 
-MainMenuState::MainMenuState(sf::RenderWindow& window, zge::StateCollection& stateCollection)
+MainMenuState::MainMenuState(sf::RenderWindow* window, zge::StateCollection* stateCollection)
     : BaseState(window, stateCollection)
     , m_guiMainMenu(sfg::Window::Create(sfg::Window::BACKGROUND))
     , m_exit(false)
@@ -57,7 +57,7 @@ void MainMenuState::postDraw()
 {
     if (m_exit)
     {
-        m_stateCollection.pop();
+        m_stateCollection->pop();
     }
 }
 

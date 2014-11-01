@@ -7,7 +7,7 @@
 
 //SELF
 
-OptionsState::OptionsState(sf::RenderWindow& window, zge::StateCollection& stateCollection)
+OptionsState::OptionsState(sf::RenderWindow* window, zge::StateCollection* stateCollection)
     : BaseState(window, stateCollection)
     , m_guiWindow(sfg::Window::Create(sfg::Window::BACKGROUND))
     , m_works(false)
