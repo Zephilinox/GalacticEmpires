@@ -4,6 +4,7 @@
 #include <string>
 
 #include <ZGE/Utility.hpp>
+#include <ini_parser.hpp>
 
 #include "State/TestState.hpp"
 #include "State/SplashState.hpp"
@@ -13,12 +14,11 @@ GalacticEmpires::GalacticEmpires()
     , m_curState(nullptr)
     , m_prevFrameTime(sf::seconds(1.f/60.f))
 {
+    loadSettings();
     m_window.resetGLStates(); //This is required to show SFGUI if we don't draw with SFML at any point
 
-    m_stateMan.push<SplashState>(this);
-
-    loadSettings();
     m_guiDesktop.LoadThemeFromFile("data/default.theme");
+    m_stateMan.push<SplashState>(this);
 }
 
 void GalacticEmpires::run()
@@ -28,7 +28,7 @@ void GalacticEmpires::run()
 
 void GalacticEmpires::loadSettings()
 {
-    /*ini_parser iniParser("data/settings.ini");
+    ini_parser iniParser("data/settings.ini");
     int width = iniParser.get_int("width", "Video");
     int height = iniParser.get_int("height", "Video");
     int bitDepth = iniParser.get_int("bitDepth", "Video");
@@ -45,7 +45,7 @@ void GalacticEmpires::loadSettings()
 
     m_window.create(sf::VideoMode(width, height, bitDepth), "Galactic Empires " + version, fullscreen ? sf::Style::Fullscreen : sf::Style::Default);
     m_window.setVerticalSyncEnabled(vsync);
-    if (maxFPS) m_window.setFramerateLimit(maxFPS);*/
+    if (maxFPS) m_window.setFramerateLimit(maxFPS);
 }
 
 void GalacticEmpires::gameLoop()
