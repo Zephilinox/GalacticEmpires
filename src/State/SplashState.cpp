@@ -16,7 +16,15 @@ void SplashState::handleEvent(const sf::Event& e)
 
 void SplashState::update(float dt)
 {
-    m_guiProgBar->SetFraction(m_clock.getElapsedTime().asSeconds() / 4.f);
+    if (m_clock.getElapsedTime().asSeconds() >= 4.f)
+    {
+        m_galpires->getStateManager()->pop();
+    }
+    else
+    {
+        m_guiProgBar->SetFraction(m_clock.getElapsedTime().asSeconds() / 4.f);
+    }
+
     m_guiWindow->Update(dt);
 }
 

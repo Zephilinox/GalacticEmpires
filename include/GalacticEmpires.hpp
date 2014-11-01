@@ -21,7 +21,6 @@ private:
     void handleEvent(const sf::Event& e);
     void update(float dt);
     void draw();
-    void postDraw();
 
     sf::RenderWindow m_window;
     StateManager<GalacticEmpires> m_stateMan;

@@ -62,7 +62,9 @@ void GalacticEmpires::gameLoop()
 
         update(m_prevFrameTime.asSeconds());
         draw();
-        postDraw();
+
+        m_prevFrameTime = m_frameTime.getElapsedTime();
+        m_frameTime.restart();
     }
 }
 
@@ -93,13 +95,7 @@ void GalacticEmpires::update(float dt)
 void GalacticEmpires::draw()
 {
     m_window.clear(sf::Color(40, 40, 40));
-    m_stateMan.top()->draw(m_window);
+    m_curState->draw(m_window);
     m_gui.Display(m_window);
     m_window.display();
-}
-
-void GalacticEmpires::postDraw()
-{
-    m_prevFrameTime = m_frameTime.getElapsedTime();
-    m_frameTime.restart();
 }

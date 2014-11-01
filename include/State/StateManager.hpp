@@ -27,7 +27,7 @@ std::shared_ptr<BaseState> StateManager<Owner>::top()
         return m_states.top();
     }
 
-    return std::shared_ptr<BaseState>(nullptr);
+    throw std::runtime_error("[StateManager::top()] No states left in stack");
 }
 
 template <class Owner>
@@ -53,6 +53,10 @@ void StateManager<Owner>::pop()
         {
             top()->onActive();
         }
+    }
+    else
+    {
+        throw std::runtime_error("[StateManager::pop()] No states left in stack");
     }
 }
 
