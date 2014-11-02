@@ -93,6 +93,15 @@ void GalacticEmpires::handleEvent(const sf::Event& e)
             break;
         }
 
+        case sf::Event::KeyPressed:
+        {
+            if (e.key.code == sf::Keyboard::Escape)
+            {
+                m_window.close();
+            }
+            break;
+        }
+
         default:
         {
             break;
