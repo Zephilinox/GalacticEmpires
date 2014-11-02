@@ -52,15 +52,26 @@ void GalacticEmpires::loadSettings()
     version += ".";
     version += toString(VERSION_REVISION);
 
-    sf::VideoMode vm(sf::VideoMode(width, height, bitDepth));
-    if (vm.isValid())
+    sf::VideoMode vm(width, height, bitDepth);
+
+    if (!vm.isValid())
     {
-        m_window.create(vm, "Galactic Empires " + version, fullscreen ? sf::Style::Fullscreen : sf::Style::Default);
+        if (fullscreen)
+        {
+            throw std::runtime_error("Invalid Video Settings for Fullscreen (Width, Height, or BitDepth)");
+        }
+        else if (width == 0 || height == 0)
+        {
+            vm = sf::VideoMode::getDesktopMode();
+            iniParser.set_value("width", int(vm.width), "Video");
+            iniParser.set_value("height", int(vm.height), "Video");
+            iniParser.set_value("bitDepth", int(vm.bitsPerPixel), "Video");
+            fullscreen = true;
+            iniParser.set_value("fullscreen", fullscreen, "Video");
+        }
     }
-    else
-    {
-        throw std::runtime_error("Invalid Video Settings (Width, Height, or BitDepth)");
-    }
+
+    m_window.create(vm, "Galactic Empires " + version, fullscreen ? sf::Style::Fullscreen : sf::Style::Default);
 
     m_window.setVerticalSyncEnabled(vsync);
 
