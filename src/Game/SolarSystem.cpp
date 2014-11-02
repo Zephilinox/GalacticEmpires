@@ -35,27 +35,38 @@ void SolarSystem::genMap(sf::Vector2u size)
 
     sf::CircleShape hexTemplate(radius, 6);
     hexTemplate.setOrigin(radius, radius);
-    hexTemplate.setFillColor(sf::Color(255, 0, 0, 255));
+    hexTemplate.setFillColor(sf::Color(255, 0, 0, 50));
     hexTemplate.setOutlineColor(sf::Color::White);
     hexTemplate.setOutlineThickness(-2);
     hexTemplate.setPosition(size.x / 2.f, size.y / 2.f);
 
-    unsigned int mapRadius = 1;
-    for (unsigned i = 0; i <= mapRadius; ++i)
+    int mapRadius = 2;
+    for (int i = 0; i <= mapRadius; ++i)
     {
-        for (unsigned y = 0; y <= i; ++y)
+        for (int y = -i; y <= i; ++y)
         {
-            for (unsigned x = 0; x <= i; ++x)
+            for (int x = -i; x <= i; ++x)
             {
-                std::cout << "loops:" << i << ", " << x << ", " << y << "\n";
+                std::cout << i << ", " << y << ", " << x << "\n";
                 auto hex = hexTemplate;
-                coordinates coords(mapRadius-x, 0);
-                std::cout << "coords:" << coords.x << ", " << coords.y << "\n";
-                sf::Vector2f offset(coords.x * width, coords.y * height);
+                coordinates coords(x, y);
+                sf::Vector2f offset;
+                if (y == 0)
+                {
+                    offset = sf::Vector2f(coords.x * width, coords.y * height);
+                }
+                else
+                {
+                    offset = sf::Vector2f(coords.x * width * 0.5, coords.y * height);
+                }
+                std::cout << offset.x << ", " << offset.y << "\n\n";
 
                 hex.move(offset);
                 m_map[coords] = hex;
             }
         }
+        std::cout << "\n";
     }
+
+    std::cout << m_map.size() << "\n";
 }
