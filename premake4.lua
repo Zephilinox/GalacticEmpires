@@ -92,7 +92,7 @@ solution "GalacticEmpires"
 				links {"lua52", "sfgui-s", "thor-s-d", "sfml-graphics-s-d", "sfml-window-s-d", "sfml-system-s-d"}
 			else 
 				--Linux has no debug option for SFML
-				links {"lua52", "sfgui", "thor", "sfml-graphics", "sfml-window", "sfml-system"}
+				links {"lua5.2", "sfgui", "thor", "sfml-graphics", "sfml-window", "sfml-system"}
 			end
 
 		configuration "Release"
@@ -106,6 +106,6 @@ solution "GalacticEmpires"
 				defines {"SFML_STATIC", "SFGUI_STATIC"}
 				links {"lua52", "sfgui-s", "thor-s", "sfml-graphics-s", "sfml-window-s", "sfml-system-s"}
 			else 
-				links {"lua52", "sfgui", "thor", "sfml-graphics", "sfml-window", "sfml-system"}
+				links {"lua5.2", "sfgui", "thor", "sfml-graphics", "sfml-window", "sfml-system"}
 			end
 			
