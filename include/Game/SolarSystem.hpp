@@ -13,8 +13,8 @@ public:
 
 private:
     void genMap(sf::Vector2u size);
-
-    sf::VertexArray m_grid;
+    std::vector<sf::CircleShape> m_map;
+    sf::ConvexShape m_shape;
 };
 
 #endif //SOLARSYSTEM_HPP

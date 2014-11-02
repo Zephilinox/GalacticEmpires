@@ -7,6 +7,7 @@ GameState::GameState(GalacticEmpires* galpires)
 {
     sf::Vector2u windowSize = m_galpires->getWindow()->getSize();
     m_guiWindow->SetAllocation(sf::FloatRect(windowSize.x * 0.3, windowSize.y * 0.1, windowSize.x * 0.4, windowSize.y * 0.8));
+    m_guiWindow->Show(false);
 }
 
 void GameState::handleEvent(const sf::Event& e)

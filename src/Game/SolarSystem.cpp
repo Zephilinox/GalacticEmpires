@@ -1,7 +1,10 @@
 #include "Game/SolarSystem.hpp"
 
+#include <iostream>
+
+#include "Math/Vector.hpp"
+
 SolarSystem::SolarSystem(sf::Vector2u size)
-    : m_grid(sf::Quads, (size.x / 32.f) * (size.y / 32.f) * 4)
 {
     genMap(sf::Vector2u(size.x, size.y));
 }
@@ -18,30 +21,73 @@ void SolarSystem::update(double dt)
 
 void SolarSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw(m_grid, states);
+    for (const auto& hex : m_map)
+    {
+        target.draw(hex, states);
+    }
+
+    target.draw(m_shape, states);
 }
 
 void SolarSystem::genMap(sf::Vector2u size)
 {
-    for (unsigned i = 0; i < size.x / 32; ++i)
+    sf::CircleShape hex(64, 6);
+    hex.setOrigin(64, 64);
+    hex.setFillColor(sf::Color(0, 0, 0, 0));
+    hex.setOutlineColor(sf::Color::White);
+    hex.setOutlineThickness(-2);
+
+    float height = 128; //top to bottom
+    float width = Vector::degToVector(60).x*(height/2)*2; //left to right
+
+    hex.setPosition(size.x / 2.f, size.y / 2.f);
+    hex.setOutlineColor(sf::Color::White);
+    m_map.push_back(hex);
+
+    auto hex2 = hex;
+    hex2.setOutlineColor(sf::Color::Blue);
+    hex2.move(-0.5*width, height*0.75);
+    m_map.push_back(hex2);
+
+    auto hex3 = hex;
+    hex3.setOutlineColor(sf::Color::Green);
+    hex3.move(0.5*width, height*0.75);
+    m_map.push_back(hex3);
+
+    auto hex4 = hex;
+    hex4.setOutlineColor(sf::Color::Yellow);
+    hex4.move(-0.5*width, height*-0.75);
+    m_map.push_back(hex4);
+
+    auto hex5 = hex;
+    hex5.setOutlineColor(sf::Color::Magenta);
+    hex5.move(-width, 0);
+    m_map.push_back(hex5);
+
+    auto hex6 = hex;
+    hex6.setOutlineColor(sf::Color::Cyan);
+    hex6.move(0.5*width, height*-0.75);
+    m_map.push_back(hex6);
+
+    auto hex7 = hex;
+    hex7.setOutlineColor(sf::Color::Red);
+    hex7.move(width, 0);
+    m_map.push_back(hex7);
+
+    m_shape.setPointCount(6);
+    float exteriorAngle = 60;
+    m_shape.setOrigin(0, 0);
+    m_shape.setFillColor(sf::Color(0, 0, 0, 0));
+    m_shape.setOutlineColor(sf::Color::Black);
+    m_shape.setOutlineThickness(2);
+
+    for (unsigned i = 0; i < 6; ++i)
     {
-        for (unsigned j = 0; j < size.y / 32; ++j)
-        {
-            sf::Vertex* quad = &m_grid[(i + j * (size.x / 32.f)) * 4];
-            quad[0].position = sf::Vector2f(i*32, j*32);
-            quad[1].position = sf::Vector2f(i*32 + 32, j*32);
-            quad[2].position = sf::Vector2f(i*32 + 32, j*32 + 32);
-            quad[3].position = sf::Vector2f(i*32, j*32 + 32);
-
-            quad[0].texCoords = sf::Vector2f(0, 0);
-            quad[1].texCoords = sf::Vector2f(32, 0);
-            quad[2].texCoords = sf::Vector2f(32, 32);
-            quad[3].texCoords = sf::Vector2f(0, 32);
-
-            quad[0].color = sf::Color(255, 0, 0);
-            quad[1].color = sf::Color(0, 255, 0);
-            quad[2].color = sf::Color(0, 0, 255);
-            quad[3].color = sf::Color(255, 255, 0);
-        }
+        Vector angleDir = Vector::degToVector(exteriorAngle * i);
+        std::cout << angleDir.x*32 << ", " << angleDir.y*32 << "\n";
+        m_shape.setPoint(i, sf::Vector2f(angleDir.x, angleDir.y) * 32.f);
     }
+
+    m_shape.setPosition(size.x/2 + width, size.y/2);
+
 }
