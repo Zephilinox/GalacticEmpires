@@ -2,11 +2,11 @@
 
 #include "State/GameState.hpp"
 
-NewGameState::NewGameState(GalacticEmpires* galpires)
-    : m_galpires(galpires)
+NewGameState::NewGameState(GalacticEmpires* galemp)
+    : m_galemp(galemp)
     , m_guiWindow(sfg::Window::Create())
 {
-    sf::Vector2u windowSize = m_galpires->getWindow()->getSize();
+    sf::Vector2u windowSize = m_galemp->getWindow()->getSize();
     m_guiWindow->SetAllocation(sf::FloatRect(windowSize.x * 0.3, windowSize.y * 0.1, windowSize.x * 0.4, windowSize.y * 0.8));
 }
 
@@ -18,7 +18,7 @@ void NewGameState::handleEvent(const sf::Event& e)
 void NewGameState::update(float dt)
 {
     m_guiWindow->Update(dt);
-    m_galpires->getStateManager()->push<GameState>(m_galpires);
+    m_galemp->getStateManager()->push<GameState>(m_galemp);
 }
 
 void NewGameState::draw(sf::RenderWindow& window) const

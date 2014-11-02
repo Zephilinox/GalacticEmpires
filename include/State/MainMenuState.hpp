@@ -10,7 +10,7 @@
 class MainMenuState : public BaseState
 {
 public:
-    MainMenuState(GalacticEmpires* galpires);
+    MainMenuState(GalacticEmpires* galemp);
     void handleEvent(const sf::Event& e) override;
     void update(float dt) override;
     void draw(sf::RenderWindow& window) const override;
@@ -23,7 +23,7 @@ private:
     void options();
     void exit();
 
-    GalacticEmpires* m_galpires;
+    GalacticEmpires* m_galemp;
 
     sfg::Window::Ptr m_guiWindow;
 };

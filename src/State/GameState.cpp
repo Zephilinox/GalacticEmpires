@@ -1,11 +1,11 @@
 #include "State/GameState.hpp"
 
-GameState::GameState(GalacticEmpires* galpires)
-    : m_galpires(galpires)
+GameState::GameState(GalacticEmpires* galemp)
+    : m_galemp(galemp)
     , m_guiWindow(sfg::Window::Create())
-    , m_solarSystem(m_galpires->getWindow()->getSize())
+    , m_solarSystem(m_galemp->getWindow()->getSize())
 {
-    sf::Vector2u windowSize = m_galpires->getWindow()->getSize();
+    sf::Vector2u windowSize = m_galemp->getWindow()->getSize();
     m_guiWindow->SetAllocation(sf::FloatRect(windowSize.x * 0.3, windowSize.y * 0.1, windowSize.x * 0.4, windowSize.y * 0.8));
     m_guiWindow->Show(false);
 }

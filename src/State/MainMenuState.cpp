@@ -2,11 +2,11 @@
 
 #include "State/NewGameState.hpp"
 
-MainMenuState::MainMenuState(GalacticEmpires* galpires)
-    : m_galpires(galpires)
+MainMenuState::MainMenuState(GalacticEmpires* galemp)
+    : m_galemp(galemp)
     , m_guiWindow(sfg::Window::Create(sfg::Window::BACKGROUND))
 {
-    sf::Vector2u windowSize = m_galpires->getWindow()->getSize();
+    sf::Vector2u windowSize = m_galemp->getWindow()->getSize();
 
     auto boxMenu = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 20.f);
     auto btnNewGame = sfg::Button::Create("New Game");
@@ -63,7 +63,7 @@ void MainMenuState::onInactive()
 
 void MainMenuState::newGame()
 {
-    m_galpires->getStateManager()->push<NewGameState>(m_galpires);
+    m_galemp->getStateManager()->push<NewGameState>(m_galemp);
 }
 
 void MainMenuState::loadGame()
@@ -78,5 +78,5 @@ void MainMenuState::options()
 
 void MainMenuState::exit()
 {
-    m_galpires->getWindow()->close();
+    m_galemp->getWindow()->close();
 }
