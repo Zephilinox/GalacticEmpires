@@ -6,13 +6,13 @@
 
 #include <SFML/Graphics.hpp>
 
-typedef std::tuple<int, int> coordinates;
+typedef sf::Vector2i coordinates;
 
 struct key_hash : public std::unary_function<coordinates, std::size_t>
 {
     std::size_t operator()(const coordinates& coord) const
     {
-        return std::get<0>(coord) ^ std::get<1>(coord);
+        return coord.x ^ coord.y;
     }
 };
 
@@ -20,8 +20,8 @@ struct key_equal : public std::binary_function<coordinates, coordinates, bool>
 {
     bool operator()(const coordinates& v0, const coordinates& v1) const
     {
-        return (std::get<0>(v0) == std::get<0>(v1) &&
-              std::get<1>(v0) == std::get<1>(v1));
+        return (v0.x == v1.x &&
+                v0.y == v1.y);
     }
 };
 
