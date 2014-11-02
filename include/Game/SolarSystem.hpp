@@ -37,6 +37,8 @@ public:
 
 private:
     void genMap(sf::Vector2u size);
+    void genHexLine(int lineHeight, int radius);
+
     HexMap m_map;
 };
 

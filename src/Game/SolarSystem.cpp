@@ -29,7 +29,41 @@ void SolarSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void SolarSystem::genMap(sf::Vector2u size)
 {
-    float radius = 64;
+    int mapRadius = 3;
+    for (int i = -mapRadius; i <= mapRadius; ++i)
+    {
+        genHexLine(i, mapRadius);
+    }
+
+    std::cout << "hexes: " << m_map.size() << "\n";
+}
+
+void SolarSystem::genHexLine(int lineHeight, int radius)
+{
+    int lineWidth = radius*2 + 1;
+
+    if (lineHeight < 0)
+    {
+        lineWidth += lineHeight;
+    }
+    else if (lineHeight > 0)
+    {
+        lineWidth -= lineHeight;
+    }
+
+    for (int i = 0; i < lineWidth; ++i)
+    {
+        sf::Vector2f coords(-radius + i, lineHeight);
+
+        if (lineHeight < 0)
+        {
+            coords.x -= lineHeight;
+        }
+
+        std::cout << "[" << coords.x << ", " << coords.y << "], ";
+    }
+    std::cout << "\n";
+    /*float radius = 64;
     float height = 2 * radius; //top to bottom
     float width = Vector::degToVector(60).x * radius * 2; //left to right
 
@@ -66,7 +100,5 @@ void SolarSystem::genMap(sf::Vector2u size)
             }
         }
         std::cout << "\n";
-    }
-
-    std::cout << m_map.size() << "\n";
+    }*/
 }
