@@ -2,7 +2,7 @@
 #include <ctime>
 
 #include <lua.hpp>
-#include <LuaBridge/Luabridge.h>
+#include <LuaBridge/LuaBridge.h>
 #include "GalacticEmpires.hpp"
 
 int main()
