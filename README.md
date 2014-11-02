@@ -12,6 +12,7 @@ Building
 * Run your build in the builds/ directory
 
 You may need to compile and build the appropriate libraries for your system. View extlibs/mingw/ for an example.
+For linux it is assumed that you have the libraries installed on your system
 
 Libraries
 =========
@@ -26,6 +27,10 @@ Libraries
  * High-level functionality for SFML
 * Aurora
  * Required by Thor
+* Lua
+ * Scripting and data storage
+* LuaBridge
+ * Aids in accessing the Lua Stack
 
 License
 =======
