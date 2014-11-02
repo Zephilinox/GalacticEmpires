@@ -25,7 +25,7 @@ function os.copydir(src_dir, dst_dir, filter, single_dst_dir)
 	if not os.isdir(src_dir) then error(src_dir .. " is not an existing directory!") end
 	filter = filter or "**"
 	src_dir = src_dir .. "/"
-	print('copy "' .. src_dir .. filter .. '" to "' .. dst_dir .. '".')
+	--print('copy "' .. src_dir .. filter .. '" to "' .. dst_dir .. '".')
 	dst_dir = dst_dir .. "/"
 	local dir = path.rebase(".",path.getabsolute("."), src_dir) -- root dir, relative from src_dir
  
@@ -44,7 +44,7 @@ function os.copydir(src_dir, dst_dir, filter, single_dst_dir)
 	end
  
 	if counter == #matches then
-		print( counter .. " files copied.")
+		--print( counter .. " files copied.")
 		return true
 	else
 		print( "Error: " .. counter .. "/" .. #matches .. " files copied.")
