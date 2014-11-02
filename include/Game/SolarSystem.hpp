@@ -7,6 +7,8 @@ class SolarSystem : public sf::Drawable
 {
 public:
     SolarSystem();
+    void handleEvent(const sf::Event& e);
+    void update(double dt);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:

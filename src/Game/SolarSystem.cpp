@@ -26,6 +26,16 @@ SolarSystem::SolarSystem()
     }
 }
 
+void handleEvent(const sf::Event& e)
+{
+
+}
+
+void update(double dt)
+{
+
+}
+
 void SolarSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(m_grid, states);

@@ -1,8 +1,6 @@
-#include "State/NewGameState.hpp"
-
 #include "State/GameState.hpp"
 
-NewGameState::NewGameState(GalacticEmpires* galpires)
+GameState::GameState(GalacticEmpires* galpires)
     : m_galpires(galpires)
     , m_guiWindow(sfg::Window::Create())
 {
@@ -10,28 +8,29 @@ NewGameState::NewGameState(GalacticEmpires* galpires)
     m_guiWindow->SetAllocation(sf::FloatRect(windowSize.x * 0.3, windowSize.y * 0.1, windowSize.x * 0.4, windowSize.y * 0.8));
 }
 
-void NewGameState::handleEvent(const sf::Event& e)
+void GameState::handleEvent(const sf::Event& e)
 {
     m_guiWindow->HandleEvent(e);
+    //m_solarSystem.handleEvent(e);
 }
 
-void NewGameState::update(float dt)
+void GameState::update(float dt)
 {
     m_guiWindow->Update(dt);
-    m_galpires->getStateManager()->push<GameState>(m_galpires);
+    //m_solarSystem.update(dt);
 }
 
-void NewGameState::draw(sf::RenderWindow& window) const
+void GameState::draw(sf::RenderWindow& window) const
 {
-
+    window.draw(m_solarSystem);
 }
 
-void NewGameState::onActive()
+void GameState::onActive()
 {
     m_guiWindow->Show(true);
 }
 
-void NewGameState::onInactive()
+void GameState::onInactive()
 {
     m_guiWindow->Show(false);
 }
