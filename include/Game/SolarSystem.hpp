@@ -6,12 +6,14 @@
 class SolarSystem : public sf::Drawable
 {
 public:
-    SolarSystem();
+    SolarSystem(sf::Vector2u size);
     void handleEvent(const sf::Event& e);
     void update(double dt);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
+    void genMap(sf::Vector2u size);
+
     sf::VertexArray m_grid;
 };
 

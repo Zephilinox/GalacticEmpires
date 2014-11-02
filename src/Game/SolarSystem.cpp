@@ -1,13 +1,33 @@
 #include "Game/SolarSystem.hpp"
 
-SolarSystem::SolarSystem()
-    : m_grid(sf::Quads, (1280 / 32) * (1280 / 32) * 4)
+SolarSystem::SolarSystem(sf::Vector2u size)
+    : m_grid(sf::Quads, (size.x / 32.f) * (size.y / 32.f) * 4)
 {
-    for (int i = 0; i < 1280 / 32; ++i)
+    genMap(sf::Vector2u(size.x, size.y));
+}
+
+void SolarSystem::handleEvent(const sf::Event& e)
+{
+
+}
+
+void SolarSystem::update(double dt)
+{
+
+}
+
+void SolarSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    target.draw(m_grid, states);
+}
+
+void SolarSystem::genMap(sf::Vector2u size)
+{
+    for (unsigned i = 0; i < size.x / 32; ++i)
     {
-        for (int j = 0; j < 1280 / 32; ++j)
+        for (unsigned j = 0; j < size.y / 32; ++j)
         {
-            sf::Vertex* quad = &m_grid[(i + j * 40) * 4];
+            sf::Vertex* quad = &m_grid[(i + j * (size.x / 32.f)) * 4];
             quad[0].position = sf::Vector2f(i*32, j*32);
             quad[1].position = sf::Vector2f(i*32 + 32, j*32);
             quad[2].position = sf::Vector2f(i*32 + 32, j*32 + 32);
@@ -24,19 +44,4 @@ SolarSystem::SolarSystem()
             quad[3].color = sf::Color(255, 255, 0);
         }
     }
-}
-
-void handleEvent(const sf::Event& e)
-{
-
-}
-
-void update(double dt)
-{
-
-}
-
-void SolarSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
-    target.draw(m_grid, states);
 }
