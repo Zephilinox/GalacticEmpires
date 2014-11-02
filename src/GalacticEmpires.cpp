@@ -52,7 +52,16 @@ void GalacticEmpires::loadSettings()
     version += ".";
     version += toString(VERSION_REVISION);
 
-    m_window.create(sf::VideoMode(width, height, bitDepth), "Galactic Empires " + version, fullscreen ? sf::Style::Fullscreen : sf::Style::Default);
+    sf::VideoMode vm(sf::VideoMode(width, height, bitDepth));
+    if (vm.isValid())
+    {
+        m_window.create(vm, "Galactic Empires " + version, fullscreen ? sf::Style::Fullscreen : sf::Style::Default);
+    }
+    else
+    {
+        throw std::runtime_error("Invalid Video Settings (Width, Height, or BitDepth)");
+    }
+
     m_window.setVerticalSyncEnabled(vsync);
 
     if (maxFPS)
