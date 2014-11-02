@@ -40,16 +40,7 @@ void SolarSystem::genMap(sf::Vector2u size)
 
 void SolarSystem::genHexLine(int lineHeight, int radius)
 {
-    int lineWidth = radius*2 + 1;
-
-    if (lineHeight < 0)
-    {
-        lineWidth += lineHeight;
-    }
-    else if (lineHeight > 0)
-    {
-        lineWidth -= lineHeight;
-    }
+    int lineWidth = radius*2 + 1 - std::abs(lineHeight);
 
     for (int i = 0; i < lineWidth; ++i)
     {
