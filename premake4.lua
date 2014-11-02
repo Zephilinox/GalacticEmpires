@@ -52,11 +52,11 @@ solution "GalacticEmpires"
 		--And that we utilise the library lib's, e.g. extlibs/mingw/SFML/lib
 		if system == "windows" then
 			linkoptions {"-static-libgcc", "-static-libstdc++"}
-			includedirs {"include", "extlibs/headers/SFML/include", "extlibs/headers/SFGUI/include", "extlibs/headers/Thor/include", "extlibs/headers/Lua/include", "extlibs/headers/LuaBridge/include", "extlibs/headers/Aurora/include", "extlibs/headers/INIParser/include"}
+			includedirs {"include", "extlibs/headers/SFML/include", "extlibs/headers/SFGUI/include", "extlibs/headers/Thor/include", "extlibs/headers/Lua/include", "extlibs/headers/LuaBridge/include", "extlibs/headers/Aurora/include", "extlibs/headers/INIParser/include", "extlibs/headers/Flowger/include"}
 			libdirs {"builds/".._ACTION.."/dll", "extlibs/"..compiler.."/SFML/lib", "extlibs/"..compiler.."/SFGUI/lib", "extlibs/"..compiler.."/Thor/lib", "extlibs/"..compiler.."/Lua/lib"}
 		else
 			--For linux (possibly mac) we will link dynamically, therefore we don't need to include any headers or lib's from built libraries.
-			includedirs {"include", "extlibs/headers/Aurora/include", "extlibs/headers/Lua/include", "extlibs/headers/LuaBridge/include", "extlibs/headers/INIParser/include"}
+			includedirs {"include", "extlibs/headers/Aurora/include", "extlibs/headers/Lua/include", "extlibs/headers/LuaBridge/include", "extlibs/headers/INIParser/include", "extlibs/headers/Flowger/include"}
 		end
 		
 		buildoptions "-std=c++11"
