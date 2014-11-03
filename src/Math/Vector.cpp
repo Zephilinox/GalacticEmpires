@@ -1,9 +1,20 @@
 #include "Math/Vector.hpp"
 
-Vector::Vector(double argX, double argY) :
-x(argX),
-y(argY)
+Vector::Vector(double argX, double argY)
+    : x(argX)
+    , y(argY)
 {
+}
+
+Vector::Vector(sf::Vector2f vec)
+    : x(vec.x)
+    , y(vec.y)
+{
+}
+
+Vector::operator sf::Vector2f()
+{
+    return sf::Vector2f(this->x, this->y);
 }
 
 double Vector::radToDeg(double argRad)
