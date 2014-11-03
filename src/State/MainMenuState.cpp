@@ -1,6 +1,7 @@
 #include "State/MainMenuState.hpp"
 
 #include "State/NewGameState.hpp"
+#include "State/OptionsMenuState.hpp"
 
 MainMenuState::MainMenuState(GalacticEmpires* galemp)
     : m_galemp(galemp)
@@ -73,7 +74,7 @@ void MainMenuState::loadGame()
 
 void MainMenuState::options()
 {
-
+    m_galemp->getStateManager()->push<OptionsMenuState>(m_galemp);
 }
 
 void MainMenuState::exit()
