@@ -35,10 +35,6 @@ void Camera::handleEvent(const sf::Event& e)
                 m_view.zoom(1.f + zoomDelta); //TODO: Make Smooth Zoom
                 m_updateWindow = true;
             }
-            else
-            {
-                auto defView = m_window->getDefaultView();
-            }
 
             std::cout << m_zoomValue << "\n";
 
