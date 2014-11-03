@@ -5,9 +5,14 @@
 Camera::Camera(sf::RenderWindow* window)
     : m_window(window)
     , m_view(m_window->getView())
+    , m_panZonePercent(0.1f)
+    , m_panSpeed(4.f)
     , m_updateWindow(false)
 {
-
+    m_panBorderLimits[0] = m_window->getSize().x * m_panZonePercent;
+    m_panBorderLimits[1] = m_window->getSize().x * (1.f-m_panZonePercent);
+    m_panBorderLimits[2] = m_window->getSize().y * m_panZonePercent;
+    m_panBorderLimits[3] = m_window->getSize().y * (1.f-m_panZonePercent);
 }
 
 void Camera::handleEvent(const sf::Event& e)
@@ -20,6 +25,14 @@ void Camera::handleEvent(const sf::Event& e)
             m_updateWindow = true;
         }
 
+        case sf::Event::Resized:
+        {
+            m_panBorderLimits[0] = m_window->getSize().x * m_panZonePercent;
+            m_panBorderLimits[1] = m_window->getSize().x * (1.f-m_panZonePercent);
+            m_panBorderLimits[2] = m_window->getSize().y * m_panZonePercent;
+            m_panBorderLimits[3] = m_window->getSize().y * (1.f-m_panZonePercent);
+        }
+
         default:
         {
             break;
@@ -29,36 +42,31 @@ void Camera::handleEvent(const sf::Event& e)
 
 void Camera::update(double dt)
 {
-    sf::Vector2i mousePos(sf::Mouse::getPosition(*m_window));
-    float panBorderLimits[4];
-    panBorderLimits[0] = m_window->getSize().x * 0.10;
-    panBorderLimits[1] = m_window->getSize().x * 0.90;
-    panBorderLimits[2] = m_window->getSize().y * 0.10;
-    panBorderLimits[3] = m_window->getSize().y * 0.90;
+    sf::Vector2u mousePos(sf::Mouse::getPosition(*m_window));
 
-    if (mousePos.x >= 0 && mousePos.x <= panBorderLimits[0])
+    if (mousePos.x <= m_panBorderLimits[0]) //unsigned, so don't need to check below 0;
     {
-        float deltaX = panBorderLimits[0] - mousePos.x;
-        m_view.move(-8 * deltaX * dt, 0);
+        float deltaX = mousePos.x - m_panBorderLimits[0];
+        m_view.move(m_panSpeed * deltaX * dt, 0);
         m_updateWindow = true;
     }
-    else if (mousePos.x <= m_window->getSize().x && mousePos.x >= panBorderLimits[1])
+    else if (mousePos.x <= m_window->getSize().x && mousePos.x >= m_panBorderLimits[1])
     {
-        float deltaX = panBorderLimits[1] - mousePos.x;
-        m_view.move(-8 * deltaX * dt, 0);
+        float deltaX = mousePos.x - m_panBorderLimits[1];
+        m_view.move(m_panSpeed * deltaX * dt, 0);
         m_updateWindow = true;
     }
 
-    if (mousePos.y >= 0 && mousePos.y <= panBorderLimits[2])
+    if (mousePos.y <= m_panBorderLimits[2])
     {
-        float deltaY = panBorderLimits[2] - mousePos.y;
-        m_view.move(0, -8 * deltaY * dt);
+        float deltaY = mousePos.y - m_panBorderLimits[2];
+        m_view.move(0, m_panSpeed * deltaY * dt);
         m_updateWindow = true;
     }
-    else if (mousePos.y <= m_window->getSize().x && mousePos.y >= panBorderLimits[3])
+    else if (mousePos.y <= m_window->getSize().x && mousePos.y >= m_panBorderLimits[3])
     {
-        float deltaY = panBorderLimits[3] - mousePos.y;
-        m_view.move(0, -8 * deltaY * dt);
+        float deltaY = mousePos.y - m_panBorderLimits[3];
+        m_view.move(0, m_panSpeed * deltaY * dt);
         m_updateWindow = true;
     }
 
