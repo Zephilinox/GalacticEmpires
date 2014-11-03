@@ -6,6 +6,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "GalacticEmpires.hpp"
+
 typedef sf::Vector2i coordinates;
 
 struct key_hash : public std::unary_function<coordinates, std::size_t>
@@ -30,7 +32,7 @@ typedef std::unordered_map<coordinates, sf::CircleShape, key_hash, key_equal> He
 class SolarSystem : public sf::Drawable
 {
 public:
-    SolarSystem(sf::Vector2u center);
+    SolarSystem(GalacticEmpires* galemp, sf::Vector2u center);
     void handleEvent(const sf::Event& e);
     void update(double dt);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -38,6 +40,8 @@ public:
 private:
     void genMap(sf::Vector2u center);
     void genHexLine(int lineHeight, int radius, sf::Vector2u center);
+
+    GalacticEmpires* m_galemp;
 
     int m_systemRadius;
     float m_hexRadius;

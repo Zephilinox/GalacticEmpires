@@ -6,8 +6,9 @@
 #include "Helper/LuaState.hpp"
 #include "Helper/Utility.hpp"
 
-SolarSystem::SolarSystem(sf::Vector2u center)
-    : m_systemRadius(16)
+SolarSystem::SolarSystem(GalacticEmpires* galemp, sf::Vector2u center)
+    : m_galemp(galemp)
+    , m_systemRadius(16)
     , m_hexRadius(32)
     , m_shape(0, 6)
 {
@@ -36,7 +37,32 @@ void SolarSystem::handleEvent(const sf::Event& e)
 
 void SolarSystem::update(double dt)
 {
+    sf::Vector2f mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
+    Vector mousePos2(mousePos.x, mousePos.y);
 
+    float targetHexDistance = 0;
+    sf::CircleShape* targetHex;
+
+    for (auto& hexPair : m_map)
+    {
+        Vector hexPos(hexPair.second.getPosition().x, hexPair.second.getPosition().y);
+
+        if (Vector(hexPos - mousePos2).length() < m_hexRadius)
+        {
+            if (targetHexDistance < Vector(hexPos - mousePos2).length())
+            {
+                targetHexDistance = Vector(hexPos - mousePos2).length();
+                targetHex = &hexPair.second;
+            }
+        }
+
+        hexPair.second.setFillColor(sf::Color(255, 0, 0, 40));
+    }
+
+    if (targetHex)
+    {
+        targetHex->setFillColor(sf::Color::Blue);
+    }
 }
 
 void SolarSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
