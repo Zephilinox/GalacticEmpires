@@ -9,5 +9,12 @@ int main()
     std::srand(std::time(0));
     GalacticEmpires game;
 
-    game.run();
+    try
+    {
+        game.run();
+    }
+    catch (const std::exception& e)
+    {
+        std::cout << e.what() << "\n";
+    }
 }
