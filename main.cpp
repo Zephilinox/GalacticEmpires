@@ -1,7 +1,7 @@
 #include <cmath>
 #include <ctime>
 
-#include <lua.hpp>
+#include <lua5.2/lua.hpp>
 #include <LuaBridge/LuaBridge.h>
 #include "GalacticEmpires.hpp"
 
