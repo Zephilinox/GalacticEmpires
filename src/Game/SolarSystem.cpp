@@ -13,18 +13,9 @@ SolarSystem::SolarSystem(sf::Vector2u center)
 {
     LuaState luaState;
     int error = luaState.doFile("data/Lua/SolarSystem.lua");
-    std::cout << "data/lua/SolarSystem.lua: " << luaErrorAsString(error) << "\n";
 
-    luabridge::LuaRef solSys = luabridge::getGlobal(luaState.getRawState(), "SolarSystem");
-    if (solSys["systemRadius"].isNumber())
-    {
-        m_systemRadius = solSys["systemRadius"].cast<int>();
-    }
-
-    if (solSys["hexRadius"].isNumber())
-    {
-        m_hexRadius = solSys["hexRadius"].cast<int>();
-    }
+    m_systemRadius = luaState.getGlobal("SolarSystem.systemRadius").cast<int>();
+    m_hexRadius = luaState.getGlobal("SolarSystem.hexRadius").cast<int>();
 
     genMap(sf::Vector2u(center.x, center.y));
 

@@ -2,6 +2,7 @@
 #define LUASTATE_HPP
 
 #include <iostream>
+#include <vector>
 
 #include <lua5.2/lua.hpp>
 #include <LuaBridge/LuaBridge.h>
@@ -34,6 +35,8 @@ public:
     int doFile(const std::string& file);
     int loadFile(const std::string& file);
     int executeFile(const std::string& file);
+
+    luabridge::LuaRef getGlobal(const std::string& varName);
 
     lua_State* getRawState();
 

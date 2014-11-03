@@ -56,6 +56,39 @@ int LuaState::executeFile(const std::string& file)
     return error;
 }
 
+luabridge::LuaRef LuaState::getGlobal(const std::string& varName)
+{
+    if (varName.find('.') == std::string::npos)
+    {
+        luabridge::LuaRef varRef = luabridge::getGlobal(m_luaState, varName.c_str());
+
+        return varRef;
+    }
+    else
+    {
+        std::stringstream ss(varName);
+        std::vector<std::string> vars;
+        std::string splitVarName = "";
+
+        while (std::getline(ss, splitVarName, '.'))
+        {
+            vars.push_back(splitVarName);
+        }
+
+        if (vars.size() > 1)
+        {
+            luabridge::LuaRef varRef = luabridge::getGlobal(m_luaState, "_G");
+
+            for (unsigned i = 0; i < vars.size(); ++i)
+            {
+                varRef = luabridge::LuaRef(varRef[vars[i].c_str()]);
+            }
+
+            return varRef;
+        }
+    }
+}
+
 lua_State* LuaState::getRawState()
 {
     return m_luaState;
