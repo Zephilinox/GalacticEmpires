@@ -19,7 +19,7 @@ LuaState::~LuaState()
     m_luaState = nullptr;
 }
 
-int LuaState::doFile(std::string file)
+int LuaState::doFile(const std::string& file)
 {
     int error = loadFile(file);
     if (error)
@@ -31,7 +31,7 @@ int LuaState::doFile(std::string file)
     return error;
 }
 
-int LuaState::loadFile(std::string file)
+int LuaState::loadFile(const std::string& file)
 {
     lua_pushcfunction(m_luaState, traceback);
     int error = luaL_loadfile(m_luaState, file.c_str());
@@ -44,7 +44,7 @@ int LuaState::loadFile(std::string file)
     return error;
 }
 
-int LuaState::executeFile(std::string file)
+int LuaState::executeFile(const std::string& file)
 {
     int error = lua_pcall(m_luaState, 0, 0, lua_gettop(m_luaState) - 1);
 

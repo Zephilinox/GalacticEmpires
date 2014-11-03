@@ -31,9 +31,9 @@ public:
     LuaState();
     ~LuaState();
 
-    int doFile(std::string file);
-    int loadFile(std::string file);
-    int executeFile(std::string file);
+    int doFile(const std::string& file);
+    int loadFile(const std::string& file);
+    int executeFile(const std::string& file);
 
     lua_State* getRawState();
 
