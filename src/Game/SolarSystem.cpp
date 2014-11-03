@@ -5,8 +5,16 @@
 #include "Math/Vector.hpp"
 
 SolarSystem::SolarSystem(sf::Vector2u center)
+    : m_shape(HEX_RADIUS * (SYSTEM_RADIUS * 2 + 2), 6)
 {
     genMap(sf::Vector2u(center.x, center.y));
+
+    m_shape.setOrigin(HEX_RADIUS * (SYSTEM_RADIUS * 2 + 2), HEX_RADIUS * (SYSTEM_RADIUS * 2 + 2));
+    m_shape.setFillColor(sf::Color(255, 80, 0, 40));
+    m_shape.setOutlineColor(sf::Color::Black);
+    m_shape.setOutlineThickness(-2);
+    m_shape.setPosition(center.x / 2.f, center.y / 2.f);
+    m_shape.rotate(30);
 }
 
 void SolarSystem::handleEvent(const sf::Event& e)
@@ -21,6 +29,8 @@ void SolarSystem::update(double dt)
 
 void SolarSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+    target.draw(m_shape, states);
+
     for (const auto& hex : m_map)
     {
         target.draw(hex.second, states);
@@ -29,10 +39,9 @@ void SolarSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void SolarSystem::genMap(sf::Vector2u center)
 {
-    int mapRadius = 3;
-    for (int i = -mapRadius; i <= mapRadius; ++i)
+    for (int i = -SYSTEM_RADIUS; i <= SYSTEM_RADIUS; ++i)
     {
-        genHexLine(i, mapRadius, center);
+        genHexLine(i, SYSTEM_RADIUS, center);
     }
 
     std::cout << "hexes: " << m_map.size() << "\n";
@@ -40,13 +49,13 @@ void SolarSystem::genMap(sf::Vector2u center)
 
 void SolarSystem::genHexLine(int lineHeight, int radius, sf::Vector2u center)
 {
-    float hexRadius = 16;
+    float hexRadius = HEX_RADIUS;
     float hexHeight = hexRadius * 2;
     float hexWidth = hexHeight * Vector::degToVector(60).x;
 
     sf::CircleShape hexTemplate(hexRadius, 6);
     hexTemplate.setOrigin(hexRadius, hexRadius);
-    hexTemplate.setFillColor(sf::Color(255, 0, 0, 50));
+    hexTemplate.setFillColor(sf::Color(0, 0, 0, 0));
     hexTemplate.setOutlineColor(sf::Color::White);
     hexTemplate.setOutlineThickness(-2);
     hexTemplate.setPosition(center.x / 2.f, center.y / 2.f);
@@ -100,7 +109,5 @@ void SolarSystem::genHexLine(int lineHeight, int radius, sf::Vector2u center)
         }
 
         m_map[coords] = hex;
-        //std::cout << "[" << coords.x << ", " << coords.y << "], ";
     }
-    //std::cout << "\n";
 }
