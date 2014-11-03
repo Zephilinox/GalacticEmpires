@@ -11,9 +11,13 @@
 GalacticEmpires::GalacticEmpires()
     : m_window(sf::VideoMode(1280, 720, 32), "Galactic Empires")
     , m_curState(nullptr)
+    , m_errorWindow(sfg::Window::Create(sfg::Window::BACKGROUND))
     , m_prevFrameTime(sf::seconds(1.f/60.f))
 {
+    m_errorWindow->Show(false);
+
     loadSettings();
+
     m_window.resetGLStates(); //This is required to show SFGUI if we don't draw with SFML at any point
 
     m_guiDesktop.LoadThemeFromFile("data/default.theme");
@@ -81,6 +85,20 @@ void GalacticEmpires::loadSettings()
     }
 }
 
+void GalacticEmpires::handleError(std::string err)
+{
+    if (!m_exceptionErrorMessage.empty())
+    {
+        return;
+    }
+
+    m_exceptionErrorMessage = err;
+    sfg::Label::Ptr lbl = sfg::Label::Create(err);
+    m_errorWindow->Add(lbl);
+    m_errorWindow->Show(true);
+    std::cout << err << "\n";
+}
+
 void GalacticEmpires::gameLoop()
 {
     m_frameTime.restart();
@@ -103,7 +121,16 @@ void GalacticEmpires::gameLoop()
 
 void GalacticEmpires::handleEvent(const sf::Event& e)
 {
-    m_curState->handleEvent(e);
+    try
+    {
+        m_curState->handleEvent(e);
+    }
+    catch (const std::exception& e)
+    {
+        handleError(e.what());
+    }
+
+    m_errorWindow->HandleEvent(e);
 
     switch (e.type)
     {
@@ -131,7 +158,16 @@ void GalacticEmpires::handleEvent(const sf::Event& e)
 
 void GalacticEmpires::update(float dt)
 {
-    m_curState->update(dt);
+    try
+    {
+        m_curState->update(dt);
+    }
+    catch (const std::exception& e)
+    {
+        handleError(e.what()); //Bug: called every frame? why does the exception keep getting catched, there should only be one.
+    }
+
+    m_errorWindow->Update(dt);
 }
 
 void GalacticEmpires::draw()

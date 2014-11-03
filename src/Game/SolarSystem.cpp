@@ -3,10 +3,33 @@
 #include <iostream>
 
 #include "Math/Vector.hpp"
+#include "Helper/LuaState.hpp"
+#include "Helper/Utility.hpp"
 
 SolarSystem::SolarSystem(sf::Vector2u center)
+    : m_systemRadius(16)
+    , m_hexRadius(32)
+    , m_shape(0, 6)
 {
+    LuaState luaState;
+    int error = luaState.doFile("data/Lua/SolarSystem.lua");
+    std::cout << "data/lua/SolarSystem.lua: " << luaErrorAsString(error) << "\n";
+
+    //TODO: Use values for the class and ensure they are valid in the file
+    luabridge::LuaRef solSys = luabridge::getGlobal(luaState.getRawState(), "SolarSystem");
+    std::cout << solSys["hexRadius"].cast<std::string>() << "\n";
+    std::cout << solSys["systemRadius"].cast<std::string>() << "\n";
+
     genMap(sf::Vector2u(center.x, center.y));
+
+    m_shape.setRadius(m_hexRadius * (m_systemRadius * 2 + 2));
+
+    m_shape.setOrigin(m_shape.getRadius(), m_shape.getRadius());
+    m_shape.setFillColor(sf::Color(255, 80, 0, 40));
+    m_shape.setOutlineColor(sf::Color::Black);
+    m_shape.setOutlineThickness(-2);
+    m_shape.setPosition(center.x / 2.f, center.y / 2.f);
+    m_shape.rotate(30);
 }
 
 void SolarSystem::handleEvent(const sf::Event& e)
@@ -21,6 +44,8 @@ void SolarSystem::update(double dt)
 
 void SolarSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+    target.draw(m_shape, states);
+
     for (const auto& hex : m_map)
     {
         target.draw(hex.second, states);
@@ -29,10 +54,9 @@ void SolarSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void SolarSystem::genMap(sf::Vector2u center)
 {
-    int mapRadius = 3;
-    for (int i = -mapRadius; i <= mapRadius; ++i)
+    for (int i = -m_systemRadius; i <= m_systemRadius; ++i)
     {
-        genHexLine(i, mapRadius, center);
+        genHexLine(i, m_systemRadius, center);
     }
 
     std::cout << "hexes: " << m_map.size() << "\n";
@@ -40,13 +64,12 @@ void SolarSystem::genMap(sf::Vector2u center)
 
 void SolarSystem::genHexLine(int lineHeight, int radius, sf::Vector2u center)
 {
-    float hexRadius = 16;
-    float hexHeight = hexRadius * 2;
+    float hexHeight = m_hexRadius * 2;
     float hexWidth = hexHeight * Vector::degToVector(60).x;
 
-    sf::CircleShape hexTemplate(hexRadius, 6);
-    hexTemplate.setOrigin(hexRadius, hexRadius);
-    hexTemplate.setFillColor(sf::Color(255, 0, 0, 50));
+    sf::CircleShape hexTemplate(m_hexRadius, 6);
+    hexTemplate.setOrigin(m_hexRadius, m_hexRadius);
+    hexTemplate.setFillColor(sf::Color(0, 0, 0, 0));
     hexTemplate.setOutlineColor(sf::Color::White);
     hexTemplate.setOutlineThickness(-2);
     hexTemplate.setPosition(center.x / 2.f, center.y / 2.f);
@@ -100,7 +123,5 @@ void SolarSystem::genHexLine(int lineHeight, int radius, sf::Vector2u center)
         }
 
         m_map[coords] = hex;
-        //std::cout << "[" << coords.x << ", " << coords.y << "], ";
     }
-    //std::cout << "\n";
 }
