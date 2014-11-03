@@ -37,31 +37,27 @@ void SolarSystem::handleEvent(const sf::Event& e)
 
 void SolarSystem::update(double dt)
 {
-    sf::Vector2f mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
-    Vector mousePos2(mousePos.x, mousePos.y);
+    Vector mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
 
     float targetHexDistance = 0;
-    sf::CircleShape* targetHex;
 
     for (auto& hexPair : m_map)
     {
-        Vector hexPos(hexPair.second.getPosition().x, hexPair.second.getPosition().y);
-
-        if (Vector(hexPos - mousePos2).length() < m_hexRadius)
+        if (Vector(hexPair.second.getPosition() - mousePos).length() < m_hexRadius)
         {
-            if (targetHexDistance < Vector(hexPos - mousePos2).length())
+            if (targetHexDistance < Vector(hexPair.second.getPosition() - mousePos).length())
             {
-                targetHexDistance = Vector(hexPos - mousePos2).length();
-                targetHex = &hexPair.second;
+                targetHexDistance = Vector(hexPair.second.getPosition() - mousePos).length();
+                m_curSelHex = &hexPair.second;
             }
         }
 
         hexPair.second.setFillColor(sf::Color(255, 0, 0, 40));
     }
 
-    if (targetHex)
+    if (m_curSelHex)
     {
-        targetHex->setFillColor(sf::Color::Blue);
+        m_curSelHex->setFillColor(sf::Color::Blue);
     }
 }
 
