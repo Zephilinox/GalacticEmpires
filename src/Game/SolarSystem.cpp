@@ -15,6 +15,11 @@ SolarSystem::SolarSystem(sf::Vector2u center)
     int error = luaState.doFile("data/Lua/SolarSystem.lua");
     std::cout << "data/lua/SolarSystem.lua: " << luaErrorAsString(error) << "\n";
 
+    //TODO: Use values for the class and ensure they are valid in the file
+    luabridge::LuaRef solSys = luabridge::getGlobal(luaState.getRawState(), "SolarSystem");
+    std::cout << solSys["hexRadius"].cast<std::string>() << "\n";
+    std::cout << solSys["systemRadius"].cast<std::string>() << "\n";
+
     genMap(sf::Vector2u(center.x, center.y));
 
     m_shape.setRadius(m_hexRadius * (m_systemRadius * 2 + 2));

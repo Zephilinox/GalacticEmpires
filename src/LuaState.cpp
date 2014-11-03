@@ -30,6 +30,7 @@ int LuaState::doFile(std::string file)
     error = executeFile(file);
     return error;
 }
+
 int LuaState::loadFile(std::string file)
 {
     lua_pushcfunction(m_luaState, traceback);
