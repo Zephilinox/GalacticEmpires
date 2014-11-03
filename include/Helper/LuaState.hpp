@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include <lua.hpp>
+#include <lua5.2/lua.hpp>
 #include <LuaBridge/LuaBridge.h>
 
 static int traceback(lua_State* L)

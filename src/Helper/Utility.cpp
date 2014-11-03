@@ -1,6 +1,6 @@
 #include "Helper/Utility.hpp"
 
-#include <lua.hpp>
+#include <lua5.2/lua.hpp>
 
 void drawLine(sf::RenderTarget& target, float x1, float y1, float x2, float y2, sf::Color c)
 {
