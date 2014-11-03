@@ -39,7 +39,11 @@ private:
     void genMap(sf::Vector2u center);
     void genHexLine(int lineHeight, int radius, sf::Vector2u center);
 
+    int m_systemRadius;
+    float m_hexRadius;
+
     HexMap m_map;
+    sf::CircleShape m_shape;
 };
 
 #endif //SOLARSYSTEM_HPP

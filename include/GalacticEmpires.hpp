@@ -17,6 +17,7 @@ public:
 
 private:
     void loadSettings();
+    void handleError(std::string err);
 
     void gameLoop();
     void handleEvent(const sf::Event& e);
@@ -29,10 +30,13 @@ private:
 
     sfg::SFGUI m_gui;
     sfg::Desktop m_guiDesktop;
+    sfg::Window::Ptr m_errorWindow;
 
     sf::Event m_event;
     sf::Clock m_frameTime;
     sf::Time m_prevFrameTime;
+
+    std::string m_exceptionErrorMessage;
 
     static const unsigned VERSION_MAJOR = 0;
     static const unsigned VERSION_MINOR = 0;

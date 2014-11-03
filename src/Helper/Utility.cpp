@@ -1,5 +1,7 @@
 #include "Helper/Utility.hpp"
 
+#include <lua.hpp>
+
 void drawLine(sf::RenderTarget& target, float x1, float y1, float x2, float y2, sf::Color c)
 {
     sf::VertexArray line(sf::Lines, 2);
@@ -8,7 +10,7 @@ void drawLine(sf::RenderTarget& target, float x1, float y1, float x2, float y2, 
     target.draw(line);
 }
 
-/*std::string luaErrorAsString(lua_State* L, int error)
+std::string luaErrorAsString(int error)
 {
     switch (error)
     {
@@ -24,12 +26,12 @@ void drawLine(sf::RenderTarget& target, float x1, float y1, float x2, float y2, 
 
         case LUA_ERRRUN:
         {
-            return std::string("Runtime Error: " + std::string(lua_tostring(L, -1)));
+            return "Runtime Error";
         }
 
         case LUA_ERRSYNTAX:
         {
-            return std::string("Syntax Error: " + std::string(lua_tostring(L, -1)));
+            return "Syntax Error";
         }
 
         case LUA_ERRMEM:
@@ -54,7 +56,7 @@ void drawLine(sf::RenderTarget& target, float x1, float y1, float x2, float y2, 
 
         default:
         {
-            return std::string("Unknown Lua Error. Code = " + zge::toString(error));
+            return std::string("Unknown Lua Error. Code = " + toString(error));
         }
     }
-}*/
+}

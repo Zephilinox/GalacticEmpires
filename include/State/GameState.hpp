@@ -7,6 +7,7 @@
 #include "State/BaseState.hpp"
 #include "Game/SolarSystem.hpp"
 #include "GalacticEmpires.hpp"
+#include "Helper/Camera.hpp"
 
 class GameState : public BaseState
 {
@@ -24,6 +25,8 @@ private:
     sfg::Window::Ptr m_guiWindow;
 
     SolarSystem m_solarSystem;
+
+    Camera m_camera;
 };
 
 #endif //GAMESTATE_HPP

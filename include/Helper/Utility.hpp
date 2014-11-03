@@ -5,6 +5,8 @@
 
 #include <SFML/Graphics.hpp>
 
+struct lua_State;
+
 void drawLine(sf::RenderTarget& target, float x1, float y1, float x2, float y2, sf::Color c);
 
 template<class T>
@@ -24,6 +26,6 @@ T fromString(std::string str)
     return var;
 }
 
-//std::string luaErrorAsString(lua_State* L, int error);
+std::string luaErrorAsString(int error);
 
 #endif //UTILITY_HPP
