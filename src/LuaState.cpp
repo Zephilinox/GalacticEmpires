@@ -19,6 +19,17 @@ LuaState::~LuaState()
     m_luaState = nullptr;
 }
 
+int LuaState::doFile(std::string file)
+{
+    int error = loadFile(file);
+    if (error)
+    {
+        return error;
+    }
+
+    error = executeFile(file);
+    return error;
+}
 int LuaState::loadFile(std::string file)
 {
     lua_pushcfunction(m_luaState, traceback);
@@ -27,7 +38,7 @@ int LuaState::loadFile(std::string file)
     #ifdef DEBUG
     if (error)
     {
-        throw std::runtime_error("[LuaState::loadFile] " + file + ":\n " + luaErrorAsString(m_luaState, error));
+        throw std::runtime_error("[LuaState::loadFile] " + luaErrorAsString(error) + "\n\n" + lua_tostring(m_luaState, -1));
     }
     #endif //DEBUG
 
@@ -41,8 +52,9 @@ int LuaState::executeFile(std::string file)
     #ifdef DEBUG
     if (error)
     {
-        throw std::runtime_error("[LuaState::executeFile] " + file + ":\n " + luaErrorAsString(m_luaState, error));
+        throw std::runtime_error("[LuaState::executeFile] " + luaErrorAsString(error) + "\n\n" + lua_tostring(m_luaState, -1));
     }
+
     #endif //DEBUG
 
     return error;

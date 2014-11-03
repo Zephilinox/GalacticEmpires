@@ -26,6 +26,6 @@ T fromString(std::string str)
     return var;
 }
 
-std::string luaErrorAsString(lua_State* L, int error);
+std::string luaErrorAsString(int error);
 
 #endif //UTILITY_HPP

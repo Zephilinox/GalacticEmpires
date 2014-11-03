@@ -4,6 +4,7 @@
 
 #include "Math/Vector.hpp"
 #include "Helper/LuaState.hpp"
+#include "Helper/Utility.hpp"
 
 SolarSystem::SolarSystem(sf::Vector2u center)
     : m_systemRadius(16)
@@ -11,8 +12,8 @@ SolarSystem::SolarSystem(sf::Vector2u center)
     , m_shape(0, 6)
 {
     LuaState luaState;
-    int error = luaState.loadFile("data/Lua/SolarSystem.lua");
-    error = luaState.executeFile("data/Lua/SolarSystem.lua");
+    int error = luaState.doFile("data/Lua/SolarSystem.lua");
+    std::cout << "data/lua/SolarSystem.lua: " << luaErrorAsString(error) << "\n";
 
     genMap(sf::Vector2u(center.x, center.y));
 

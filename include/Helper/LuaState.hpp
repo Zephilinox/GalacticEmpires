@@ -31,6 +31,7 @@ public:
     LuaState();
     ~LuaState();
 
+    int doFile(std::string file);
     int loadFile(std::string file);
     int executeFile(std::string file);
 
