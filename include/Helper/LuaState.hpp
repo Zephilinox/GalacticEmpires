@@ -32,9 +32,8 @@ public:
     LuaState();
     ~LuaState();
 
-    int doFile(const std::string& file);
     int loadFile(const std::string& file);
-    int executeFile(const std::string& file);
+    int execute();
 
     luabridge::LuaRef getGlobal(const std::string& varName);
 
