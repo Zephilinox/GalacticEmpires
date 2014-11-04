@@ -38,17 +38,18 @@ void SolarSystem::handleEvent(const sf::Event& e)
 
 void SolarSystem::update(double dt)
 {
-    Vector mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
+    Vector<float> mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
 
     float targetHexDistance = 0;
 
     for (auto& hexPair : m_map)
     {
-        if (Vector(hexPair.second.getPosition() - mousePos).length() < m_hexRadius)
+        float hexDistance = Vector<float>(hexPair.second.getPosition() - mousePos).length();
+        if (hexDistance < m_hexRadius)
         {
-            if (targetHexDistance < Vector(hexPair.second.getPosition() - mousePos).length())
+            if (targetHexDistance < hexDistance)
             {
-                targetHexDistance = Vector(hexPair.second.getPosition() - mousePos).length();
+                targetHexDistance = hexDistance;
                 m_curSelHex = &hexPair.second;
             }
         }
@@ -85,7 +86,7 @@ void SolarSystem::genMap(sf::Vector2u center)
 void SolarSystem::genHexLine(int lineHeight, int radius, sf::Vector2u center)
 {
     float hexHeight = m_hexRadius * 2;
-    float hexWidth = hexHeight * Vector::degToVector(60).x;
+    float hexWidth = hexHeight * Vector<float>::degToVector(60).x;
 
     sf::CircleShape hexTemplate(m_hexRadius, 6);
     hexTemplate.setOrigin(m_hexRadius, m_hexRadius);
