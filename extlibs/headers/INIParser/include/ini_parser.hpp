@@ -277,17 +277,10 @@ class ini_parser
 
         void write_input_to_file()
         {
-            std::fstream file(filename);
-            for (unsigned i = 0; i < input.size(); ++i)
+            std::ofstream file(filename);
+            for (const auto& line : input)
             {
-                if (i == input.size() - 1)
-                {
-                    file << input[i];
-                }
-                else
-                {
-                    file << input[i] << "\n";
-                }
+                file << line << '\n';
             }
             file.close();
         }
@@ -428,8 +421,11 @@ class ini_parser
 
         std::string current_section;
 
-        static constexpr const char* BOOL_TRUE = "BOOL_TRUE";
-        static constexpr const char* BOOL_FALSE = "BOOL_FALSE";
+        static const std::string BOOL_TRUE;
+        static const std::string BOOL_FALSE;
 };
+
+const std::string ini_parser::BOOL_TRUE = "BOOL_TRUE";
+const std::string ini_parser::BOOL_FALSE = "BOOL_FALSE";
 
 #endif
