@@ -3,7 +3,7 @@
 GameState::GameState(GalacticEmpires* galemp)
     : m_galemp(galemp)
     , m_guiWindow(sfg::Window::Create())
-    , m_solarSystem(m_galemp->getWindow()->getSize())
+    , m_solarSystem(m_galemp, m_galemp->getWindow()->getSize())
     , m_camera(m_galemp->getWindow())
 {
     sf::Vector2u windowSize = m_galemp->getWindow()->getSize();

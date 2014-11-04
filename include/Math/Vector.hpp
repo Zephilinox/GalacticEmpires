@@ -3,12 +3,16 @@
 
 #include <cmath>
 
+#include <SFML/Graphics.hpp>
+
 const double PI = 3.141592653;
 
 class Vector
 {
 public:
     Vector(double x = 0, double y = 0);
+    Vector(sf::Vector2f vec);
+    operator sf::Vector2f();
 
     static double radToDeg(double rad);
     static double degToRad(double deg);
