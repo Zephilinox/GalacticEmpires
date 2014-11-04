@@ -12,7 +12,8 @@ SolarSystem::SolarSystem(sf::Vector2u center)
     , m_shape(0, 6)
 {
     LuaState luaState;
-    int error = luaState.doFile("data/Lua/SolarSystem.lua");
+    luaState.loadFile("data/Lua/SolarSystem.lua");
+    luaState.execute();
 
     m_systemRadius = luaState.getGlobal("SolarSystem.systemRadius").cast<int>();
     m_hexRadius = luaState.getGlobal("SolarSystem.hexRadius").cast<int>();

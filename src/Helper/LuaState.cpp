@@ -19,18 +19,6 @@ LuaState::~LuaState()
     m_luaState = nullptr;
 }
 
-int LuaState::doFile(const std::string& file)
-{
-    int error = loadFile(file);
-    if (error)
-    {
-        return error;
-    }
-
-    error = executeFile(file);
-    return error;
-}
-
 int LuaState::loadFile(const std::string& file)
 {
     lua_pushcfunction(m_luaState, traceback);
@@ -44,13 +32,13 @@ int LuaState::loadFile(const std::string& file)
     return error;
 }
 
-int LuaState::executeFile(const std::string& file)
+int LuaState::execute()
 {
     int error = lua_pcall(m_luaState, 0, 0, lua_gettop(m_luaState) - 1);
 
     if (error)
     {
-        throw std::runtime_error("[LuaState::executeFile] " + luaErrorAsString(error) + "\n\n" + lua_tostring(m_luaState, -1));
+        throw std::runtime_error("[LuaState::execute] " + luaErrorAsString(error) + "\n\n" + lua_tostring(m_luaState, -1));
     }
 
     return error;
@@ -75,17 +63,21 @@ luabridge::LuaRef LuaState::getGlobal(const std::string& varName)
             vars.push_back(splitVarName);
         }
 
-        if (vars.size() > 1)
-        {
-            luabridge::LuaRef varRef = luabridge::getGlobal(m_luaState, "_G");
+        luabridge::LuaRef varRef = luabridge::getGlobal(m_luaState, "_G");
 
+        if (vars.size())
+        {
             for (unsigned i = 0; i < vars.size(); ++i)
             {
                 varRef = luabridge::LuaRef(varRef[vars[i].c_str()]);
             }
-
-            return varRef;
         }
+        else
+        {
+            varRef = luabridge::LuaRef(varRef[vars[0].c_str()]);
+        }
+
+        return varRef;
     }
 }
 
