@@ -11,8 +11,8 @@ Camera::Camera(sf::RenderWindow* window)
     , m_moveSpeed(512.f)
     , m_updateWindow(false)
 {
-    m_zoomLimits[0] = 0.5f;
-    m_zoomLimits[1] = 2.0f;
+    m_zoomLimits[0] = 0.49f;
+    m_zoomLimits[1] = 2.01f;
 
     m_panBorderLimits[0] = m_window->getSize().x * m_panZonePercent;
     m_panBorderLimits[1] = m_window->getSize().x * (1.f-m_panZonePercent);
@@ -30,13 +30,13 @@ void Camera::handleEvent(const sf::Event& e)
             if (m_zoomValue + zoomDelta >= m_zoomLimits[0] &&
                 m_zoomValue + zoomDelta <= m_zoomLimits[1])
             {
-                //BUG: Floating point causes error with zooming limits, so if you keep zooming in and out you will be too zoomed in eventually
                 m_zoomValue += zoomDelta;
-                m_view.zoom(1.f + zoomDelta); //TODO: Make Smooth Zoom
+                //m_view.zoom(1.f + zoomDelta); //TODO: Make Smooth Zoom
+                m_view.setSize(sf::Vector2f(m_window->getSize()) * m_zoomValue);
                 m_updateWindow = true;
             }
 
-            std::cout << m_zoomValue << "\n";
+            std::cout << "Camera [" << m_view.getSize().x << ", " << m_view.getSize().y << "] = " << m_zoomValue * 100 << "%\n";
 
             break;
         }

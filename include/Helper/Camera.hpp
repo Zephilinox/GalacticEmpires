@@ -12,6 +12,8 @@ public:
 
     void resetZoom();
 
+    const sf::View& getView() const {return m_view;}
+
 private:
     sf::RenderWindow* m_window;
     sf::View m_view;
