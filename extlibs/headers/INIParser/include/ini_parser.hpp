@@ -421,11 +421,8 @@ class ini_parser
 
         std::string current_section;
 
-        static const std::string BOOL_TRUE;
-        static const std::string BOOL_FALSE;
+        const std::string BOOL_TRUE;
+        const std::string BOOL_FALSE;
 };
-
-const std::string ini_parser::BOOL_TRUE = "BOOL_TRUE";
-const std::string ini_parser::BOOL_FALSE = "BOOL_FALSE";
 
 #endif
