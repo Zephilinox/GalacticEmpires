@@ -19,6 +19,11 @@ void Settings::save()
     m_sections.clear();
 }
 
+void Settings::reset()
+{
+    m_sections.clear();
+}
+
 void Settings::setValue(const std::string& name, int value, const std::string& section)
 {
     m_sections[section][name] = toString(value);

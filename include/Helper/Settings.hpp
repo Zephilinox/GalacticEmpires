@@ -12,6 +12,7 @@ class Settings
         Settings(const std::string& filename);
 
         void save();
+        void reset();
 
         void setValue(const std::string& name, int value, const std::string& section = "");
         void setValue(const std::string& name, bool value, const std::string& section = "");
