@@ -43,10 +43,12 @@ void Camera::handleEvent(const sf::Event& e)
 
         case sf::Event::Resized:
         {
+            m_view.setSize(m_window->getSize().x * m_zoomValue, m_window->getSize().y * m_zoomValue);
             m_panBorderLimits[0] = m_window->getSize().x * m_panZonePercent;
             m_panBorderLimits[1] = m_window->getSize().x * (1.f-m_panZonePercent);
             m_panBorderLimits[2] = m_window->getSize().y * m_panZonePercent;
             m_panBorderLimits[3] = m_window->getSize().y * (1.f-m_panZonePercent);
+            m_updateWindow = true;
             break;
         }
 
