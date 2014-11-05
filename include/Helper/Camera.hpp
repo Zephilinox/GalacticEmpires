@@ -3,10 +3,12 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "GalacticEmpires.hpp"
+
 class Camera
 {
 public:
-    Camera(sf::RenderWindow* window);
+    Camera(GalacticEmpires* galemp);
     void handleEvent(const sf::Event& e);
     void update(double dt);
 
@@ -15,7 +17,9 @@ public:
     const sf::View& getView() const {return m_view;}
 
 private:
-    sf::RenderWindow* m_window;
+    void zoom(float zoomDelta);
+
+    GalacticEmpires* m_galemp;
     sf::View m_view;
 
     float m_zoomLimits[2];

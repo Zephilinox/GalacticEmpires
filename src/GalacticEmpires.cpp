@@ -38,6 +38,11 @@ StateManager<GalacticEmpires>* GalacticEmpires::getStateManager()
     return &m_stateMan;
 }
 
+Settings* GalacticEmpires::getSettings()
+{
+    return &m_settings;
+}
+
 void GalacticEmpires::loadSettings()
 {
     m_settings.reset();
