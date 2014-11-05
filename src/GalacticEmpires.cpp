@@ -40,6 +40,8 @@ StateManager<GalacticEmpires>* GalacticEmpires::getStateManager()
 
 void GalacticEmpires::loadSettings()
 {
+    m_settings.reset();
+
     int width = m_settings.getInt("width", "Video");
     int height = m_settings.getInt("height", "Video");
     int bitDepth = m_settings.getInt("bitDepth", "Video");
