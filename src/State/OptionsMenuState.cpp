@@ -55,12 +55,20 @@ OptionsMenuState::OptionsMenuState(GalacticEmpires* galemp)
     settingsBox6->Pack(settingsLabel6);
     settingsBox6->Pack(settingsModifier6);
 
+    sfg::Box::Ptr bx = sfg::Box::Create();
+    sfg::Alignment::Ptr ali = sfg::Alignment::Create();
+    bx->Pack(ali);
+    ali->Add(sfg::Label::Create("test"));
+    ali->SetScale(sf::Vector2f(0.f, 0.f));
+    ali->SetAlignment(sf::Vector2f(1.f, 0.f));
+
     videoSettingsPage->Pack(settingsBox1);
     videoSettingsPage->Pack(settingsBox2);
     videoSettingsPage->Pack(settingsBox3);
     videoSettingsPage->Pack(settingsBox4);
     videoSettingsPage->Pack(settingsBox5);
     videoSettingsPage->Pack(settingsBox6);
+    videoSettingsPage->Pack(bx);
 
     notebook->AppendPage(videoSettingsPage, sfg::Label::Create("Video"));
     optionsMenuBox->Pack(notebook);
