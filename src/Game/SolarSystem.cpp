@@ -40,26 +40,26 @@ void SolarSystem::update(double dt)
 {
     Vector mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
 
-    float targetHexDistance = 0;
+    float solDistance = Vector(m_shape.getPosition() - mousePos).length();
 
-    for (auto& hexPair : m_map)
+    if (solDistance < m_shape.getRadius())
     {
-        float hexDistance = Vector(hexPair.second.getPosition() - mousePos).length();
-        if (hexDistance < m_hexRadius)
+        float shortestHexDistance = 1000000; //TODO: set to max limit
+
+        for (auto& hexPair : m_map)
         {
-            if (targetHexDistance < hexDistance)
+            float hexDistance = Vector(hexPair.second.getPosition() - mousePos).length();
+            if (hexDistance < m_hexRadius)
             {
-                targetHexDistance = hexDistance;
-                m_curSelHex = &hexPair.second;
+                if (hexDistance < shortestHexDistance)
+                {
+                    shortestHexDistance = hexDistance;
+                    m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 0));
+                    m_hoverHex = hexPair.first;
+                    m_map[m_hoverHex].setFillColor(sf::Color(0, 255, 0, 40));
+                }
             }
         }
-
-        hexPair.second.setFillColor(sf::Color(255, 0, 0, 40));
-    }
-
-    if (m_curSelHex)
-    {
-        m_curSelHex->setFillColor(sf::Color::Blue);
     }
 }
 

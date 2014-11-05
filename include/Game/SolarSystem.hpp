@@ -48,7 +48,7 @@ private:
 
     HexMap m_map;
     sf::CircleShape m_shape;
-    sf::CircleShape* m_curSelHex;
+    coordinates m_hoverHex;
 };
 
 #endif //SOLARSYSTEM_HPP
