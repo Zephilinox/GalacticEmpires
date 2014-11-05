@@ -19,8 +19,6 @@ GalacticEmpires::GalacticEmpires()
 
     loadSettings();
 
-    m_window.resetGLStates(); //This is required to show SFGUI if we don't draw with SFML at any point
-
     m_guiDesktop.LoadThemeFromFile("data/default.theme");
     m_stateMan.push<SplashState>(this);
 }
@@ -84,6 +82,8 @@ void GalacticEmpires::loadSettings()
     {
         m_window.setFramerateLimit(maxFPS);
     }
+
+    m_window.resetGLStates(); //This is required to show SFGUI if we don't draw with SFML at any point
 }
 
 void GalacticEmpires::handleError(std::string err)
@@ -147,6 +147,12 @@ void GalacticEmpires::handleEvent(const sf::Event& e)
             {
                 m_window.close();
             }
+
+            if (e.key.code == sf::Keyboard::F12)
+            {
+               loadSettings();
+            }
+
             break;
         }
 
