@@ -1,9 +1,10 @@
 #include "Helper/Utility.hpp"
 #include "Helper/Settings.hpp"
 
-const std::string Settings::SETTINGS_FILE = "data/settings.ini";
-ini_parser Settings::m_parser(SETTINGS_FILE);
-std::unordered_map<std::string, std::unordered_map<std::string, std::string>> Settings::m_sections;
+Settings::Settings(const std::string& filename)
+    : m_parser(filename)
+{
+}
 
 void Settings::save()
 {

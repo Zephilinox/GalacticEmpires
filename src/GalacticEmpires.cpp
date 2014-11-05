@@ -4,7 +4,6 @@
 #include <string>
 
 #include <Helper/Utility.hpp>
-#include <Helper/Settings.hpp>
 #include <ini_parser.hpp>
 
 #include "State/SplashState.hpp"
@@ -14,6 +13,7 @@ GalacticEmpires::GalacticEmpires()
     , m_curState(nullptr)
     , m_errorWindow(sfg::Window::Create(sfg::Window::BACKGROUND))
     , m_prevFrameTime(sf::seconds(1.f/60.f))
+    , m_settings("data/settings.ini")
 {
     m_errorWindow->Show(false);
 
@@ -42,12 +42,12 @@ StateManager<GalacticEmpires>* GalacticEmpires::getStateManager()
 
 void GalacticEmpires::loadSettings()
 {
-    int width = Settings::getInt("width", "Video");
-    int height = Settings::getInt("height", "Video");
-    int bitDepth = Settings::getInt("bitDepth", "Video");
-    bool fullscreen = Settings::getBool("fullscreen", "Video");
-    bool vsync = Settings::getBool("vsync", "Video");
-    int maxFPS = Settings::getInt("maxFPS", "Video");
+    int width = m_settings.getInt("width", "Video");
+    int height = m_settings.getInt("height", "Video");
+    int bitDepth = m_settings.getInt("bitDepth", "Video");
+    bool fullscreen = m_settings.getBool("fullscreen", "Video");
+    bool vsync = m_settings.getBool("vsync", "Video");
+    int maxFPS = m_settings.getInt("maxFPS", "Video");
 
     std::string version = "v";
     version += toString(VERSION_MAJOR);
@@ -67,12 +67,12 @@ void GalacticEmpires::loadSettings()
         else if (width == 0 || height == 0)
         {
             vm = sf::VideoMode::getDesktopMode();
-            Settings::setValue("width", int(vm.width), "Video");
-            Settings::setValue("height", int(vm.height), "Video");
-            Settings::setValue("bitDepth", int(vm.bitsPerPixel), "Video");
+            m_settings.setValue("width", int(vm.width), "Video");
+            m_settings.setValue("height", int(vm.height), "Video");
+            m_settings.setValue("bitDepth", int(vm.bitsPerPixel), "Video");
             fullscreen = true;
-            Settings::setValue("fullscreen", fullscreen, "Video");
-            Settings::save();
+            m_settings.setValue("fullscreen", fullscreen, "Video");
+            m_settings.save();
         }
     }
 
