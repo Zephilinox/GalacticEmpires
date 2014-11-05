@@ -84,9 +84,14 @@ namespace
 class ini_parser
 {
     public:
+        const std::string BOOL_TRUE;
+        const std::string BOOL_FALSE;
+
         ini_parser(const std::string& filename)
             : filename(filename)
             , current_section("")
+            , BOOL_TRUE("BOOL_TRUE")
+            , BOOL_FALSE("BOOL_FALSE")
         {
             parse(filename);
         }
@@ -420,9 +425,6 @@ class ini_parser
         std::map<std::string, properties> sections;
 
         std::string current_section;
-
-        const std::string BOOL_TRUE;
-        const std::string BOOL_FALSE;
 };
 
 #endif
