@@ -26,7 +26,7 @@ void Settings::reset()
 
 bool Settings::modifiedPropertyExists(const std::string& name, const std::string& section) const
 {
-    return m_sections.at(section).find(name) != m_sections.at(section).cend();
+    return (m_sections.find(section) != m_sections.cend()) && (m_sections.at(section).find(name) != m_sections.at(section).cend());
 }
 
 void Settings::setValue(const std::string& name, int value, const std::string& section)
