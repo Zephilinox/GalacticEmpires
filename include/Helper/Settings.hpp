@@ -9,28 +9,32 @@
 class Settings
 {
     public:
-        static void save();
+        Settings(const std::string& filename);
 
-        static void setValue(const std::string& name, int value, const std::string& section = "");
-        static void setValue(const std::string& name, bool value, const std::string& section = "");
-        static void setValue(const std::string& name, long value, const std::string& section = "");
-        static void setValue(const std::string& name, float value, const std::string& section = "");
-        static void setValue(const std::string& name, double value, const std::string& section = "");
-        static void setValue(const std::string& name, const std::string& value, const std::string& section = "");
+        void save();
+        void reset();
 
-        static int getInt(const std::string& name, const std::string& section = "");
-        static bool getBool(const std::string& name, const std::string& section = "");
-        static long getLong(const std::string& name, const std::string& section = "");
-        static float getFloat(const std::string& name, const std::string& section = "");
-        static double getDouble(const std::string& name, const std::string& section = "");
-        static std::string getString(const std::string& name, const std::string& section = "");
+        void setValue(const std::string& name, int value, const std::string& section = "");
+        void setValue(const std::string& name, bool value, const std::string& section = "");
+        void setValue(const std::string& name, long value, const std::string& section = "");
+        void setValue(const std::string& name, float value, const std::string& section = "");
+        void setValue(const std::string& name, double value, const std::string& section = "");
+        void setValue(const std::string& name, const std::string& value, const std::string& section = "");
+
+        int getInt(const std::string& name, const std::string& section = "");
+        bool getBool(const std::string& name, const std::string& section = "");
+        long getLong(const std::string& name, const std::string& section = "");
+        float getFloat(const std::string& name, const std::string& section = "");
+        double getDouble(const std::string& name, const std::string& section = "");
+        std::string getString(const std::string& name, const std::string& section = "");
 
     private:
-        static const std::string SETTINGS_FILE;
-        static ini_parser m_parser;
+        bool modifiedPropertyExists(const std::string& name, const std::string& section) const;
+
+        ini_parser m_parser;
 
         /* Maps a section name to the properties that have been changed in that section. */
-        static std::unordered_map<std::string, std::unordered_map<std::string, std::string>> m_sections;
+        std::unordered_map<std::string, std::unordered_map<std::string, std::string>> m_sections;
 };
 
 #endif
