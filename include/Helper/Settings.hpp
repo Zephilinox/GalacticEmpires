@@ -29,6 +29,8 @@ class Settings
         std::string getString(const std::string& name, const std::string& section = "");
 
     private:
+        bool modifiedPropertyExists(const std::string& name, const std::string& section) const;
+
         ini_parser m_parser;
 
         /* Maps a section name to the properties that have been changed in that section. */

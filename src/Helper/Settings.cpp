@@ -24,6 +24,11 @@ void Settings::reset()
     m_sections.clear();
 }
 
+bool Settings::modifiedPropertyExists(const std::string& name, const std::string& section) const
+{
+    return m_sections.at(section).find(name) != m_sections.at(section).cend();
+}
+
 void Settings::setValue(const std::string& name, int value, const std::string& section)
 {
     m_sections[section][name] = toString(value);
@@ -56,30 +61,70 @@ void Settings::setValue(const std::string& name, const std::string& value, const
 
 int Settings::getInt(const std::string& name, const std::string& section)
 {
+    if (modifiedPropertyExists(name, section))
+    {
+        return fromString<int>(m_sections[section][name]);
+    }
+
     return m_parser.get_int(name, section);
 }
 
 bool Settings::getBool(const std::string& name, const std::string& section)
 {
+    if (modifiedPropertyExists(name, section))
+    {
+        const auto& value = m_sections[section][name];
+        if (value == m_parser.BOOL_TRUE)
+        {
+            return true;
+        }
+        else if (value == m_parser.BOOL_FALSE)
+        {
+            return false;
+        }
+
+        throw std::runtime_error("cannot cast modified setting to bool");
+    }
+
     return m_parser.get_bool(name, section);
 }
 
 long Settings::getLong(const std::string& name, const std::string& section)
 {
+    if (modifiedPropertyExists(name, section))
+    {
+        return fromString<long>(m_sections[section][name]);
+    }
+
     return m_parser.get_long(name, section);
 }
 
 float Settings::getFloat(const std::string& name, const std::string& section)
 {
+    if (modifiedPropertyExists(name, section))
+    {
+        return fromString<float>(m_sections[section][name]);
+    }
+
     return m_parser.get_float(name, section);
 }
 
 double Settings::getDouble(const std::string& name, const std::string& section)
 {
+    if (modifiedPropertyExists(name, section))
+    {
+        return fromString<double>(m_sections[section][name]);
+    }
+    
     return m_parser.get_double(name, section);
 }
 
 std::string Settings::getString(const std::string& name, const std::string& section)
 {
+    if (modifiedPropertyExists(name, section))
+    {
+        return m_sections[section][name];
+    }
+
     return m_parser.get_string(name, section);
 }
