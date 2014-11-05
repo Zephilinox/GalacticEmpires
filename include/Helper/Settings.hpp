@@ -9,7 +9,7 @@
 class Settings
 {
     public:
-        static void saveSettings();
+        static void save();
 
         static void setValue(const std::string& name, int value, const std::string& section = "");
         static void setValue(const std::string& name, bool value, const std::string& section = "");

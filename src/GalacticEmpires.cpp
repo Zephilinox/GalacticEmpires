@@ -4,6 +4,7 @@
 #include <string>
 
 #include <Helper/Utility.hpp>
+#include <Helper/Settings.hpp>
 #include <ini_parser.hpp>
 
 #include "State/SplashState.hpp"
@@ -41,13 +42,12 @@ StateManager<GalacticEmpires>* GalacticEmpires::getStateManager()
 
 void GalacticEmpires::loadSettings()
 {
-    ini_parser iniParser("data/settings.ini");
-    int width = iniParser.get_int("width", "Video");
-    int height = iniParser.get_int("height", "Video");
-    int bitDepth = iniParser.get_int("bitDepth", "Video");
-    bool fullscreen = iniParser.get_bool("fullscreen", "Video");
-    bool vsync = iniParser.get_bool("vsync", "Video");
-    int maxFPS = iniParser.get_int("maxFPS", "Video");
+    int width = Settings::getInt("width", "Video");
+    int height = Settings::getInt("height", "Video");
+    int bitDepth = Settings::getInt("bitDepth", "Video");
+    bool fullscreen = Settings::getBool("fullscreen", "Video");
+    bool vsync = Settings::getBool("vsync", "Video");
+    int maxFPS = Settings::getInt("maxFPS", "Video");
 
     std::string version = "v";
     version += toString(VERSION_MAJOR);
@@ -67,11 +67,12 @@ void GalacticEmpires::loadSettings()
         else if (width == 0 || height == 0)
         {
             vm = sf::VideoMode::getDesktopMode();
-            iniParser.set_value("width", int(vm.width), "Video");
-            iniParser.set_value("height", int(vm.height), "Video");
-            iniParser.set_value("bitDepth", int(vm.bitsPerPixel), "Video");
+            Settings::setValue("width", int(vm.width), "Video");
+            Settings::setValue("height", int(vm.height), "Video");
+            Settings::setValue("bitDepth", int(vm.bitsPerPixel), "Video");
             fullscreen = true;
-            iniParser.set_value("fullscreen", fullscreen, "Video");
+            Settings::setValue("fullscreen", fullscreen, "Video");
+            Settings::save();
         }
     }
 

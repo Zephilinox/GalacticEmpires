@@ -1,6 +1,7 @@
 #ifndef UTILITY_HPP
 #define UTILITY_HPP
 
+#include <string>
 #include <sstream>
 
 #include <SFML/Graphics.hpp>
