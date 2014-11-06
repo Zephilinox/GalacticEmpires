@@ -13,6 +13,9 @@ Camera::Camera(GalacticEmpires* galemp)
     , m_moveSpeed(512.f)
     , m_updateWindow(false)
 {
+    m_view.setCenter(0, 0);
+    m_updateWindow = true; //assigned here for clarity
+
     m_zoomLimits[0] = 0.49f;
     m_zoomLimits[1] = 2.01f;
 

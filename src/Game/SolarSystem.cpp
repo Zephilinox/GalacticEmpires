@@ -6,7 +6,7 @@
 #include "Helper/LuaState.hpp"
 #include "Helper/Utility.hpp"
 
-SolarSystem::SolarSystem(GalacticEmpires* galemp, sf::Vector2u center)
+SolarSystem::SolarSystem(GalacticEmpires* galemp)
     : m_galemp(galemp)
     , m_systemRadius(16)
     , m_hexRadius(32)
@@ -19,7 +19,7 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp, sf::Vector2u center)
     m_systemRadius = luaState.getGlobal("SolarSystem.systemRadius").cast<int>();
     m_hexRadius = luaState.getGlobal("SolarSystem.hexRadius").cast<int>();
 
-    genMap(sf::Vector2u(center.x, center.y));
+    genMap();
 
     m_shape.setRadius(m_hexRadius * (m_systemRadius * 2 + 2));
 
@@ -27,7 +27,7 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp, sf::Vector2u center)
     m_shape.setFillColor(sf::Color(255, 80, 0, 40));
     m_shape.setOutlineColor(sf::Color::Black);
     m_shape.setOutlineThickness(-2);
-    m_shape.setPosition(center.x / 2.f, center.y / 2.f);
+    m_shape.setPosition(0, 0);
     m_shape.rotate(30);
 }
 
@@ -73,17 +73,17 @@ void SolarSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
     }
 }
 
-void SolarSystem::genMap(sf::Vector2u center)
+void SolarSystem::genMap()
 {
     for (int i = -m_systemRadius; i <= m_systemRadius; ++i)
     {
-        genHexLine(i, m_systemRadius, center);
+        genHexLine(i, m_systemRadius);
     }
 
     std::cout << "hexes: " << m_map.size() << "\n";
 }
 
-void SolarSystem::genHexLine(int lineHeight, int radius, sf::Vector2u center)
+void SolarSystem::genHexLine(int lineHeight, int radius)
 {
     float hexHeight = m_hexRadius * 2;
     float hexWidth = hexHeight * Vector::degToVector(60).x;
@@ -93,7 +93,7 @@ void SolarSystem::genHexLine(int lineHeight, int radius, sf::Vector2u center)
     hexTemplate.setFillColor(sf::Color(0, 0, 0, 0));
     hexTemplate.setOutlineColor(sf::Color::White);
     hexTemplate.setOutlineThickness(-2);
-    hexTemplate.setPosition(center.x / 2.f, center.y / 2.f);
+    hexTemplate.setPosition(0, 0);
 
     int lineWidth = radius*2 + 1 - std::abs(lineHeight);
     for (int i = 0; i < lineWidth; ++i)

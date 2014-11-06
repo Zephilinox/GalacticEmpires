@@ -5,7 +5,7 @@
 #include <SFGUI/SFGUI.hpp>
 
 #include "State/BaseState.hpp"
-#include "Game/SolarSystem.hpp"
+#include "Game/Universe.hpp"
 #include "GalacticEmpires.hpp"
 #include "Helper/Camera.hpp"
 
@@ -24,7 +24,7 @@ private:
 
     sfg::Window::Ptr m_guiWindow;
 
-    SolarSystem m_solarSystem;
+    Universe m_universe;
 
     Camera m_camera;
 };
