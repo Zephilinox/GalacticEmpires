@@ -30,6 +30,17 @@ void GalacticEmpires::run()
     gameLoop();
 }
 
+void GalacticEmpires::handleError(std::string err)
+{
+    if (m_exceptionErrorMessage != err)
+    {
+        m_exceptionErrorMessage = err;
+        m_errorLabel->SetText(err);
+        m_errorWindow->Show(true);
+        std::cout << err << "\n";
+    }
+}
+
 sf::RenderWindow* GalacticEmpires::getWindow()
 {
     return &m_window;
@@ -95,17 +106,6 @@ void GalacticEmpires::loadSettings()
     m_window.resetGLStates(); //This is required to show SFGUI if we don't draw with SFML at any point
 }
 
-void GalacticEmpires::handleError(std::string err)
-{
-    if (m_exceptionErrorMessage != err)
-    {
-        m_exceptionErrorMessage = err;
-        m_errorLabel->SetText(err);
-        m_errorWindow->Show(true);
-        std::cout << err << "\n";
-    }
-}
-
 void GalacticEmpires::gameLoop()
 {
     m_frameTime.restart();
@@ -145,13 +145,11 @@ void GalacticEmpires::handleEvent(const sf::Event& e)
             {
                 if (e.key.code == sf::Keyboard::Escape)
                 {
-                    throw std::runtime_error("esc test");
                     m_window.close();
                 }
 
                 if (e.key.code == sf::Keyboard::F12)
                 {
-                    throw std::runtime_error("f12 test");
                     loadSettings();
                 }
 

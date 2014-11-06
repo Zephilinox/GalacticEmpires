@@ -13,13 +13,14 @@ public:
     GalacticEmpires();
     void run();
 
+    void handleError(std::string err);
+
     sf::RenderWindow* getWindow();
     StateManager<GalacticEmpires>* getStateManager();
     Settings* getSettings();
 
 private:
     void loadSettings();
-    void handleError(std::string err);
 
     void gameLoop();
     void handleEvent(const sf::Event& e);
