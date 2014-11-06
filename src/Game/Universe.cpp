@@ -9,13 +9,7 @@
 Universe::Universe(GalacticEmpires* galemp)
     : m_galemp(galemp)
 {
-    for (int i = 0; i < 10; ++i)
-    {
-        std::shared_ptr<SolarSystem> sys(std::make_shared<SolarSystem>(galemp));
-        m_solarSystems.push_back(sys);
-    }
-
-    m_curSolarSystem = m_solarSystems[0];
+    genSolarSystems();
 }
 
 void Universe::handleEvent(const sf::Event& e)
@@ -60,4 +54,15 @@ void Universe::draw(sf::RenderWindow& window) const
     {
         window.draw(*m_curSolarSystem);
     }
+}
+
+void Universe::genSolarSystems()
+{
+    for (int i = 0; i < 10; ++i)
+    {
+        std::shared_ptr<SolarSystem> sys(std::make_shared<SolarSystem>(m_galemp));
+        m_solarSystems.push_back(sys);
+    }
+
+    m_curSolarSystem = m_solarSystems[0];
 }

@@ -16,6 +16,8 @@ public:
     void draw(sf::RenderWindow& window) const;
 
 private:
+    void genSolarSystems();
+
     GalacticEmpires* m_galemp;
     std::vector<std::shared_ptr<SolarSystem>> m_solarSystems;
     std::shared_ptr<SolarSystem> m_curSolarSystem;
