@@ -2,6 +2,10 @@
 
 #include <cmath>
 
+#include <Thor/Input.hpp>
+
+#include "Helper/Utility.hpp"
+
 Universe::Universe(GalacticEmpires* galemp)
     : m_galemp(galemp)
 {
@@ -19,6 +23,26 @@ void Universe::handleEvent(const sf::Event& e)
     if (m_curSolarSystem)
     {
         m_curSolarSystem->handleEvent(e);
+    }
+
+    switch (e.type)
+    {
+        case sf::Event::KeyPressed:
+        {
+            for (int i = 0; i < 10; ++i)
+            {
+                if (e.key.code == thor::toKeyboardKey("Num" + toString(i)))
+                {
+                    m_curSolarSystem = m_solarSystems[i];
+                }
+            }
+            break;
+        }
+
+        default:
+        {
+            break;
+        }
     }
 }
 

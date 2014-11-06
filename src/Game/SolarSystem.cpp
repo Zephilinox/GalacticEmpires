@@ -1,6 +1,7 @@
 #include "Game/SolarSystem.hpp"
 
 #include <iostream>
+#include <cmath>
 
 #include "Math/Vector.hpp"
 #include "Helper/LuaState.hpp"
@@ -24,7 +25,7 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
     m_shape.setRadius(m_hexRadius * (m_systemRadius * 2 + 2));
 
     m_shape.setOrigin(m_shape.getRadius(), m_shape.getRadius());
-    m_shape.setFillColor(sf::Color(255, 80, 0, 40));
+    m_shape.setFillColor(sf::Color(std::rand() % 256, std::rand() % 255, std::rand() % 255, 40));
     m_shape.setOutlineColor(sf::Color::Black);
     m_shape.setOutlineThickness(-2);
     m_shape.setPosition(0, 0);
