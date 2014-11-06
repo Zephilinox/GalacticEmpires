@@ -7,10 +7,10 @@
 int main()
 {
     std::srand(std::time(0));
-    GalacticEmpires game;
 
     try
     {
+        GalacticEmpires game;
         game.run();
     }
     catch (const std::exception& e)

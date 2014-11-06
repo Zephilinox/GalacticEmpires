@@ -12,10 +12,12 @@ GalacticEmpires::GalacticEmpires()
     : m_window(sf::VideoMode(1280, 720, 32), "Galactic Empires")
     , m_curState(nullptr)
     , m_errorWindow(sfg::Window::Create(sfg::Window::BACKGROUND))
+    , m_errorLabel(sfg::Label::Create(""))
     , m_prevFrameTime(sf::seconds(1.f/60.f))
     , m_settings("data/settings.ini")
 {
     m_errorWindow->Show(false);
+    m_errorWindow->Add(m_errorLabel);
 
     loadSettings();
 
@@ -95,16 +97,13 @@ void GalacticEmpires::loadSettings()
 
 void GalacticEmpires::handleError(std::string err)
 {
-    if (!m_exceptionErrorMessage.empty())
+    if (m_exceptionErrorMessage != err)
     {
-        return;
+        m_exceptionErrorMessage = err;
+        m_errorLabel->SetText(err);
+        m_errorWindow->Show(true);
+        std::cout << err << "\n";
     }
-
-    m_exceptionErrorMessage = err;
-    sfg::Label::Ptr lbl = sfg::Label::Create(err);
-    m_errorWindow->Add(lbl);
-    m_errorWindow->Show(true);
-    std::cout << err << "\n";
 }
 
 void GalacticEmpires::gameLoop()
@@ -132,41 +131,40 @@ void GalacticEmpires::handleEvent(const sf::Event& e)
     try
     {
         m_curState->handleEvent(e);
+        m_errorWindow->HandleEvent(e);
+
+        switch (e.type)
+        {
+            case sf::Event::Closed:
+            {
+                m_window.close();
+                break;
+            }
+
+            case sf::Event::KeyPressed:
+            {
+                if (e.key.code == sf::Keyboard::Escape)
+                {
+                    m_window.close();
+                }
+
+                if (e.key.code == sf::Keyboard::F12)
+                {
+                   loadSettings();
+                }
+
+                break;
+            }
+
+            default:
+            {
+                break;
+            }
+        }
     }
     catch (const std::exception& e)
     {
         handleError(e.what());
-    }
-
-    m_errorWindow->HandleEvent(e);
-
-    switch (e.type)
-    {
-        case sf::Event::Closed:
-        {
-            m_window.close();
-            break;
-        }
-
-        case sf::Event::KeyPressed:
-        {
-            if (e.key.code == sf::Keyboard::Escape)
-            {
-                m_window.close();
-            }
-
-            if (e.key.code == sf::Keyboard::F12)
-            {
-               loadSettings();
-            }
-
-            break;
-        }
-
-        default:
-        {
-            break;
-        }
     }
 }
 
@@ -175,13 +173,12 @@ void GalacticEmpires::update(float dt)
     try
     {
         m_curState->update(dt);
+        m_errorWindow->Update(dt);
     }
     catch (const std::exception& e)
     {
         handleError(e.what()); //Bug: called every frame? why does the exception keep getting catched, there should only be one.
     }
-
-    m_errorWindow->Update(dt);
 }
 
 void GalacticEmpires::draw()

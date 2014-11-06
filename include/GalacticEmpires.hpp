@@ -33,13 +33,14 @@ private:
     sfg::SFGUI m_gui;
     sfg::Desktop m_guiDesktop;
     sfg::Window::Ptr m_errorWindow;
+    sfg::Label::Ptr m_errorLabel;
 
     sf::Event m_event;
     sf::Clock m_frameTime;
     sf::Time m_prevFrameTime;
 
     std::string m_exceptionErrorMessage;
-    
+
     Settings m_settings;
 
     static const unsigned VERSION_MAJOR = 0;
