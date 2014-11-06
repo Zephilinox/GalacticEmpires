@@ -32,9 +32,9 @@ class Settings
     private:
         bool modifiedPropertyExists(const std::string& name, const std::string& section) const;
 
-        const std::string m_filename;
-
         std::unique_ptr<ini_parser> m_parser;
+
+        const std::string m_filename;
 
         /* Maps a section name to the properties that have been changed in that section. */
         std::unordered_map<std::string, std::unordered_map<std::string, std::string>> m_sections;
