@@ -145,12 +145,14 @@ void GalacticEmpires::handleEvent(const sf::Event& e)
             {
                 if (e.key.code == sf::Keyboard::Escape)
                 {
+                    throw std::runtime_error("esc test");
                     m_window.close();
                 }
 
                 if (e.key.code == sf::Keyboard::F12)
                 {
-                   loadSettings();
+                    throw std::runtime_error("f12 test");
+                    loadSettings();
                 }
 
                 break;

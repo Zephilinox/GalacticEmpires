@@ -58,6 +58,7 @@ void Camera::handleEvent(const sf::Event& e)
             {
                 zoom(0.1f);
             }
+            break;
         }
 
         default:

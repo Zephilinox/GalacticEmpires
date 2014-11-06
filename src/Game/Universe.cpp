@@ -31,6 +31,7 @@ void Universe::handleEvent(const sf::Event& e)
         {
             for (int i = 0; i < 10; ++i)
             {
+                throw std::runtime_error("test 1");
                 if (e.key.code == thor::toKeyboardKey("Num" + toString(i)))
                 {
                     m_curSolarSystem = m_solarSystems[i];
