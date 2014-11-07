@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <limits>
 
 #include "Math/Vector.hpp"
 #include "Helper/LuaState.hpp"
@@ -45,7 +46,7 @@ void SolarSystem::update(double dt)
 
     if (solDistance < m_shape.getRadius())
     {
-        float shortestHexDistance = 1000000; //TODO: set to max limit
+        float shortestHexDistance = std::numeric_limits<float>::infinity();
 
         for (auto& hexPair : m_map)
         {
@@ -61,6 +62,10 @@ void SolarSystem::update(double dt)
                 }
             }
         }
+    }
+    else
+    {
+        m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 0));
     }
 }
 
@@ -80,8 +85,6 @@ void SolarSystem::genMap()
     {
         genHexLine(i, m_systemRadius);
     }
-
-    std::cout << "hexes: " << m_map.size() << "\n";
 }
 
 void SolarSystem::genHexLine(int lineHeight, int radius)

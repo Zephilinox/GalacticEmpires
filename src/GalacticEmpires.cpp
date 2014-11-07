@@ -82,7 +82,7 @@ void GalacticEmpires::loadSettings()
         {
             throw std::runtime_error("Invalid Video Settings for Fullscreen (Width, Height, or BitDepth)");
         }
-        else if (width == 0 || height == 0)
+        else if (width < 1024 || height < 768)
         {
             vm = sf::VideoMode::getDesktopMode();
             m_settings.setValue("width", int(vm.width), "Video");
@@ -91,6 +91,11 @@ void GalacticEmpires::loadSettings()
             fullscreen = true;
             m_settings.setValue("fullscreen", fullscreen, "Video");
             m_settings.save();
+        }
+
+        if (vm.width < 1024 || vm.height < 768)
+        {
+            throw std::runtime_error("Your monitor does not meet minimum requirements\nYour settings: width = " + toString(vm.width) + ", height = " + toString(vm.height) + "\nMinimum settings: width = 1024, height = 768");
         }
     }
 
@@ -145,7 +150,7 @@ void GalacticEmpires::handleEvent(const sf::Event& e)
             {
                 if (e.key.code == sf::Keyboard::Escape)
                 {
-                    m_window.close();
+                    m_stateMan.pop();
                 }
 
                 if (e.key.code == sf::Keyboard::F12)

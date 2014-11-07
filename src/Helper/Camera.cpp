@@ -17,7 +17,7 @@ Camera::Camera(GalacticEmpires* galemp)
     m_updateWindow = true; //assigned here for clarity
 
     m_zoomLimits[0] = 0.49f;
-    m_zoomLimits[1] = 2.01f;
+    m_zoomLimits[1] = 5.01f;
 
     m_panBorderLimits[0] = m_galemp->getWindow()->getSize().x * m_panZonePercent;
     m_panBorderLimits[1] = m_galemp->getWindow()->getSize().x * (1.f-m_panZonePercent);
