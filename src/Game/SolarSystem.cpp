@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <limits>
 
 #include "Math/Vector.hpp"
 #include "Helper/LuaState.hpp"
@@ -45,7 +46,7 @@ void SolarSystem::update(double dt)
 
     if (solDistance < m_shape.getRadius())
     {
-        float shortestHexDistance = 1000000; //TODO: set to max limit
+        float shortestHexDistance = std::numeric_limits<float>::infinity();
 
         for (auto& hexPair : m_map)
         {
