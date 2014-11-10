@@ -3,6 +3,12 @@ Galactic Empires
 
 A Sci-Fi 4x Game
 
+License
+=======
+
+Licensed under "Attribution-NonCommercial 4.0 International", view the LICENSE.txt file for full details
+You can view a simplified summary at http://creativecommons.org/licenses/by-nc-sa/4.0/
+
 Building
 ========
 
@@ -32,8 +38,3 @@ Libraries
  * Scripting and data storage
 * LuaBridge
  * Aids in accessing the Lua Stack
-
-License
-=======
-
-For the moment this repository has no license, therefore all copyright is retained.
