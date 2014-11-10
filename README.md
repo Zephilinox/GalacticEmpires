@@ -7,7 +7,7 @@ License
 =======
 
 Licensed under "Attribution-NonCommercial 4.0 International", view the LICENSE.txt file for full details
-You can view a simplified summary at http://creativecommons.org/licenses/by-nc-sa/4.0/
+You can view a simplified summary at http://creativecommons.org/licenses/by-nc/4.0/
 
 Building
 ========
