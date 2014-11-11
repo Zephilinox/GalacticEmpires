@@ -7,6 +7,7 @@
 #include <lua5.2/lua.hpp>
 #include <LuaBridge/LuaBridge.h>
 
+//This is called from within Lua in order to print the stack trace
 static int traceback(lua_State* L)
 {
     const char *msg = lua_tostring(L, 1);

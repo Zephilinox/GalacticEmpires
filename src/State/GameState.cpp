@@ -32,7 +32,7 @@ void GameState::draw(sf::RenderWindow& window) const
 
 void GameState::onActive()
 {
-    //m_guiWindow->Show(true);
+    m_guiWindow->Show(true);
 }
 
 void GameState::onInactive()

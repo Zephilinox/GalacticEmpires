@@ -18,6 +18,7 @@ void NewGameState::handleEvent(const sf::Event& e)
 void NewGameState::update(float dt)
 {
     m_guiWindow->Update(dt);
+    m_galemp->getStateManager()->pop();
     m_galemp->getStateManager()->push<GameState>(m_galemp);
 }
 
