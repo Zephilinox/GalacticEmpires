@@ -24,6 +24,8 @@ namespace std
 
 typedef std::unordered_map<coordinates, sf::CircleShape> HexMap;
 
+const coordinates invalidHexCoordinates(10000, 10000);
+
 class SolarSystem : public sf::Drawable
 {
 public:
@@ -35,6 +37,7 @@ public:
 private:
     void genMap();
     void genHexLine(int lineHeight, int radius);
+    coordinates findClosestHex(sf::Vector2f pos);
 
     GalacticEmpires* m_galemp;
 
@@ -44,6 +47,7 @@ private:
     HexMap m_map;
     sf::CircleShape m_shape;
     coordinates m_hoverHex;
+    coordinates m_clickHex;
 };
 
 #endif //SOLARSYSTEM_HPP

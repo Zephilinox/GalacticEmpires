@@ -13,6 +13,8 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
     , m_systemRadius(16)
     , m_hexRadius(32)
     , m_shape(0, 6)
+    , m_hoverHex(invalidHexCoordinates)
+    , m_clickHex(invalidHexCoordinates)
 {
     LuaState luaState;
     luaState.loadFile("data/Lua/SolarSystem.lua");
@@ -35,6 +37,26 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
 
 bool SolarSystem::handleEvent(const sf::Event& e)
 {
+    switch (e.type)
+    {
+        case sf::Event::MouseButtonPressed:
+        {
+            if (e.mouseButton.button == sf::Mouse::Left)
+            {
+                Vector mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
+
+                m_map[m_clickHex].setFillColor(sf::Color(0, 0, 0, 0));
+                m_clickHex = findClosestHex(mousePos);
+            }
+
+            break;
+        }
+
+        default:
+        {
+            break;
+        }
+    }
     return false;
 }
 
@@ -46,26 +68,32 @@ void SolarSystem::update(double dt)
 
     if (solDistance < m_shape.getRadius())
     {
-        float shortestHexDistance = std::numeric_limits<float>::infinity();
-
-        for (auto& hexPair : m_map)
+        if (m_hoverHex != invalidHexCoordinates)
         {
-            float hexDistance = Vector(hexPair.second.getPosition() - mousePos).length();
-            if (hexDistance < m_hexRadius)
+            m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 0));
+        }
+
+        m_hoverHex = findClosestHex(mousePos);
+
+        if (m_hoverHex != invalidHexCoordinates)
+        {
+            if (m_hoverHex == m_clickHex)
             {
-                if (hexDistance < shortestHexDistance)
-                {
-                    shortestHexDistance = hexDistance;
-                    m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 0));
-                    m_hoverHex = hexPair.first;
-                    m_map[m_hoverHex].setFillColor(sf::Color(0, 255, 0, 40));
-                }
+                m_map[m_hoverHex].setFillColor(sf::Color(255, 0, 0, 40));
+            }
+            else
+            {
+                m_map[m_hoverHex].setFillColor(sf::Color(0, 255, 0, 40));
+                m_map[m_clickHex].setFillColor(sf::Color(0, 0, 255, 40));
             }
         }
     }
     else
     {
-        m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 0));
+        if (m_hoverHex != invalidHexCoordinates)
+        {
+            m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 0));
+        }
     }
 }
 
@@ -149,4 +177,25 @@ void SolarSystem::genHexLine(int lineHeight, int radius)
 
         m_map[coords] = hex;
     }
+}
+
+coordinates SolarSystem::findClosestHex(sf::Vector2f pos)
+{
+    float shortestHexDistance = std::numeric_limits<float>::infinity();
+    coordinates closestHexCoord = invalidHexCoordinates;
+
+    for (const auto hexPair : m_map)
+    {
+        float hexDistance = Vector(hexPair.second.getPosition() - pos).length();
+        if (hexDistance < m_hexRadius)
+        {
+            if (hexDistance < shortestHexDistance)
+            {
+                shortestHexDistance = hexDistance;
+                closestHexCoord = hexPair.first;
+            }
+        }
+    }
+
+    return closestHexCoord;
 }
