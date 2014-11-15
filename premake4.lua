@@ -71,7 +71,32 @@ if system == "windows" then
     
     os.copyfile("extlibs/"..environment.."/SFML/bin/openal32.dll", "builds/".._ACTION.."/dll/openal32.dll")
     os.copyfile("extlibs/"..environment.."/SFML/bin/libsndfile-1.dll", "builds/".._ACTION.."/dll/libsndfile-1.dll")
+	
     os.copyfile("extlibs/"..environment.."/CEGUI/bin/libCEGUIBase-0_d.dll", "builds/".._ACTION.."/dll/libCEGUIBase-0_d.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libCEGUIExpatParser_d.dll", "builds/".._ACTION.."/dll/libCEGUIExpatParser_d.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libCEGUIOpenGLRenderer-0_d.dll", "builds/".._ACTION.."/dll/libCEGUIOpenGLRenderer-0_d.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libCEGUISILLYImageCodec_d.dll", "builds/".._ACTION.."/dll/libCEGUISILLYImageCodec_d.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libfreetype_d.dll", "builds/".._ACTION.."/dll/libfreetype_d.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libpcre_d.dll", "builds/".._ACTION.."/dll/libpcre_d.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libSILLY_d.dll", "builds/".._ACTION.."/dll/libSILLY_d.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libzlib_d.dll", "builds/".._ACTION.."/dll/libzlib_d.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libjpeg_d.dll", "builds/".._ACTION.."/dll/libjpeg_d.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libglew_d.dll", "builds/".._ACTION.."/dll/libglew_d.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libexpat_d.dll", "builds/".._ACTION.."/dll/expat_d.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/liblibpng_d.dll", "builds/".._ACTION.."/dll/png_d.dll")
+	
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libCEGUIBase-0.dll", "builds/".._ACTION.."/dll/libCEGUIBase-0.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libCEGUIExpatParser.dll", "builds/".._ACTION.."/dll/libCEGUIExpatParser.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libCEGUIOpenGLRenderer-0.dll", "builds/".._ACTION.."/dll/libCEGUIOpenGLRenderer-0.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libCEGUISILLYImageCodec.dll", "builds/".._ACTION.."/dll/libCEGUISILLYImageCodec.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libfreetype.dll", "builds/".._ACTION.."/dll/libfreetype.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libpcre.dll", "builds/".._ACTION.."/dll/libpcre.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libSILLY.dll", "builds/".._ACTION.."/dll/libSILLY.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libzlib.dll", "builds/".._ACTION.."/dll/libzlib.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libjpeg.dll", "builds/".._ACTION.."/dll/libjpeg.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libglew.dll", "builds/".._ACTION.."/dll/libglew.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libexpat.dll", "builds/".._ACTION.."/dll/expat.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/liblibpng.dll", "builds/".._ACTION.."/dll/png.dll")
     
     os.copydir("builds/".._ACTION.."/dll", "builds/".._ACTION.."/bin/Debug/") --place alongside executable
     os.copydir("builds/".._ACTION.."/dll", "builds/".._ACTION.."/bin/Release/")

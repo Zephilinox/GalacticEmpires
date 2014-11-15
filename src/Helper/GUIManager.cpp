@@ -27,7 +27,7 @@ GUIManager::GUIManager(sf::RenderWindow* window)
 
     CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("AlfiskoSkin/MouseArrow");
 
-    CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
+    /*CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
     CEGUI::Window* root = wmgr.createWindow("DefaultWindow", "root");
     root->setProperty("MousePassThroughEnabled", "True");
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(root);
@@ -38,7 +38,7 @@ GUIManager::GUIManager(sf::RenderWindow* window)
     CEGUI::Editbox* eb = static_cast<CEGUI::Editbox*>(wmgr.createWindow("AlfiskoSkin/Editbox", "Editbox"));
 
     root->addChild(fw);
-    fw->addChild(eb);
+    fw->addChild(eb);*/
 
     initialiseMaps();
 }
