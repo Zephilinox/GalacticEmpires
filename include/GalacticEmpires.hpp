@@ -11,6 +11,7 @@ class GalacticEmpires
 {
 public:
     GalacticEmpires();
+
     void run();
 
     void handleError(std::string err);

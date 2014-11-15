@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <stack>
+#include <iostream>
 
 #include "State/BaseState.hpp"
 
@@ -27,6 +28,7 @@ std::shared_ptr<BaseState> StateManager<Owner>::top()
         return m_states.top();
     }
 
+    std::cout << "[StateManager::top()] No states left in stack\n";
     throw std::runtime_error("[StateManager::top()] No states left in stack");
 }
 
