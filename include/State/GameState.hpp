@@ -2,7 +2,6 @@
 #define GAMESTATE_HPP
 
 #include <SFML/Graphics.hpp>
-#include <SFGUI/SFGUI.hpp>
 
 #include "State/BaseState.hpp"
 #include "Game/Universe.hpp"
@@ -21,8 +20,6 @@ public:
 
 private:
     GalacticEmpires* m_galemp;
-
-    sfg::Window::Ptr m_guiWindow;
 
     Universe m_universe;
 

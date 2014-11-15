@@ -2,7 +2,6 @@
 #define SPLASHSTATE_HPP
 
 #include <SFML/Graphics.hpp>
-#include <SFGUI/SFGUI.hpp>
 
 #include "State/BaseState.hpp"
 #include "GalacticEmpires.hpp"

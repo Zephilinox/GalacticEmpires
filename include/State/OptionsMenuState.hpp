@@ -2,7 +2,6 @@
 #define OPTIONSMENUSTATE_HPP
 
 #include <SFML/Graphics.hpp>
-#include <SFGUI/SFGUI.hpp>
 
 #include "State/BaseState.hpp"
 #include "GalacticEmpires.hpp"
@@ -21,8 +20,6 @@ private:
     void exit();
 
     GalacticEmpires* m_galemp;
-
-    sfg::Window::Ptr m_guiWindow;
 };
 
 #endif //OPTIONSMENUSTATE_HPP
