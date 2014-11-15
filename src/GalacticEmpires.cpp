@@ -3,18 +3,18 @@
 #include <iostream>
 #include <string>
 
-#include <Helper/Utility.hpp>
 #include <ini_parser.hpp>
 
+#include "Helper/Utility.hpp"
 #include "State/SplashState.hpp"
 
 GalacticEmpires::GalacticEmpires()
     : m_window(sf::VideoMode(1280, 720, 32), "Galactic Empires")
     , m_curState(nullptr)
     , m_prevFrameTime(sf::seconds(1.f/60.f))
+    , m_guiManager(&m_window)
     , m_settings("data/settings.ini")
 {
-
     loadSettings();
 
     m_stateMan.push<SplashState>(this);
@@ -130,6 +130,7 @@ void GalacticEmpires::handleEvent(const sf::Event& e)
 {
     try
     {
+        m_guiManager.handleEvent(e);
         m_curState->handleEvent(e);
 
         switch (e.type)
@@ -171,6 +172,7 @@ void GalacticEmpires::update(float dt)
 {
     try
     {
+        m_guiManager.update(dt);
         m_curState->update(dt);
     }
     catch (const std::exception& e)
@@ -182,6 +184,12 @@ void GalacticEmpires::update(float dt)
 void GalacticEmpires::draw()
 {
     m_window.clear(sf::Color(40, 40, 40));
+
+    m_window.pushGLStates();
     m_curState->draw(m_window);
+    m_window.popGLStates();
+
+    m_guiManager.draw();
+
     m_window.display();
 }

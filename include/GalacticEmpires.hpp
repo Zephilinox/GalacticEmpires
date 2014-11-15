@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Helper/Settings.hpp"
+#include "Helper/GUIManager.hpp"
 #include "State/StateManager.hpp"
 
 class GalacticEmpires
@@ -29,6 +30,8 @@ private:
     sf::RenderWindow m_window;
     StateManager<GalacticEmpires> m_stateMan;
     std::shared_ptr<BaseState> m_curState;
+
+    GUIManager m_guiManager;
 
     sf::Event m_event;
     sf::Clock m_frameTime;
