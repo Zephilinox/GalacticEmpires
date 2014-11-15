@@ -17,10 +17,9 @@ public:
     void onInactive() override;
 
 private:
-    void newGame();
-    void loadGame();
-    void options();
-    void exit();
+    bool newGame(const CEGUI::EventArgs& e);
+    bool options(const CEGUI::EventArgs& e);
+    bool exit(const CEGUI::EventArgs& e);
 
     GalacticEmpires* m_galemp;
     CEGUI::Window* m_rootWindow;
