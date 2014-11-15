@@ -24,5 +24,3 @@ bin/*
 obj/*
 builds/*
 gmon.out
-*.depend
-*.layout
