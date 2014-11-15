@@ -26,7 +26,7 @@ Libraries
 
 * SFML 2.1
  * Windowing and Graphics API 
-* SFGUI 0.2.0
+* CEGUI 0.8.4
  * GUI API
 * INIParser
  * INI Reading and Writing
