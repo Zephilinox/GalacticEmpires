@@ -10,10 +10,11 @@ GameState::GameState(GalacticEmpires* galemp)
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(root);
 }
 
-void GameState::handleEvent(const sf::Event& e)
+bool GameState::handleEvent(const sf::Event& e)
 {
     m_camera.handleEvent(e);
     m_universe.handleEvent(e);
+    return false;
 }
 
 void GameState::update(float dt)

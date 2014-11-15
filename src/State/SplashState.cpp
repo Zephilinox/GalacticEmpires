@@ -7,8 +7,9 @@ SplashState::SplashState(GalacticEmpires* galemp)
 {
 }
 
-void SplashState::handleEvent(const sf::Event& e)
+bool SplashState::handleEvent(const sf::Event& e)
 {
+    return false;
 }
 
 void SplashState::update(float dt)

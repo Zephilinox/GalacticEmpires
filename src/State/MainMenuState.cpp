@@ -11,8 +11,9 @@ MainMenuState::MainMenuState(GalacticEmpires* galemp)
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(m_rootWindow);
 }
 
-void MainMenuState::handleEvent(const sf::Event& e)
+bool MainMenuState::handleEvent(const sf::Event& e)
 {
+    return false;
 }
 
 void MainMenuState::update(float dt)

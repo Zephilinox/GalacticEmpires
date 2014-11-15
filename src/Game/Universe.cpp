@@ -12,7 +12,7 @@ Universe::Universe(GalacticEmpires* galemp)
     genSolarSystems();
 }
 
-void Universe::handleEvent(const sf::Event& e)
+bool Universe::handleEvent(const sf::Event& e)
 {
     if (m_curSolarSystem)
     {
@@ -38,6 +38,8 @@ void Universe::handleEvent(const sf::Event& e)
             break;
         }
     }
+
+    return false;
 }
 
 void Universe::update(float dt)

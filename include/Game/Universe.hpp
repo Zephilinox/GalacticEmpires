@@ -11,7 +11,7 @@ class Universe
 {
 public:
     Universe(GalacticEmpires* galemp);
-    void handleEvent(const sf::Event& e);
+    bool handleEvent(const sf::Event& e);
     void update(float dt);
     void draw(sf::RenderWindow& window) const;
 

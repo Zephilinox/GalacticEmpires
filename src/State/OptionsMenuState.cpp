@@ -5,8 +5,9 @@ OptionsMenuState::OptionsMenuState(GalacticEmpires* galemp)
 {
 }
 
-void OptionsMenuState::handleEvent(const sf::Event& e)
+bool OptionsMenuState::handleEvent(const sf::Event& e)
 {
+    return false;
 }
 
 void OptionsMenuState::update(float dt)

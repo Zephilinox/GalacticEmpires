@@ -7,8 +7,9 @@ NewGameState::NewGameState(GalacticEmpires* galemp)
 {
 }
 
-void NewGameState::handleEvent(const sf::Event& e)
+bool NewGameState::handleEvent(const sf::Event& e)
 {
+    return false;
 }
 
 void NewGameState::update(float dt)
