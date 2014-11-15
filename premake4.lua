@@ -38,7 +38,6 @@ print("environment = "..environment)
 
 local include_dirs_libs = {
 "extlibs/headers/SFML/include",
-"extlibs/headers/SFGUI/include",
 "extlibs/headers/Thor/include",
 "extlibs/headers/Lua/include",
 }
@@ -53,7 +52,6 @@ local include_dirs_header_only = {
 
 local libs = {
 "extlibs/"..environment.."/SFML/lib",
-"extlibs/"..environment.."/SFGUI/lib",
 "extlibs/"..environment.."/Thor/lib",
 "extlibs/"..environment.."/Lua/lib"
 }
@@ -104,10 +102,10 @@ solution("GalacticEmpires")
             targetdir       ("builds/".._ACTION.."/bin/Debug/")
             
             if system == "windows" then
-                defines     {"SFML_STATIC", "SFGUI_STATIC"}
-                links       {"lua52", "sfgui-s", "thor-s-d", "sfml-graphics-s-d", "sfml-window-s-d", "sfml-system-s-d"}
+                defines     {"SFML_STATIC"}
+                links       {"lua52", "thor-s-d", "sfml-graphics-s-d", "sfml-window-s-d", "sfml-system-s-d"}
             else 
-                links       {"lua5.2", "sfgui", "thor", "sfml-graphics", "sfml-window", "sfml-system"}
+                links       {"lua5.2", "thor", "sfml-graphics", "sfml-window", "sfml-system"}
             end
 
         configuration("Release")
@@ -117,8 +115,8 @@ solution("GalacticEmpires")
             targetdir       ("builds/".._ACTION.."/bin/Release/")
             
             if system == "windows" then
-                defines     {"SFML_STATIC", "SFGUI_STATIC"}
-                links       {"lua52", "sfgui-s", "thor-s", "sfml-graphics-s", "sfml-window-s", "sfml-system-s"}
+                defines     {"SFML_STATIC"}
+                links       {"lua52", "thor-s", "sfml-graphics-s", "sfml-window-s", "sfml-system-s"}
             else 
-                links       {"lua5.2", "sfgui", "thor", "sfml-graphics", "sfml-window", "sfml-system"}
+                links       {"lua5.2", "thor", "sfml-graphics", "sfml-window", "sfml-system"}
             end
