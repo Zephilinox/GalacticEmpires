@@ -112,7 +112,7 @@ solution("GalacticEmpires")
         objdir          ("builds/".._ACTION.."/obj")
         
         files           {"main.cpp", "include/**.hpp", "src/**.cpp"}
-        buildoptions    ("-std=c++11 -Wall -Wextra -Woverloaded-virtual")
+        buildoptions    ("-std=c++11 -Wall -Wextra -Woverloaded-virtual -Wno-format -Wno-format-extra-args")
         
         includedirs     {include_dirs_header_only}
         libdirs         (libs)

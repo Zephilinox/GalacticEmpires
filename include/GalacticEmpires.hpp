@@ -29,10 +29,9 @@ private:
     void draw();
 
     sf::RenderWindow m_window;
+    GUIManager m_guiManager;
     StateManager<GalacticEmpires> m_stateMan;
     std::shared_ptr<BaseState> m_curState;
-
-    GUIManager m_guiManager;
 
     sf::Event m_event;
     sf::Clock m_frameTime;
