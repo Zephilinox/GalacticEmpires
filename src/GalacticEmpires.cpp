@@ -103,6 +103,8 @@ void GalacticEmpires::loadSettings()
         m_window.setFramerateLimit(maxFPS);
     }
 
+    m_window.setMouseCursorVisible(false);
+
     m_window.resetGLStates(); //This is required to show SFGUI if we don't draw with SFML at any point
 }
 
