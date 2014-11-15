@@ -5,6 +5,11 @@
 			<Property name="Position" value="{ {0.25, 0}, {0.25, 0} }" />
 			<Property name="Size" value="{ {0.5, 0}, {0.5, 0} }" />
 			<Property name="Text" value="Hello World!" />
+			<Window type="AlfiskoSkin/Button" name="testButton">
+				<Property name="Position" value="{ {0.25, 0}, {0.25, 0} }" />
+				<Property name="Size" value="{ {0.5, 0}, {0.5, 0} }" />
+				<Property name="Text" value="Hello World!" />
+			</Window>
 		</Window>
 	</Window>
 </GUILayout>

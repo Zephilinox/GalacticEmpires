@@ -6,6 +6,9 @@
 MainMenuState::MainMenuState(GalacticEmpires* galemp)
     : m_galemp(galemp)
 {
+    CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
+    CEGUI::Window* root = wmgr.loadLayoutFromFile("MainMenu.layout");
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(root);
 }
 
 void MainMenuState::handleEvent(const sf::Event& e)
