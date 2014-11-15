@@ -71,6 +71,7 @@ if system == "windows" then
     
     os.copyfile("extlibs/"..environment.."/SFML/bin/openal32.dll", "builds/".._ACTION.."/dll/openal32.dll")
     os.copyfile("extlibs/"..environment.."/SFML/bin/libsndfile-1.dll", "builds/".._ACTION.."/dll/libsndfile-1.dll")
+    os.copyfile("extlibs/"..environment.."/CEGUI/bin/libCEGUIBase-0_d.dll", "builds/".._ACTION.."/dll/libCEGUIBase-0_d.dll")
     
     os.copydir("builds/".._ACTION.."/dll", "builds/".._ACTION.."/bin/Debug/") --place alongside executable
     os.copydir("builds/".._ACTION.."/dll", "builds/".._ACTION.."/bin/Release/")
