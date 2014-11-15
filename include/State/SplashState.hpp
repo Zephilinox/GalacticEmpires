@@ -20,9 +20,6 @@ public:
 private:
     GalacticEmpires* m_galemp;
 
-    sfg::Window::Ptr m_guiWindow;
-    sfg::ProgressBar::Ptr m_guiProgBar;
-
     sf::Clock m_clock;
 };
 

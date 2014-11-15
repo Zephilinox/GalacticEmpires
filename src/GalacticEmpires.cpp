@@ -11,17 +11,12 @@
 GalacticEmpires::GalacticEmpires()
     : m_window(sf::VideoMode(1280, 720, 32), "Galactic Empires")
     , m_curState(nullptr)
-    , m_errorWindow(sfg::Window::Create(sfg::Window::BACKGROUND))
-    , m_errorLabel(sfg::Label::Create(""))
     , m_prevFrameTime(sf::seconds(1.f/60.f))
     , m_settings("data/settings.ini")
 {
-    m_errorWindow->Show(false);
-    m_errorWindow->Add(m_errorLabel);
 
     loadSettings();
 
-    m_guiDesktop.LoadThemeFromFile("data/default.theme");
     m_stateMan.push<SplashState>(this);
 }
 
@@ -36,8 +31,6 @@ void GalacticEmpires::handleError(std::string err)
     if (m_exceptionErrorMessage != err)
     {
         m_exceptionErrorMessage = err;
-        m_errorLabel->SetText(err);
-        m_errorWindow->Show(true);
         std::cout << err << "\n";
     }
 }
@@ -138,7 +131,6 @@ void GalacticEmpires::handleEvent(const sf::Event& e)
     try
     {
         m_curState->handleEvent(e);
-        m_errorWindow->HandleEvent(e);
 
         switch (e.type)
         {
@@ -180,7 +172,6 @@ void GalacticEmpires::update(float dt)
     try
     {
         m_curState->update(dt);
-        m_errorWindow->Update(dt);
     }
     catch (const std::exception& e)
     {
@@ -192,6 +183,5 @@ void GalacticEmpires::draw()
 {
     m_window.clear(sf::Color(40, 40, 40));
     m_curState->draw(m_window);
-    m_gui.Display(m_window);
     m_window.display();
 }

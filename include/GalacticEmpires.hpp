@@ -1,7 +1,6 @@
 #ifndef GALACTICEMPIRES_HPP
 #define GALACTICEMPIRES_HPP
 
-#include <SFGUI/SFGUI.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "Helper/Settings.hpp"
@@ -30,11 +29,6 @@ private:
     sf::RenderWindow m_window;
     StateManager<GalacticEmpires> m_stateMan;
     std::shared_ptr<BaseState> m_curState;
-
-    sfg::SFGUI m_gui;
-    sfg::Desktop m_guiDesktop;
-    sfg::Window::Ptr m_errorWindow;
-    sfg::Label::Ptr m_errorLabel;
 
     sf::Event m_event;
     sf::Clock m_frameTime;

@@ -19,8 +19,6 @@ public:
 
 private:
     GalacticEmpires* m_galemp;
-
-    sfg::Window::Ptr m_guiWindow;
 };
 
 #endif // NEWGAMESTATE_HPP
