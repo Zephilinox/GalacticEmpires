@@ -6,7 +6,7 @@ local build_tool = ""
 --determine what is being used to compile and if that is supported
 --environment is used to determine which subfolder of extlibs to use when looking for libraries
 if system == "windows" then
-    if _ACTION == "codeblocks" or _ACTION == "codelite" then
+    if _ACTION == "codeblocks" or _ACTION == "codelite" or _ACTION == "gmake" then
         environment = "mingw"
     elseif _ACTION == "vs2010" or _ACTION == "vs2008" or _ACTION == "vs2005" or _ACTION == "vs2003" or _ACTION == "vs20002" then
         environment = "msvc"
