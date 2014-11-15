@@ -5,6 +5,9 @@ GameState::GameState(GalacticEmpires* galemp)
     , m_universe(m_galemp)
     , m_camera(m_galemp)
 {
+    CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
+    CEGUI::Window* root = wmgr.loadLayoutFromFile("Game.layout");
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(root);
 }
 
 void GameState::handleEvent(const sf::Event& e)

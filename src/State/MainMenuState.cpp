@@ -7,8 +7,8 @@ MainMenuState::MainMenuState(GalacticEmpires* galemp)
     : m_galemp(galemp)
 {
     CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
-    CEGUI::Window* root = wmgr.loadLayoutFromFile("MainMenu.layout");
-    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(root);
+    m_rootWindow = wmgr.loadLayoutFromFile("MainMenu.layout");
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(m_rootWindow);
 }
 
 void MainMenuState::handleEvent(const sf::Event& e)
@@ -17,7 +17,10 @@ void MainMenuState::handleEvent(const sf::Event& e)
 
 void MainMenuState::update(float dt)
 {
-    newGame();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+    {
+        newGame();
+    }
 }
 
 void MainMenuState::draw(sf::RenderWindow& window) const
@@ -27,10 +30,15 @@ void MainMenuState::draw(sf::RenderWindow& window) const
 
 void MainMenuState::onActive()
 {
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(m_rootWindow);
+    auto* window = m_rootWindow->getChild("testWindow");
+    window->setVisible(true);
 }
 
 void MainMenuState::onInactive()
 {
+    auto* window = m_rootWindow->getChild("testWindow");
+    window->setVisible(false);
 }
 
 void MainMenuState::newGame()

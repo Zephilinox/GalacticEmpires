@@ -23,6 +23,7 @@ private:
     void exit();
 
     GalacticEmpires* m_galemp;
+    CEGUI::Window* m_rootWindow;
 };
 
 #endif //MAINMENUSTATE_HPP
