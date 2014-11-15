@@ -40,6 +40,7 @@ local include_dirs_libs = {
 "extlibs/headers/SFML/include",
 "extlibs/headers/Thor/include",
 "extlibs/headers/Lua/include",
+"extlibs/headers/CEGUI/include",
 }
 
 local include_dirs_header_only = {
@@ -53,7 +54,8 @@ local include_dirs_header_only = {
 local libs = {
 "extlibs/"..environment.."/SFML/lib",
 "extlibs/"..environment.."/Thor/lib",
-"extlibs/"..environment.."/Lua/lib"
+"extlibs/"..environment.."/Lua/lib",
+"extlibs/"..environment.."/CEGUI/lib"
 }
 
 --copy data folder to build and bin folders
@@ -103,7 +105,7 @@ solution("GalacticEmpires")
             
             if system == "windows" then
                 defines     {"SFML_STATIC"}
-                links       {"lua52", "thor-s-d", "sfml-graphics-s-d", "sfml-window-s-d", "sfml-system-s-d"}
+                links       {"CEGUIBase-0_d", "CEGUIOpenGLRenderer-0_d", "CEGUIExpatParser_d", "CEGUISILLYImageCodec_d", "lua52", "thor-s-d", "sfml-graphics-s-d", "sfml-window-s-d", "sfml-system-s-d"}
             else 
                 links       {"lua5.2", "thor", "sfml-graphics", "sfml-window", "sfml-system"}
             end
@@ -116,7 +118,7 @@ solution("GalacticEmpires")
             
             if system == "windows" then
                 defines     {"SFML_STATIC"}
-                links       {"lua52", "thor-s", "sfml-graphics-s", "sfml-window-s", "sfml-system-s"}
+                links       {"CEGUIBase-0", "CEGUIOpenGLRenderer-0", "CEGUIExpatParser", "CEGUISILLYImageCodec", "lua52", "thor-s", "sfml-graphics-s", "sfml-window-s", "sfml-system-s"}
             else 
                 links       {"lua5.2", "thor", "sfml-graphics", "sfml-window", "sfml-system"}
             end
