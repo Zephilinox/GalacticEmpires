@@ -3,25 +3,20 @@
 #include <iostream>
 #include <string>
 
-#include <Helper/Utility.hpp>
 #include <ini_parser.hpp>
 
+#include "Helper/Utility.hpp"
 #include "State/SplashState.hpp"
 
 GalacticEmpires::GalacticEmpires()
     : m_window(sf::VideoMode(1280, 720, 32), "Galactic Empires")
+    , m_guiManager(&m_window)
     , m_curState(nullptr)
-    , m_errorWindow(sfg::Window::Create(sfg::Window::BACKGROUND))
-    , m_errorLabel(sfg::Label::Create(""))
     , m_prevFrameTime(sf::seconds(1.f/60.f))
     , m_settings("data/settings.ini")
 {
-    m_errorWindow->Show(false);
-    m_errorWindow->Add(m_errorLabel);
-
     loadSettings();
 
-    m_guiDesktop.LoadThemeFromFile("data/default.theme");
     m_stateMan.push<SplashState>(this);
 }
 
@@ -32,11 +27,10 @@ void GalacticEmpires::run()
 
 void GalacticEmpires::handleError(std::string err)
 {
+    //If it is the same exception thrown, just ignore it
     if (m_exceptionErrorMessage != err)
     {
         m_exceptionErrorMessage = err;
-        m_errorLabel->SetText(err);
-        m_errorWindow->Show(true);
         std::cout << err << "\n";
     }
 }
@@ -82,17 +76,18 @@ void GalacticEmpires::loadSettings()
         {
             throw std::runtime_error("Invalid Video Settings for Fullscreen (Width, Height, or BitDepth)");
         }
-        else if (width < 1024 || height < 768)
+        else if (width < 1024 || height < 768) //less than min resolution
         {
             vm = sf::VideoMode::getDesktopMode();
             m_settings.setValue("width", int(vm.width), "Video");
             m_settings.setValue("height", int(vm.height), "Video");
             m_settings.setValue("bitDepth", int(vm.bitsPerPixel), "Video");
-            fullscreen = true;
+            fullscreen = true; //default to fullscreen as desktop resolution in windowed is unlikely to fit screensize taking in to account taskbars, etc.
             m_settings.setValue("fullscreen", fullscreen, "Video");
             m_settings.save();
         }
 
+        //If after all that the resolution is still below minimum then the user's machine can't support higher.
         if (vm.width < 1024 || vm.height < 768)
         {
             throw std::runtime_error("Your monitor does not meet minimum requirements\nYour settings: width = " + toString(vm.width) + ", height = " + toString(vm.height) + "\nMinimum settings: width = 1024, height = 768");
@@ -108,6 +103,8 @@ void GalacticEmpires::loadSettings()
         m_window.setFramerateLimit(maxFPS);
     }
 
+    m_window.setMouseCursorVisible(false);
+
     m_window.resetGLStates(); //This is required to show SFGUI if we don't draw with SFML at any point
 }
 
@@ -116,7 +113,7 @@ void GalacticEmpires::gameLoop()
     m_frameTime.restart();
     while (m_window.isOpen())
     {
-        m_curState = m_stateMan.top();
+        m_curState = m_stateMan.top(); //Guarantee that states will live until the end of one game loop.
 
         while (m_window.pollEvent(m_event))
         {
@@ -135,8 +132,8 @@ void GalacticEmpires::handleEvent(const sf::Event& e)
 {
     try
     {
+        m_guiManager.handleEvent(e);
         m_curState->handleEvent(e);
-        m_errorWindow->HandleEvent(e);
 
         switch (e.type)
         {
@@ -177,19 +174,24 @@ void GalacticEmpires::update(float dt)
 {
     try
     {
+        m_guiManager.update(dt);
         m_curState->update(dt);
-        m_errorWindow->Update(dt);
     }
     catch (const std::exception& e)
     {
-        handleError(e.what()); //Bug: called every frame? why does the exception keep getting catched, there should only be one.
+        handleError(e.what());
     }
 }
 
 void GalacticEmpires::draw()
 {
     m_window.clear(sf::Color(40, 40, 40));
+
+    m_window.pushGLStates();
     m_curState->draw(m_window);
-    m_gui.Display(m_window);
+    m_window.popGLStates();
+
+    m_guiManager.draw();
+
     m_window.display();
 }

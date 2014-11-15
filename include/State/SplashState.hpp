@@ -2,7 +2,6 @@
 #define SPLASHSTATE_HPP
 
 #include <SFML/Graphics.hpp>
-#include <SFGUI/SFGUI.hpp>
 
 #include "State/BaseState.hpp"
 #include "GalacticEmpires.hpp"
@@ -11,7 +10,7 @@ class SplashState : public BaseState
 {
 public:
     SplashState(GalacticEmpires* galemp);
-    void handleEvent(const sf::Event& e) override;
+    bool handleEvent(const sf::Event& e) override;
     void update(float dt) override;
     void draw(sf::RenderWindow& window) const override;
     void onActive() override;
@@ -19,9 +18,6 @@ public:
 
 private:
     GalacticEmpires* m_galemp;
-
-    sfg::Window::Ptr m_guiWindow;
-    sfg::ProgressBar::Ptr m_guiProgBar;
 
     sf::Clock m_clock;
 };

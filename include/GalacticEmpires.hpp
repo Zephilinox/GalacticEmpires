@@ -1,16 +1,17 @@
 #ifndef GALACTICEMPIRES_HPP
 #define GALACTICEMPIRES_HPP
 
-#include <SFGUI/SFGUI.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "Helper/Settings.hpp"
+#include "Helper/GUIManager.hpp"
 #include "State/StateManager.hpp"
 
 class GalacticEmpires
 {
 public:
     GalacticEmpires();
+
     void run();
 
     void handleError(std::string err);
@@ -28,13 +29,9 @@ private:
     void draw();
 
     sf::RenderWindow m_window;
+    GUIManager m_guiManager;
     StateManager<GalacticEmpires> m_stateMan;
     std::shared_ptr<BaseState> m_curState;
-
-    sfg::SFGUI m_gui;
-    sfg::Desktop m_guiDesktop;
-    sfg::Window::Ptr m_errorWindow;
-    sfg::Label::Ptr m_errorLabel;
 
     sf::Event m_event;
     sf::Clock m_frameTime;

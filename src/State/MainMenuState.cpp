@@ -5,46 +5,31 @@
 
 MainMenuState::MainMenuState(GalacticEmpires* galemp)
     : m_galemp(galemp)
-    , m_guiWindow(sfg::Window::Create(sfg::Window::BACKGROUND))
 {
-    sf::Vector2u windowSize = m_galemp->getWindow()->getSize();
+    //Get the window manager, load the layout from the file, and then set the root window in order to use that and all of its children
+    CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
+    m_rootWindow = wmgr.loadLayoutFromFile("MainMenu.layout");
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(m_rootWindow);
 
-    auto boxMenu = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 20.f);
-    auto btnNewGame = sfg::Button::Create("New Game");
-    auto btnLoadGame = sfg::Button::Create("Load Game");
-    auto btnOptions = sfg::Button::Create("Options");
-    auto btnExit = sfg::Button::Create("Exit");
+    //Set up callback functions for button clicks
+    auto* newGameButton = m_rootWindow->getChild("MainMenu/NewGame");
+    newGameButton->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&MainMenuState::newGame, this));
 
-    btnNewGame->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&MainMenuState::newGame, this));
-    btnLoadGame->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&MainMenuState::loadGame, this));
-    btnOptions->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&MainMenuState::options, this));
-    btnExit->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&MainMenuState::exit, this));
+    auto* optionsButton = m_rootWindow->getChild("MainMenu/Options");
+    optionsButton->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&MainMenuState::options, this));
 
-    boxMenu->Pack(btnNewGame);
-    boxMenu->Pack(btnLoadGame);
-    boxMenu->Pack(btnOptions);
-    boxMenu->Pack(btnExit);
-
-    m_guiWindow->Add(boxMenu);
-    m_guiWindow->SetAllocation(sf::FloatRect(windowSize.x * 0.3, windowSize.y * 0.1, windowSize.x * 0.4, windowSize.y * 0.8));
-
-    sfg::Desktop desk;
-    desk.SetProperty("#MainMenuButton", "FontSize", 36);
-
-    btnNewGame->SetId("MainMenuButton");
-    btnLoadGame->SetId("MainMenuButton");
-    btnOptions->SetId("MainMenuButton");
-    btnExit->SetId("MainMenuButton");
+    auto* exitButton = m_rootWindow->getChild("MainMenu/Exit");
+    exitButton->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&MainMenuState::exit, this));
 }
 
-void MainMenuState::handleEvent(const sf::Event& e)
+bool MainMenuState::handleEvent(const sf::Event& e)
 {
-    m_guiWindow->HandleEvent(e);
+    return false;
 }
 
 void MainMenuState::update(float dt)
 {
-    m_guiWindow->Update(dt);
+
 }
 
 void MainMenuState::draw(sf::RenderWindow& window) const
@@ -54,30 +39,29 @@ void MainMenuState::draw(sf::RenderWindow& window) const
 
 void MainMenuState::onActive()
 {
-    m_guiWindow->Show(true);
+    //Now that we are the active state we have to tell CEGUI to use our root window, rather than the old one from the previous state
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(m_rootWindow);
 }
 
 void MainMenuState::onInactive()
 {
-    m_guiWindow->Show(false);
+
 }
 
-void MainMenuState::newGame()
+bool MainMenuState::newGame(const CEGUI::EventArgs& e)
 {
     m_galemp->getStateManager()->push<NewGameState>(m_galemp);
+    return true;
 }
 
-void MainMenuState::loadGame()
-{
-
-}
-
-void MainMenuState::options()
+bool MainMenuState::options(const CEGUI::EventArgs& e)
 {
     m_galemp->getStateManager()->push<OptionsMenuState>(m_galemp);
+    return true;
 }
 
-void MainMenuState::exit()
+bool MainMenuState::exit(const CEGUI::EventArgs& e)
 {
     m_galemp->getWindow()->close();
+    return true;
 }

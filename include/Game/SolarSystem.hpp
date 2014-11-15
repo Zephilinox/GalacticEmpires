@@ -28,7 +28,7 @@ class SolarSystem : public sf::Drawable
 {
 public:
     SolarSystem(GalacticEmpires* galemp);
-    void handleEvent(const sf::Event& e);
+    bool handleEvent(const sf::Event& e);
     void update(double dt);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

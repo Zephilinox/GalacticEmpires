@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<GUILayout version="4">
+	<Window type="DefaultWindow" name="root">
+		<Window type="AlfiskoSkin/FrameWindow" name="MainMenu">
+			<Property name="Position" value="{ {0.30, 0}, {0.25, 0} }" />
+			<Property name="Size" value="{ {0.4, 0}, {0.50, 0} }" />
+			<Property name="Text" value="Main Menu" />
+			
+			<Window type="AlfiskoSkin/Button" name="NewGame">
+				<Property name="Position" value="{ {0.20, 0}, {0.10, 0} }" />
+				<Property name="Size" value="{ {0.60, 0}, {0.20, 0} }" />
+				<Property name="Text" value="New Game" />
+			</Window>
+			
+			<Window type="AlfiskoSkin/Button" name="Options">
+				<Property name="Position" value="{ {0.20, 0}, {0.40, 0} }" />
+				<Property name="Size" value="{ {0.60, 0}, {0.20, 0} }" />
+				<Property name="Text" value="Options" />
+			</Window>
+			
+			<Window type="AlfiskoSkin/Button" name="Exit">
+				<Property name="Position" value="{ {0.20, 0}, {0.70, 0} }" />
+				<Property name="Size" value="{ {0.60, 0}, {0.20, 0} }" />
+				<Property name="Text" value="Exit" />
+			</Window>
+		</Window>
+	</Window>
+</GUILayout>

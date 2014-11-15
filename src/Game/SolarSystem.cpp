@@ -33,9 +33,9 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
     m_shape.rotate(30);
 }
 
-void SolarSystem::handleEvent(const sf::Event& e)
+bool SolarSystem::handleEvent(const sf::Event& e)
 {
-
+    return false;
 }
 
 void SolarSystem::update(double dt)

@@ -10,7 +10,7 @@ LuaState::LuaState()
         throw std::runtime_error("The LuaState could not be constructed\n");
     }
 
-    luaL_openlibs(m_luaState);
+    luaL_openlibs(m_luaState); //add the default lua libraries
 }
 
 LuaState::~LuaState()
@@ -21,7 +21,7 @@ LuaState::~LuaState()
 
 int LuaState::loadFile(const std::string& file)
 {
-    lua_pushcfunction(m_luaState, traceback);
+    lua_pushcfunction(m_luaState, traceback); //give lua knowledge of our stacktrace function. POSSIBLE BUG: loading multiple files will add too many of these c functions?
     int error = luaL_loadfile(m_luaState, file.c_str());
 
     if (error)
@@ -34,7 +34,7 @@ int LuaState::loadFile(const std::string& file)
 
 int LuaState::execute()
 {
-    int error = lua_pcall(m_luaState, 0, 0, lua_gettop(m_luaState) - 1);
+    int error = lua_pcall(m_luaState, 0, 0, lua_gettop(m_luaState) - 1); //protected call to the entire lua state (execute 'main'), using the stack trace function we pushed to the top of the lua stack
 
     if (error)
     {
@@ -46,7 +46,7 @@ int LuaState::execute()
 
 luabridge::LuaRef LuaState::getGlobal(const std::string& varName)
 {
-    if (varName.find('.') == std::string::npos)
+    if (varName.find('.') == std::string::npos) //If there is no '.', just return it
     {
         luabridge::LuaRef varRef = luabridge::getGlobal(m_luaState, varName.c_str());
 
@@ -58,6 +58,7 @@ luabridge::LuaRef LuaState::getGlobal(const std::string& varName)
         std::vector<std::string> vars;
         std::string splitVarName = "";
 
+        //Explode the string in to various strings, using '.' as a delimiter
         while (std::getline(ss, splitVarName, '.'))
         {
             vars.push_back(splitVarName);
@@ -65,16 +66,10 @@ luabridge::LuaRef LuaState::getGlobal(const std::string& varName)
 
         luabridge::LuaRef varRef = luabridge::getGlobal(m_luaState, "_G");
 
-        if (vars.size())
+        //Iterate through tables of tables until we get to the end
+        for (unsigned i = 0; i < vars.size(); ++i)
         {
-            for (unsigned i = 0; i < vars.size(); ++i)
-            {
-                varRef = luabridge::LuaRef(varRef[vars[i].c_str()]);
-            }
-        }
-        else
-        {
-            varRef = luabridge::LuaRef(varRef[vars[0].c_str()]);
+            varRef = luabridge::LuaRef(varRef[vars[i].c_str()]);
         }
 
         return varRef;

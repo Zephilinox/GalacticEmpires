@@ -34,14 +34,16 @@ public:
     double y;
 
     double dot(const Vector& vec);
-    double length();
-    double lengthSquared();
+    double length(); //Uses square root
+    double lengthSquared(); //Doesn't use square root
     void normalize();
     Vector normalized();
 
+    //Rotate by 90 degrees left
     void turnLeft();
     Vector turnedLeft();
 
+    //Rotate by 90 degrees right
     void turnRight();
     Vector turnedRight();
 
