@@ -58,6 +58,21 @@ local libs = {
 "extlibs/"..environment.."/CEGUI/lib"
 }
 
+local cegui_dlls = {
+"CEGUIBase-0",
+"CEGUIExpatParser",
+"CEGUIOpenGLRenderer-0",
+"CEGUISILLYImageCodec",
+"freetype",
+"pcre",
+"SILLY",
+"zlib",
+"jpeg",
+"glew",
+"expat",
+"png"
+}
+
 --copy data folder to build and bin folders
 print("copying data files")
 os.copydir("data", "builds/".._ACTION.."/data")
@@ -72,6 +87,32 @@ if system == "windows" then
     os.copyfile("extlibs/"..environment.."/SFML/bin/openal32.dll", "builds/".._ACTION.."/dll/openal32.dll")
     os.copyfile("extlibs/"..environment.."/SFML/bin/libsndfile-1.dll", "builds/".._ACTION.."/dll/libsndfile-1.dll")
 	
+	--MSVC CEGUI does not utilise 'lib' prefix, mingw does.
+	for k, v in ipairs(cegui_dlls) do
+		if environment == "mingw" then
+			if v == "png" then --mingw CEGUI has png as liblibpng.dll, we need it to be png.dll
+				os.copyfile("extlibs/"..environment.."/CEGUI/bin/liblib"..v.."_d.dll", "builds/".._ACTION.."/dll/"..v.."_d.dll")
+				os.copyfile("extlibs/"..environment.."/CEGUI/bin/liblib"..v..".dll", "builds/".._ACTION.."/dll/"..v..".dll")
+			elseif v == "expat" then --mingw CEGUI has expat as libexpat.dll, we need it to be expat.dll
+				os.copyfile("extlibs/"..environment.."/CEGUI/bin/lib"..v.."_d.dll", "builds/".._ACTION.."/dll/"..v.."_d.dll")
+				os.copyfile("extlibs/"..environment.."/CEGUI/bin/lib"..v..".dll", "builds/".._ACTION.."/dll/"..v..".dll")
+			else
+				os.copyfile("extlibs/"..environment.."/CEGUI/bin/lib"..v.."_d.dll", "builds/".._ACTION.."/dll/lib"..v.."_d.dll")
+				os.copyfile("extlibs/"..environment.."/CEGUI/bin/lib"..v..".dll", "builds/".._ACTION.."/dll/lib"..v..".dll")
+			end
+		else
+			os.copyfile("extlibs/"..environment.."/CEGUI/bin/"..v.."_d.dll", "builds/".._ACTION.."/dll/"..v.."_d.dll")
+			os.copyfile("extlibs/"..environment.."/CEGUI/bin/"..v..".dll", "builds/".._ACTION.."/dll/"..v..".dll")
+		end
+	end
+	
+	--MSVC CEGUI requires minizip
+	if environment == "msvc" then
+		os.copyfile("extlibs/"..environment.."/CEGUI/bin/minizip_d.dll", "builds/".._ACTION.."/dll/minizip_d.dll")
+		os.copyfile("extlibs/"..environment.."/CEGUI/bin/minizip.dll", "builds/".._ACTION.."/dll/minizip.dll")
+	end
+	
+	--[[
     os.copyfile("extlibs/"..environment.."/CEGUI/bin/libCEGUIBase-0_d.dll", "builds/".._ACTION.."/dll/libCEGUIBase-0_d.dll")
     os.copyfile("extlibs/"..environment.."/CEGUI/bin/libCEGUIExpatParser_d.dll", "builds/".._ACTION.."/dll/libCEGUIExpatParser_d.dll")
     os.copyfile("extlibs/"..environment.."/CEGUI/bin/libCEGUIOpenGLRenderer-0_d.dll", "builds/".._ACTION.."/dll/libCEGUIOpenGLRenderer-0_d.dll")
@@ -97,7 +138,8 @@ if system == "windows" then
     os.copyfile("extlibs/"..environment.."/CEGUI/bin/libglew.dll", "builds/".._ACTION.."/dll/libglew.dll")
     os.copyfile("extlibs/"..environment.."/CEGUI/bin/libexpat.dll", "builds/".._ACTION.."/dll/expat.dll")
     os.copyfile("extlibs/"..environment.."/CEGUI/bin/liblibpng.dll", "builds/".._ACTION.."/dll/png.dll")
-    
+	--]]
+	
     os.copydir("builds/".._ACTION.."/dll", "builds/".._ACTION.."/bin/Debug/") --place alongside executable
     os.copydir("builds/".._ACTION.."/dll", "builds/".._ACTION.."/bin/Release/")
 end
@@ -136,6 +178,10 @@ solution("GalacticEmpires")
             targetdir       ("builds/".._ACTION.."/bin/Debug/")
             
             if system == "windows" then
+				if environment == "msvc" then
+					buildoptions	("/MTd")
+				end
+				
                 defines     {"SFML_STATIC"}
                 links       {"CEGUIBase-0_d", "CEGUIOpenGLRenderer-0_d", "CEGUIExpatParser_d", "CEGUISILLYImageCodec_d", "lua52", "thor-s-d", "sfml-graphics-s-d", "sfml-window-s-d", "sfml-system-s-d"}
             else 
@@ -149,6 +195,10 @@ solution("GalacticEmpires")
             targetdir       ("builds/".._ACTION.."/bin/Release/")
             
             if system == "windows" then
+				if environment == "msvc" then
+					buildoptions	("/MT")
+				end
+				
                 defines     {"SFML_STATIC"}
                 links       {"CEGUIBase-0", "CEGUIOpenGLRenderer-0", "CEGUIExpatParser", "CEGUISILLYImageCodec", "lua52", "thor-s", "sfml-graphics-s", "sfml-window-s", "sfml-system-s"}
             else 
