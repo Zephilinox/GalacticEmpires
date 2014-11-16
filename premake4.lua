@@ -118,7 +118,7 @@ solution("GalacticEmpires")
         libdirs         (libs)
         
         if system == "windows" then
-            linkoptions {"-static-libgcc", "-static-libstdc++"}
+            linkoptions {"-static-libstdc++"}
             includedirs (include_dirs_libs)
             libdirs     ("builds/".._ACTION.."/dll")
         end
