@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <cmath>
-#include <limits>
 
 #include "Math/Vector.hpp"
 #include "Helper/LuaState.hpp"
@@ -84,8 +83,12 @@ void SolarSystem::update(double dt)
             else
             {
                 m_map[m_hoverHex].setFillColor(sf::Color(0, 255, 0, 40));
-                m_map[m_clickHex].setFillColor(sf::Color(0, 0, 255, 40));
             }
+        }
+
+        if (m_clickHex != invalidHexCoordinates)
+        {
+            m_map[m_clickHex].setFillColor(sf::Color(0, 0, 255, 40));
         }
     }
     else

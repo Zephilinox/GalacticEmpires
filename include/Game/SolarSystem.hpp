@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include <tuple>
+#include <limits>
 
 #include <SFML/Graphics.hpp>
 
@@ -24,7 +25,7 @@ namespace std
 
 typedef std::unordered_map<coordinates, sf::CircleShape> HexMap;
 
-const coordinates invalidHexCoordinates(10000, 10000);
+const coordinates invalidHexCoordinates(std::numeric_limits<int>::infinity(), std::numeric_limits<int>::infinity());
 
 class SolarSystem : public sf::Drawable
 {
