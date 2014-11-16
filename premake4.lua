@@ -112,13 +112,19 @@ solution("GalacticEmpires")
         objdir          ("builds/".._ACTION.."/obj")
         
         files           {"main.cpp", "include/**.hpp", "src/**.cpp"}
-        buildoptions    ("-std=c++11 -Wall -Wextra -Wno-format -Wno-format-extra-args")
+		
+		if environment == "mingw" or environment == "linux" then
+			buildoptions    ("-std=c++11 -Wall -Wextra -Wno-format -Wno-format-extra-args")
+		end
         
         includedirs     {include_dirs_header_only}
         libdirs         (libs)
         
         if system == "windows" then
-            linkoptions {"-static-libstdc++"}
+			if environment == "mingw" then
+				linkoptions {"-static-libstdc++"}
+			end
+			
             includedirs (include_dirs_libs)
             libdirs     ("builds/".._ACTION.."/dll")
         end
