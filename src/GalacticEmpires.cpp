@@ -125,7 +125,6 @@ void GalacticEmpires::gameLoop()
 
         m_prevFrameTime = m_frameTime.getElapsedTime();
         m_frameTime.restart();
-        std::cout << 1.f / m_prevFrameTime.asSeconds() << "\n";
     }
 }
 
@@ -135,6 +134,7 @@ void GalacticEmpires::handleEvent(const sf::Event& e)
     {
         m_guiManager.handleEvent(e);
         m_curState->handleEvent(e);
+        m_fps.handleEvent(e);
 
         switch (e.type)
         {
@@ -177,6 +177,7 @@ void GalacticEmpires::update(float dt)
     {
         m_guiManager.update(dt);
         m_curState->update(dt);
+        m_fps.update(dt);
     }
     catch (const std::exception& e)
     {
@@ -193,6 +194,10 @@ void GalacticEmpires::draw()
     m_window.popGLStates();
 
     m_guiManager.draw();
+
+    m_window.pushGLStates();
+    m_window.draw(m_fps);
+    m_window.popGLStates();
 
     m_window.display();
 }

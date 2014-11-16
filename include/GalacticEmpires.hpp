@@ -6,6 +6,7 @@
 #include "Helper/Settings.hpp"
 #include "Helper/GUIManager.hpp"
 #include "State/StateManager.hpp"
+#include "FPSDisplay.hpp"
 
 class GalacticEmpires
 {
@@ -32,6 +33,7 @@ private:
     GUIManager m_guiManager;
     StateManager<GalacticEmpires> m_stateMan;
     std::shared_ptr<BaseState> m_curState;
+    FPSDisplay m_fps;
 
     sf::Event m_event;
     sf::Clock m_frameTime;
