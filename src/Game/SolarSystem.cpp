@@ -16,7 +16,8 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
     , m_clickHex(invalidHexCoordinates)
 {
     LuaState luaState;
-    luaState.loadFile("data/Lua/SolarSystem.lua");
+
+    luaState.loadFile("data/scripts/SolarSystem.lua");
     luaState.execute();
 
     m_systemRadius = luaState.getGlobal("SolarSystem.systemRadius").cast<int>();
@@ -32,6 +33,10 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
     m_shape.setOutlineThickness(-2);
     m_shape.setPosition(0, 0);
     m_shape.rotate(30);
+
+    sf::CircleShape cs(m_hexRadius, 6);
+    cs.setPosition(sf::Vector2f(std::numeric_limits<float>::max(), std::numeric_limits<float>::max()));
+    m_map[invalidHexCoordinates] = cs;
 }
 
 bool SolarSystem::handleEvent(const sf::Event& e)
@@ -45,10 +50,38 @@ bool SolarSystem::handleEvent(const sf::Event& e)
                 Vector mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
 
                 m_map[m_clickHex].setFillColor(sf::Color(0, 0, 0, 0));
+
                 m_clickHex = findClosestHex(mousePos);
             }
 
             break;
+        }
+
+        case sf::Event::MouseMoved:
+        {
+            Vector mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
+
+            float solDistance = Vector(m_shape.getPosition() - mousePos).length();
+
+            if (solDistance < m_shape.getRadius())
+            {
+                m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 0));
+                m_hoverHex = findClosestHex(mousePos);
+                m_map[m_hoverHex].setFillColor(sf::Color(0, 255, 0, 40));
+
+                if (m_hoverHex == m_clickHex)
+                {
+                    m_map[m_clickHex].setFillColor(sf::Color(255, 0, 0, 40));
+                }
+                else
+                {
+                    m_map[m_clickHex].setFillColor(sf::Color(0, 0, 255, 40));
+                }
+            }
+            else
+            {
+                m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 0));
+            }
         }
 
         default:
@@ -61,43 +94,7 @@ bool SolarSystem::handleEvent(const sf::Event& e)
 
 void SolarSystem::update(double dt)
 {
-    Vector mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
 
-    float solDistance = Vector(m_shape.getPosition() - mousePos).length();
-
-    if (solDistance < m_shape.getRadius())
-    {
-        if (m_hoverHex != invalidHexCoordinates)
-        {
-            m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 0));
-        }
-
-        m_hoverHex = findClosestHex(mousePos);
-
-        if (m_hoverHex != invalidHexCoordinates)
-        {
-            if (m_hoverHex == m_clickHex)
-            {
-                m_map[m_hoverHex].setFillColor(sf::Color(255, 0, 0, 40));
-            }
-            else
-            {
-                m_map[m_hoverHex].setFillColor(sf::Color(0, 255, 0, 40));
-            }
-        }
-
-        if (m_clickHex != invalidHexCoordinates)
-        {
-            m_map[m_clickHex].setFillColor(sf::Color(0, 0, 255, 40));
-        }
-    }
-    else
-    {
-        if (m_hoverHex != invalidHexCoordinates)
-        {
-            m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 0));
-        }
-    }
 }
 
 void SolarSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -127,7 +124,7 @@ void SolarSystem::genHexLine(int lineHeight, int radius)
     hexTemplate.setOrigin(m_hexRadius, m_hexRadius);
     hexTemplate.setFillColor(sf::Color(0, 0, 0, 0));
     hexTemplate.setOutlineColor(sf::Color::White);
-    hexTemplate.setOutlineThickness(-2);
+    hexTemplate.setOutlineThickness(2);
     hexTemplate.setPosition(0, 0);
 
     int lineWidth = radius*2 + 1 - std::abs(lineHeight);
@@ -184,7 +181,14 @@ void SolarSystem::genHexLine(int lineHeight, int radius)
 
 coordinates SolarSystem::findClosestHex(sf::Vector2f pos)
 {
-    float shortestHexDistance = std::numeric_limits<float>::infinity();
+    //If the distance to the hover hex is less than the hex radius then we're still in the same hex, so we don't need to bother finding the new closest one.
+    if (m_hoverHex != invalidHexCoordinates &&
+        Vector(m_map[m_hoverHex].getPosition() - pos).length() < m_hexRadius)
+    {
+        return m_hoverHex;
+    }
+
+    float shortestHexDistance = std::numeric_limits<float>::max();
     coordinates closestHexCoord = invalidHexCoordinates;
 
     for (const auto hexPair : m_map)

@@ -125,6 +125,7 @@ void GalacticEmpires::gameLoop()
 
         m_prevFrameTime = m_frameTime.getElapsedTime();
         m_frameTime.restart();
+        std::cout << 1.f / m_prevFrameTime.asSeconds() << "\n";
     }
 }
 

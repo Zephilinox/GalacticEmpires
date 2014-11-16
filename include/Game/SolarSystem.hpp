@@ -25,7 +25,7 @@ namespace std
 
 typedef std::unordered_map<coordinates, sf::CircleShape> HexMap;
 
-const coordinates invalidHexCoordinates(std::numeric_limits<int>::infinity(), std::numeric_limits<int>::infinity());
+const coordinates invalidHexCoordinates = coordinates(std::numeric_limits<int>::max(), std::numeric_limits<int>::max());
 
 class SolarSystem : public sf::Drawable
 {
