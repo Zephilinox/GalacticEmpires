@@ -6,11 +6,12 @@
 #include "Math/Vector.hpp"
 #include "Helper/LuaState.hpp"
 #include "Helper/Utility.hpp"
+#include "Helper/Constants.hpp"
 
 SolarSystem::SolarSystem(GalacticEmpires* galemp)
     : m_galemp(galemp)
     , m_systemRadius(16)
-    , m_hexRadius(32)
+	, m_hexRadius(32 * SIZE_FACTOR)
     , m_shape(0, 6)
     , m_hoverHex(invalidHexCoordinates)
     , m_clickHex(invalidHexCoordinates)
@@ -22,6 +23,7 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
 
     m_systemRadius = luaState.getGlobal("SolarSystem.systemRadius").cast<int>();
     m_hexRadius = luaState.getGlobal("SolarSystem.hexRadius").cast<int>();
+	m_hexRadius *= SIZE_FACTOR;
 
     genMap();
 
@@ -30,7 +32,7 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
     m_shape.setOrigin(m_shape.getRadius(), m_shape.getRadius());
     m_shape.setFillColor(sf::Color(std::rand() % 256, std::rand() % 255, std::rand() % 255, 40));
     m_shape.setOutlineColor(sf::Color::Black);
-    m_shape.setOutlineThickness(-2);
+	m_shape.setOutlineThickness(2 * SIZE_FACTOR);
     m_shape.setPosition(0, 0);
     m_shape.rotate(30);
 
@@ -117,14 +119,14 @@ void SolarSystem::genMap()
 
 void SolarSystem::genHexLine(int lineHeight, int radius)
 {
-    float hexHeight = m_hexRadius * 2;
+	float hexHeight = m_hexRadius * 2 + (8 * SIZE_FACTOR);
     float hexWidth = hexHeight * Vector::degToVector(60).x;
 
     sf::CircleShape hexTemplate(m_hexRadius, 6);
     hexTemplate.setOrigin(m_hexRadius, m_hexRadius);
     hexTemplate.setFillColor(sf::Color(0, 0, 0, 0));
     hexTemplate.setOutlineColor(sf::Color::White);
-    hexTemplate.setOutlineThickness(2);
+	hexTemplate.setOutlineThickness(2 * SIZE_FACTOR);
     hexTemplate.setPosition(0, 0);
 
     int lineWidth = radius*2 + 1 - std::abs(lineHeight);

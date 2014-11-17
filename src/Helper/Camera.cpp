@@ -4,20 +4,23 @@
 
 #include <Thor/Input.hpp>
 
+#include "Helper/Constants.hpp"
+
 Camera::Camera(GalacticEmpires* galemp)
     : m_galemp(galemp)
     , m_view(m_galemp->getWindow()->getView())
-    , m_zoomValue(1.f)
+    , m_zoomValue(1.f * SIZE_FACTOR)
     , m_panZonePercent(0.1f)
-    , m_panSpeed(4.f)
-    , m_moveSpeed(512.f)
+	, m_panSpeed(4.f * SIZE_FACTOR)
+	, m_moveSpeed(512.f * SIZE_FACTOR)
     , m_updateWindow(false)
 {
     m_view.setCenter(0, 0);
     m_updateWindow = true; //assigned here for clarity
 
-    m_zoomLimits[0] = 0.49f;
-    m_zoomLimits[1] = 5.01f;
+	m_zoomLimits[0] = 0.49f * SIZE_FACTOR;
+	m_zoomLimits[1] = 1.51f * SIZE_FACTOR;
+	zoom(0); //update default zoom
 
     m_panBorderLimits[0] = m_galemp->getWindow()->getSize().x * m_panZonePercent;
     m_panBorderLimits[1] = m_galemp->getWindow()->getSize().x * (1.f-m_panZonePercent);
@@ -133,6 +136,8 @@ void Camera::resetZoom()
 
 void Camera::zoom(float zoomDelta)
 {
+	zoomDelta *= SIZE_FACTOR;
+
     if (m_zoomValue + zoomDelta >= m_zoomLimits[0] &&
         m_zoomValue + zoomDelta <= m_zoomLimits[1])
     {
