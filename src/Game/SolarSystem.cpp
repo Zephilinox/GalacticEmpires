@@ -27,12 +27,12 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
 
     genMap();
 
-    m_shape.setRadius(m_hexRadius * (m_systemRadius * 2 + 2));
+    m_shape.setRadius(std::abs(m_map[coordinates(-m_systemRadius, 0)].getPosition().x) + m_hexRadius*2);
 
     m_shape.setOrigin(m_shape.getRadius(), m_shape.getRadius());
-    m_shape.setFillColor(sf::Color(std::rand() % 256, std::rand() % 255, std::rand() % 255, 40));
-    m_shape.setOutlineColor(sf::Color::Black);
-	m_shape.setOutlineThickness(2 * SIZE_FACTOR);
+    m_shape.setFillColor(sf::Color(std::rand() % 256, std::rand() % 256, std::rand() % 256, 50 + std::rand() % 50));
+    m_shape.setOutlineColor(sf::Color(0, 0, 0, 200));
+	m_shape.setOutlineThickness(8 * SIZE_FACTOR);
     m_shape.setPosition(0, 0);
     m_shape.rotate(30);
 
@@ -51,9 +51,9 @@ bool SolarSystem::handleEvent(const sf::Event& e)
             {
                 Vector mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
 
-                m_map[m_clickHex].setFillColor(sf::Color(0, 0, 0, 0));
-
+                m_map[m_clickHex].setFillColor(sf::Color(0, 0, 0, 100));
                 m_clickHex = findClosestHex(mousePos);
+                m_map[m_clickHex].setFillColor(sf::Color(100, 100, 255, 255));
             }
 
             break;
@@ -67,22 +67,22 @@ bool SolarSystem::handleEvent(const sf::Event& e)
 
             if (solDistance < m_shape.getRadius())
             {
-                m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 0));
+                m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 100));
                 m_hoverHex = findClosestHex(mousePos);
-                m_map[m_hoverHex].setFillColor(sf::Color(0, 255, 0, 40));
+                m_map[m_hoverHex].setFillColor(sf::Color(100, 255, 100, 255));
 
                 if (m_hoverHex == m_clickHex)
                 {
-                    m_map[m_clickHex].setFillColor(sf::Color(255, 0, 0, 40));
+                    m_map[m_clickHex].setFillColor(sf::Color(255, 100, 100, 255));
                 }
                 else
                 {
-                    m_map[m_clickHex].setFillColor(sf::Color(0, 0, 255, 40));
+                    m_map[m_clickHex].setFillColor(sf::Color(100, 100, 255, 255));
                 }
             }
             else
             {
-                m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 0));
+                m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 100));
             }
         }
 
@@ -119,14 +119,14 @@ void SolarSystem::genMap()
 
 void SolarSystem::genHexLine(int lineHeight, int radius)
 {
-	float hexHeight = m_hexRadius * 2 + (8 * SIZE_FACTOR);
+	float hexHeight = m_hexRadius * 2 + (16 * SIZE_FACTOR);
     float hexWidth = hexHeight * Vector::degToVector(60).x;
 
     sf::CircleShape hexTemplate(m_hexRadius, 6);
     hexTemplate.setOrigin(m_hexRadius, m_hexRadius);
-    hexTemplate.setFillColor(sf::Color(0, 0, 0, 0));
-    hexTemplate.setOutlineColor(sf::Color::White);
-	hexTemplate.setOutlineThickness(2 * SIZE_FACTOR);
+    hexTemplate.setFillColor(sf::Color(0, 0, 0, 100));
+    hexTemplate.setOutlineColor(sf::Color(0, 0, 0, 200));
+	hexTemplate.setOutlineThickness(4 * SIZE_FACTOR);
     hexTemplate.setPosition(0, 0);
 
     int lineWidth = radius*2 + 1 - std::abs(lineHeight);
