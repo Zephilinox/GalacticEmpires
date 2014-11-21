@@ -111,17 +111,22 @@ void SolarSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void SolarSystem::genMap()
 {
+	//'Circular' Hexagonal map consists of several lines of hexagons, equal to 2x the width of the system plus one for the center line.
+	//In order to achieve this we loop from -width to +width, with 0 counting as the center line, eliminating the need to plus one.
     for (int i = -m_systemRadius; i <= m_systemRadius; ++i)
     {
         genHexLine(i, m_systemRadius);
     }
 }
 
-void SolarSystem::genHexLine(int lineHeight, int radius)
+void SolarSystem::genHexLine(int lineHeight, int radius) //I don't know why we use radius instead of just using m_systemRadius
 {
+	//set the height (pointy vertex to center * 2) and add some extra pixels for padding
 	float hexHeight = m_hexRadius * 2 + (16 * SIZE_FACTOR);
+	//The width of the hex has to be multiplied by the vectorised x-component of 60 degrees in order to be accurate
     float hexWidth = hexHeight * Vector::degToVector(60).x;
 
+	//Sort of a prototype pattern, use this template to initialise all hexes for this line
     sf::CircleShape hexTemplate(m_hexRadius, 6);
     hexTemplate.setOrigin(m_hexRadius, m_hexRadius);
     hexTemplate.setFillColor(sf::Color(0, 0, 0, 100));
@@ -129,11 +134,18 @@ void SolarSystem::genHexLine(int lineHeight, int radius)
 	hexTemplate.setOutlineThickness(4 * SIZE_FACTOR);
     hexTemplate.setPosition(0, 0);
 
+	//The longest line is  the center, each line above or below it has one less hex in said line
+	//We can find the max # of hexes in a line by doubling the radius and adding one for the center hex
+	//We then simply subtract one per lineHeight, since it can be negative we need to std::abs it
     int lineWidth = radius*2 + 1 - std::abs(lineHeight);
-    for (int i = 0; i < lineWidth; ++i)
-    {
-        coordinates coords(-radius + i, lineHeight);
 
+    for (int i = 0; i < lineWidth; ++i)
+	{
+		//The x coord starts off at the left and goes right by adding the i which represents which hex in the line we are.
+		//These coordinates are the axial coordinates of the hex
+		coordinates coords(-radius + i, lineHeight); 
+
+		//This code ensures that the x-axial coord is flipped when going below 0 (i.e. the top half of our hex map) in order to produce a hex-shaped hex map, rather than a trapezoid
         if (lineHeight < 0)
         {
             coords.x -= lineHeight;
@@ -141,12 +153,16 @@ void SolarSystem::genHexLine(int lineHeight, int radius)
 
         auto hex = hexTemplate;
         sf::Vector2f offset(hexWidth, hexHeight);
+		//We want to move each hex from the center by multiplying their axial coordinates by the offset, which is simply the width and height of a hex
+		//We multiply the y-offset by 0.75 because of the staggering, two hexes on separate lines are not one hex away in height, they are 0.75 away as they are positioned to the left or right of the one above
         hex.move(coords.x * offset.x, coords.y * offset.y * 0.75);
 
+		//If the line height is odd then we need to shift the x-position of the hexes to stagger them
         if (lineHeight % 2)
         {
-            offset.x /= 2;
+            offset.x /= 2; //shift by half a hex, not a full one
 
+			//Trial & Error, not sure how it works
             if (lineHeight > 2)
             {
                 hex.move(offset.x * (lineHeight - 1), 0);
@@ -158,6 +174,7 @@ void SolarSystem::genHexLine(int lineHeight, int radius)
         }
         else
         {
+			//Trial & Error, not sure how it works
             if (lineHeight > 2)
             {
                 hex.move(offset.x * (lineHeight/2 - 1), 0);
@@ -168,6 +185,7 @@ void SolarSystem::genHexLine(int lineHeight, int radius)
             }
         }
 
+		//Stagger the x-pos of the hexes at the top/bottom of the map in order for them to align correctly
         if (lineHeight < 0)
         {
             hex.move(-offset.x, 0);
@@ -184,8 +202,9 @@ void SolarSystem::genHexLine(int lineHeight, int radius)
 coordinates SolarSystem::findClosestHex(sf::Vector2f pos)
 {
     //If the distance to the hover hex is less than the hex radius then we're still in the same hex, so we don't need to bother finding the new closest one.
+	//The hover hex acts as the "last hex that we were closest to", which works nicely for optimisation
     if (m_hoverHex != invalidHexCoordinates &&
-        Vector(m_map[m_hoverHex].getPosition() - pos).length() < m_hexRadius)
+        Vector(m_map[m_hoverHex].getPosition() - pos).lengthSquared() < m_hexRadius*m_hexRadius)
     {
         return m_hoverHex;
     }
@@ -195,8 +214,8 @@ coordinates SolarSystem::findClosestHex(sf::Vector2f pos)
 
     for (const auto hexPair : m_map)
     {
-        float hexDistance = Vector(hexPair.second.getPosition() - pos).length();
-        if (hexDistance < m_hexRadius)
+        float hexDistance = Vector(hexPair.second.getPosition() - pos).lengthSquared();
+        if (hexDistance < m_hexRadius*m_hexRadius)
         {
             if (hexDistance < shortestHexDistance)
             {
