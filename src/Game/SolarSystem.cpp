@@ -36,6 +36,15 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
     m_shape.setPosition(0, 0);
     m_shape.rotate(30);
 
+	m_solSysBackground.create(m_shape.getRadius() * 2, m_shape.getRadius() * 2);
+	m_solSysBackground.setView(sf::View(sf::Vector2f(0, 0), sf::Vector2f(m_shape.getRadius() * 2, m_shape.getRadius() * 2)));
+	m_solSysBackground.clear(sf::Color::Transparent);
+	for (const auto& hex : m_map)
+	{
+		m_solSysBackground.draw(hex.second);
+	}
+	m_solSysBackground.display();
+
     sf::CircleShape cs(m_hexRadius, 6);
     cs.setPosition(sf::Vector2f(std::numeric_limits<float>::max(), std::numeric_limits<float>::max()));
     m_map[invalidHexCoordinates] = cs;
@@ -101,12 +110,12 @@ void SolarSystem::update(double dt)
 
 void SolarSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw(m_shape, states);
+	target.draw(m_shape);
 
-    for (const auto& hex : m_map)
-    {
-        target.draw(hex.second, states);
-    }
+	sf::Sprite background(m_solSysBackground.getTexture());
+	background.setOrigin(m_solSysBackground.getSize().x / 2, m_solSysBackground.getSize().y / 2);
+	background.setPosition(sf::Vector2f(0, 0));
+	target.draw(background);
 }
 
 void SolarSystem::genMap()

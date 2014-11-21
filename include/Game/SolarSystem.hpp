@@ -41,6 +41,7 @@ private:
     coordinates findClosestHex(sf::Vector2f pos);
 
     GalacticEmpires* m_galemp;
+	sf::RenderTexture m_solSysBackground;
 
     int m_systemRadius;
     float m_hexRadius;
