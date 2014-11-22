@@ -1,3 +1,3 @@
 SolarSystem = {
-	systemRadius = 16;
+	systemRadius = 8;
 }

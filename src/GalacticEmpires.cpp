@@ -105,6 +105,7 @@ void GalacticEmpires::loadSettings()
 
     m_window.setMouseCursorVisible(false);
 
+    std::cout << m_window.getSize().x << ", " << m_window.getSize().y << "\n";
     CEGUI::System::getSingleton().notifyDisplaySizeChanged(CEGUI::Sizef(m_window.getSize().x, m_window.getSize().y));
 }
 

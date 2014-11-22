@@ -38,9 +38,26 @@ bool FPSDisplay::handleEvent(const sf::Event& e)
 
 void FPSDisplay::update(float dt)
 {
-    if (m_updateClock.getElapsedTime() > sf::seconds(0.1f))
+    static const unsigned updatesPerSecond = 10;
+
+    if (m_updateClock.getElapsedTime() > sf::seconds(1.f / updatesPerSecond))
     {
-        m_fpsText.setText(toString(std::floor(1.f / dt)));
+        //Calculate average FPS based on values from the last second
+        m_FPSValues.push_back(std::floor(1.f / dt));
+        if (m_FPSValues.size() > updatesPerSecond)
+        {
+            m_FPSValues.pop_front();
+        }
+
+        unsigned avgFPS = 0;
+        for (unsigned fps : m_FPSValues)
+        {
+            avgFPS += fps;
+        }
+        avgFPS = std::floor(avgFPS/m_FPSValues.size());
+
+        //Update the FPS
+        m_fpsText.setText(toString(avgFPS));
         m_fpsText.update(dt);
         m_updateClock.restart();
     }

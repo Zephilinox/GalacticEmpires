@@ -1,6 +1,8 @@
 #ifndef FPSDISPLAY_HPP
 #define FPSDISPLAY_HPP
 
+#include <deque>
+
 #include <SFML/Graphics.hpp>
 
 #include "Graphics/TextHandler.hpp"
@@ -17,6 +19,8 @@ private:
     TextHandler m_fpsText;
     bool m_visible;
     sf::Clock m_updateClock;
+    std::deque<unsigned> m_FPSValues;
+
 };
 
 #endif //FPSDISPLAY_HPP
