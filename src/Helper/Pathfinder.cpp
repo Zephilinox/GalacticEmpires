@@ -57,6 +57,8 @@ void Pathfinder::step(coordinates source, coordinates target)
 	if (pathFound)
 	{
 		pathFound = false;
+		m_openList.clear();
+		m_closedList.clear();
 		return;
 	}
 	std::cout << "[" << source.x << ", " << source.y << "] -> [" << target.x << ", " << target.y << "]\n";
@@ -73,9 +75,7 @@ void Pathfinder::step(coordinates source, coordinates target)
 		m_openList.push_back(source);
 	}
 
-	if (m_closedList.size() != 0 &&
-		m_closedList.back() == target &&
-		m_openList.size() == 0)
+	if (m_closedList.size() != 0 && m_closedList.back() == target)
 	{
 		std::cout << "No more hexes to explore, we found the target\n";
 		for (auto& coord : m_closedList)
@@ -94,7 +94,15 @@ void Pathfinder::step(coordinates source, coordinates target)
 		while (m_map->validCoordinate(parentCoord))
 		{
 			m_map->getHexMap()[parentCoord].setColor(sf::Color::Yellow);
-			parentCoord = m_nodes[parentCoord].parentCoord;
+			auto parentCoord2 = m_nodes[parentCoord].parentCoord;
+			if (parentCoord == m_nodes[parentCoord2].parentCoord)
+            {
+                parentCoord = invalidCoordinates;
+            }
+            else
+            {
+                parentCoord = parentCoord2;
+            }
 		}
 
 		pathFound = true;
@@ -121,7 +129,7 @@ void Pathfinder::step(coordinates source, coordinates target)
 					node.h = calculateHeuristicCost(nodeCoord, target);
 					node.g = calculateMovementCost(node.parentCoord, nodeCoord);
 					m_openList.push_back(nodeCoord);
-					m_map->getHexMap()[nodeCoord].setColor(sf::Color::White);
+					//m_map->getHexMap()[nodeCoord].setColor(sf::Color::White);
 				}
 				else if (node.g > calculateMovementCost(m_closedList.back(), nodeCoord)) //I think this is unnecessary
 				{
@@ -133,7 +141,7 @@ void Pathfinder::step(coordinates source, coordinates target)
 		}
 	}
 
-	//step(source, target);
+	step(source, target);
 
 	/*auto nodes = getAdjacentNodes(source);
 	auto index = getLowestScoreNodeIndex(nodes, target);
