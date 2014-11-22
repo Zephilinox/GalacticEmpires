@@ -62,7 +62,7 @@ unsigned Pathfinder::calculateMovementCost(coordinates source, coordinates targe
 
     if (lastDir == nextDir)
     {
-        return m_movementCost * 1.5;
+        return m_movementCost + 1;
     }
     else
     {
@@ -116,7 +116,7 @@ void Pathfinder::step(coordinates source, coordinates target)
 			m_map->getHexMap()[parentCoord].setColor(sf::Color::Yellow);
 			parentCoord = m_nodes[parentCoord].parentCoord;
 		}
-		m_map->getHexMap()[m_closedList.front()].setColor(sf::Color(255, 50, 255, 255));
+		m_map->getHexMap()[m_closedList.front()].setColor(sf::Color(255, 200, 0, 255));
 
 		pathFound = true;
 	}
@@ -131,20 +131,22 @@ void Pathfinder::step(coordinates source, coordinates target)
 		auto adjNodes = getAdjacentNodes(m_closedList.back());
 		for (const auto& nodeCoord : adjNodes)
 		{
-			//todo: if we can move on it
-			if (std::find(m_closedList.begin(), m_closedList.end(), nodeCoord) == m_closedList.end())
-			{
-				auto& node = m_nodes[nodeCoord];
+			if (m_map->getHexMap()[nodeCoord].getColor() != sf::Color::Black)
+            {
+                if (std::find(m_closedList.begin(), m_closedList.end(), nodeCoord) == m_closedList.end())
+                {
+                    auto& node = m_nodes[nodeCoord];
 
-				if (std::find(m_openList.begin(), m_openList.end(), nodeCoord) == m_openList.end())
-				{
-					node.parentCoord = m_closedList.back();
-					node.h = calculateHeuristicCost(nodeCoord, target);
-					node.g = calculateMovementCost(node.parentCoord, nodeCoord);
-					m_openList.push_back(nodeCoord);
-					//m_map->getHexMap()[nodeCoord].setColor(sf::Color::White);
-				}
-			}
+                    if (std::find(m_openList.begin(), m_openList.end(), nodeCoord) == m_openList.end())
+                    {
+                        node.parentCoord = m_closedList.back();
+                        node.h = calculateHeuristicCost(nodeCoord, target);
+                        node.g = calculateMovementCost(node.parentCoord, nodeCoord);
+                        m_openList.push_back(nodeCoord);
+                        m_map->getHexMap()[nodeCoord].setColor(sf::Color::White);
+                    }
+                }
+            }
 		}
 	}
 

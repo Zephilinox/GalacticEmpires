@@ -113,9 +113,17 @@ bool SolarSystem::handleEvent(const sf::Event& e)
 
             if (solDistance < m_shape.getRadius())
             {
-                m_map[m_hoverHex].setColor(m_darkerHexCol);
+                if (m_map[m_hoverHex].getColor() != sf::Color::Black)
+                {
+                    m_map[m_hoverHex].setColor(m_darkerHexCol);
+                }
+
                 m_hoverHex = m_map.findClosestHex(mousePos);
-                m_map[m_hoverHex].setColor(sf::Color(100, 255, 100, 255));
+
+                if (m_map[m_hoverHex].getColor() != sf::Color::Black)
+                {
+                    m_map[m_hoverHex].setColor(sf::Color(100, 255, 100, 255));
+                }
 
                 if (m_hoverHex == m_clickHex)
                 {
@@ -130,6 +138,16 @@ bool SolarSystem::handleEvent(const sf::Event& e)
             {
                 m_map[m_hoverHex].setColor(m_darkerHexCol);
             }
+        }
+
+        case sf::Event::KeyPressed:
+        {
+            if (e.key.code == sf::Keyboard::O)
+            {
+                m_map[m_hoverHex].setColor(sf::Color::Black);
+            }
+
+            break;
         }
 
         default:
