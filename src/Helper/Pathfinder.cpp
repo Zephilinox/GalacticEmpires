@@ -43,7 +43,6 @@ unsigned Pathfinder::calculateHeuristicCost(coordinates source, coordinates targ
 
 	//divide by 2 for hex distance
 	distance /= 2;
-
 	return distance * m_movementCost;
 }
 
@@ -103,7 +102,6 @@ void Pathfinder::step(coordinates source, coordinates target)
 	else
 	{
 		unsigned lowestScoreNodeIndex = getLowestScoreNodeIndex(m_openList, target);
-		std::cout << "[" << m_openList[lowestScoreNodeIndex].x << ", " << m_openList[lowestScoreNodeIndex].y << "] = " << m_nodes[m_openList[lowestScoreNodeIndex]].g + m_nodes[m_openList[lowestScoreNodeIndex]].h << "\n";
 		m_closedList.push_back(m_openList[lowestScoreNodeIndex]);
 
 		m_map->getHexMap()[m_openList[lowestScoreNodeIndex]].setColor(sf::Color::Magenta);
@@ -115,14 +113,13 @@ void Pathfinder::step(coordinates source, coordinates target)
 			//todo: if we can move on it
 			if (std::find(m_closedList.begin(), m_closedList.end(), nodeCoord) == m_closedList.end())
 			{
-				auto node = m_nodes[nodeCoord];
+				auto& node = m_nodes[nodeCoord];
 
 				if (std::find(m_openList.begin(), m_openList.end(), nodeCoord) == m_openList.end())
 				{
 					node.parentCoord = m_closedList.back();
 					node.h = calculateHeuristicCost(nodeCoord, target);
 					node.g = calculateMovementCost(node.parentCoord, nodeCoord);
-
 					m_openList.push_back(nodeCoord);
 					m_map->getHexMap()[nodeCoord].setColor(sf::Color::White);
 				}
@@ -189,5 +186,6 @@ unsigned Pathfinder::getLowestScoreNodeIndex(std::vector<coordinates> nodes, coo
 		}
 	}
 
+    std::cout << "[" << nodes[lowestScoreNode].x << ", " << nodes[lowestScoreNode].y << "] = " << lowestScore << "\n";
 	return lowestScoreNode;
 }
