@@ -79,12 +79,14 @@ bool SolarSystem::handleEvent(const sf::Event& e)
         {
 			Vector mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
 			m_map[m_clickHex].setColor(m_darkerHexCol);
-			coordinates old = m_clickHex;
+			auto old = m_clickHex;
 			m_clickHex = m_map.findClosestHex(mousePos);
 			m_map[m_clickHex].setColor(sf::Color(100, 100, 255, 255));
 
             if (e.mouseButton.button == sf::Mouse::Left)
             {
+				m_sourceHex = m_clickHex;
+
 				if (old != invalidCoordinates && m_clickHex != invalidCoordinates)
 				{
 					std::cout << "Distance: " << m_pathfinder.calculateHeuristicCost(old, m_clickHex)/10 << "\n";
@@ -92,10 +94,11 @@ bool SolarSystem::handleEvent(const sf::Event& e)
             }
 			else
 			{
-				if (old != invalidCoordinates && m_clickHex != invalidCoordinates)
+				m_targetHex = m_clickHex;
+				if (m_sourceHex != invalidCoordinates && m_targetHex != invalidCoordinates)
 				{
 					std::cout << "Finding path\n";
-					m_pathfinder.step(old, m_clickHex);
+					m_pathfinder.step(m_sourceHex, m_targetHex);
 				}
 			}
 

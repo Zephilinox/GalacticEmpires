@@ -7,6 +7,13 @@
 
 #include "Game/SolarSystemMap.hpp"
 
+struct Node
+{
+	unsigned h = 0;
+	unsigned g = 0;
+	coordinates parentCoord = invalidCoordinates;
+};
+
 class Pathfinder
 {
 public:
@@ -34,6 +41,7 @@ private:
     bool m_pathFound;
 
 	SolarSystemMap* m_map;
+	std::unordered_map<coordinates, Node> m_nodes;
 };
 
 #endif //PATHFINDER_HPP

@@ -34,6 +34,9 @@ private:
     coordinates m_hoverHex;
     coordinates m_clickHex;
 
+	coordinates m_sourceHex;
+	coordinates m_targetHex;
+
 	Pathfinder m_pathfinder;
 };
 
