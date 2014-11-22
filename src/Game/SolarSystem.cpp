@@ -15,7 +15,7 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
     , m_shape(0, 6)
     , m_hoverHex(invalidCoordinates)
     , m_clickHex(invalidCoordinates)
-	, m_pathfinder(&m_map)
+    , m_pathfinder(&m_map)
 {
     //Lua stuff
     LuaState luaState;
@@ -77,30 +77,30 @@ bool SolarSystem::handleEvent(const sf::Event& e)
     {
         case sf::Event::MouseButtonPressed:
         {
-			Vector mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
-			m_map[m_clickHex].setColor(m_darkerHexCol);
-			auto old = m_clickHex;
-			m_clickHex = m_map.findClosestHex(mousePos);
-			m_map[m_clickHex].setColor(sf::Color(100, 100, 255, 255));
+            Vector mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
+            m_map[m_clickHex].setColor(m_darkerHexCol);
+            auto old = m_clickHex;
+            m_clickHex = m_map.findClosestHex(mousePos);
+            m_map[m_clickHex].setColor(sf::Color(100, 100, 255, 255));
 
             if (e.mouseButton.button == sf::Mouse::Left)
             {
-				m_sourceHex = m_clickHex;
+                m_sourceHex = m_clickHex;
 
-				if (old != invalidCoordinates && m_clickHex != invalidCoordinates)
-				{
-					std::cout << "Distance: " << m_pathfinder.calculateHeuristicCost(old, m_clickHex)/10 << "\n";
-				}
+                if (old != invalidCoordinates && m_clickHex != invalidCoordinates)
+                {
+                    std::cout << "Distance: " << m_pathfinder.calculateHeuristicCost(old, m_clickHex)/10 << "\n";
+                }
             }
-			else
-			{
-				m_targetHex = m_clickHex;
-				if (m_sourceHex != invalidCoordinates && m_targetHex != invalidCoordinates)
-				{
-					std::cout << "Finding path\n";
-					m_pathfinder.step(m_sourceHex, m_targetHex);
-				}
-			}
+            else
+            {
+                m_targetHex = m_clickHex;
+                if (m_sourceHex != invalidCoordinates && m_targetHex != invalidCoordinates)
+                {
+                    std::cout << "Finding path\n";
+                    m_pathfinder.step(m_sourceHex, m_targetHex);
+                }
+            }
 
             break;
         }

@@ -18,6 +18,8 @@ public:
 
 private:
     void exit();
+    bool applyChanges(const CEGUI::EventArgs& e);
+    bool saveChanges(const CEGUI::EventArgs& e);
 
     GalacticEmpires* m_galemp;
     CEGUI::Window* m_rootWindow;
