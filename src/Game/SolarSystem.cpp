@@ -16,27 +16,48 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
     , m_hoverHex(invalidHexCoordinates)
     , m_clickHex(invalidHexCoordinates)
 {
+	//Lua stuff
     LuaState luaState;
 
     luaState.loadFile("data/scripts/SolarSystem.lua");
     luaState.execute();
 
     m_systemRadius = luaState.getGlobal("SolarSystem.systemRadius").cast<int>();
-    m_hexRadius = luaState.getGlobal("SolarSystem.hexRadius").cast<int>();
-	m_hexRadius *= SIZE_FACTOR;
 
+	//Automatically generate hexagonal texture
+	//This probably shouldn't be in the source, just for easily generating hex images
+	sf::CircleShape hexPic(m_hexRadius, 6);
+	hexPic.setOrigin(m_hexRadius, m_hexRadius);
+	hexPic.setFillColor(sf::Color::White);
+	hexPic.setOutlineColor(sf::Color::Black);
+	hexPic.setOutlineThickness(-2 * SIZE_FACTOR);
+	hexPic.setPosition(0, 0);
+
+	sf::RenderTexture rt;
+	rt.create(m_hexRadius * 2, m_hexRadius * 2);
+	rt.setView(sf::View(sf::Vector2f(0, 0), sf::Vector2f(m_hexRadius * 2, m_hexRadius * 2)));
+	rt.clear(sf::Color::Transparent);
+	rt.draw(hexPic);
+	rt.display();
+	rt.getTexture().copyToImage().saveToFile("data/textures/hex.png");
+
+	m_hexTex.loadFromFile("data/textures/hex.png");
+
+	//Gen the hexes
     genMap();
 
-    m_shape.setRadius(std::abs(m_map[coordinates(-m_systemRadius, 0)].getPosition().x) + m_hexRadius*2);
-
-    m_shape.setOrigin(m_shape.getRadius(), m_shape.getRadius());
-    m_shape.setFillColor(sf::Color(std::rand() % 256, std::rand() % 256, std::rand() % 256, 50 + std::rand() % 50));
-    m_shape.setOutlineColor(sf::Color(0, 0, 0, 200));
+	//Gen the solar system shape
+	m_shape.setRadius(std::abs(m_map[coordinates(-m_systemRadius, 0)].getPosition().x) + m_hexRadius * 2);
+	m_shape.setOrigin(m_shape.getRadius(), m_shape.getRadius());
+	m_shape.setFillColor(sf::Color(std::rand() % 256, std::rand() % 256, std::rand() % 256, 50 + std::rand() % 50));
+	m_shape.setOutlineColor(sf::Color(0, 0, 0, 200));
 	m_shape.setOutlineThickness(8 * SIZE_FACTOR);
     m_shape.setPosition(0, 0);
     m_shape.rotate(30);
 
-    sf::CircleShape cs(m_hexRadius, 6);
+	//Define an invalid hex in the map
+	sf::Sprite cs;
+
     cs.setPosition(sf::Vector2f(std::numeric_limits<float>::max(), std::numeric_limits<float>::max()));
     m_map[invalidHexCoordinates] = cs;
 }
@@ -51,9 +72,9 @@ bool SolarSystem::handleEvent(const sf::Event& e)
             {
                 Vector mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
 
-                m_map[m_clickHex].setFillColor(sf::Color(0, 0, 0, 100));
+                m_map[m_clickHex].setColor(sf::Color(0, 0, 0, 100));
                 m_clickHex = findClosestHex(mousePos);
-                m_map[m_clickHex].setFillColor(sf::Color(100, 100, 255, 255));
+                m_map[m_clickHex].setColor(sf::Color(100, 100, 255, 255));
             }
 
             break;
@@ -67,22 +88,22 @@ bool SolarSystem::handleEvent(const sf::Event& e)
 
             if (solDistance < m_shape.getRadius())
             {
-                m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 100));
+                m_map[m_hoverHex].setColor(sf::Color(0, 0, 0, 100));
                 m_hoverHex = findClosestHex(mousePos);
-                m_map[m_hoverHex].setFillColor(sf::Color(100, 255, 100, 255));
+                m_map[m_hoverHex].setColor(sf::Color(100, 255, 100, 255));
 
                 if (m_hoverHex == m_clickHex)
                 {
-                    m_map[m_clickHex].setFillColor(sf::Color(255, 100, 100, 255));
+                    m_map[m_clickHex].setColor(sf::Color(255, 100, 100, 255));
                 }
                 else
                 {
-                    m_map[m_clickHex].setFillColor(sf::Color(100, 100, 255, 255));
+                    m_map[m_clickHex].setColor(sf::Color(100, 100, 255, 255));
                 }
             }
             else
             {
-                m_map[m_hoverHex].setFillColor(sf::Color(0, 0, 0, 100));
+                m_map[m_hoverHex].setColor(sf::Color(0, 0, 0, 100));
             }
         }
 
@@ -127,11 +148,9 @@ void SolarSystem::genHexLine(int lineHeight, int radius) //I don't know why we u
     float hexWidth = hexHeight * Vector::degToVector(60).x;
 
 	//Sort of a prototype pattern, use this template to initialise all hexes for this line
-    sf::CircleShape hexTemplate(m_hexRadius, 6);
+	sf::Sprite hexTemplate(m_hexTex);
     hexTemplate.setOrigin(m_hexRadius, m_hexRadius);
-    hexTemplate.setFillColor(sf::Color(0, 0, 0, 100));
-    hexTemplate.setOutlineColor(sf::Color(0, 0, 0, 200));
-	hexTemplate.setOutlineThickness(4 * SIZE_FACTOR);
+    hexTemplate.setColor(sf::Color(0, 0, 0, 100));
     hexTemplate.setPosition(0, 0);
 
 	//The longest line is  the center, each line above or below it has one less hex in said line

@@ -23,7 +23,7 @@ namespace std
     };
 }
 
-typedef std::unordered_map<coordinates, sf::CircleShape> HexMap;
+typedef std::unordered_map<coordinates, sf::Sprite> HexMap;
 
 const coordinates invalidHexCoordinates = coordinates(std::numeric_limits<int>::max(), std::numeric_limits<int>::max());
 
@@ -41,6 +41,7 @@ private:
     coordinates findClosestHex(sf::Vector2f pos);
 
     GalacticEmpires* m_galemp;
+	sf::Texture m_hexTex;
 
     int m_systemRadius;
     float m_hexRadius;
