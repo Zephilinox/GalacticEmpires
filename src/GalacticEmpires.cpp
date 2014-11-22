@@ -69,14 +69,14 @@ void GalacticEmpires::loadSettings()
     version += toString(VERSION_REVISION);
 
     sf::VideoMode vm(width, height, bitDepth);
-
-    if (!vm.isValid())
+    if (fullscreen)
     {
-        if (fullscreen)
-        {
-            throw std::runtime_error("Invalid Video Settings for Fullscreen (Width, Height, or BitDepth)");
-        }
-        else if (width < 1024 || height < 768) //less than min resolution
+        vm = sf::VideoMode::getDesktopMode();
+    }
+
+    if (!vm.isValid() || width < 1024 || height < 768)
+    {
+        if (width < 1024 || height < 768) //less than min resolution
         {
             vm = sf::VideoMode::getDesktopMode();
             m_settings.setValue("width", int(vm.width), "Video");
@@ -107,7 +107,6 @@ void GalacticEmpires::loadSettings()
 
     std::cout << m_window.getSize().x << ", " << m_window.getSize().y << "\n";
     CEGUI::System::getSingleton().notifyDisplaySizeChanged(CEGUI::Sizef(m_window.getSize().x, m_window.getSize().y));
-    m_window.setView(m_window.getDefaultView());
 }
 
 void GalacticEmpires::gameLoop()
