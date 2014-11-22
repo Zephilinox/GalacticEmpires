@@ -74,9 +74,9 @@ void GalacticEmpires::loadSettings()
         vm = sf::VideoMode::getDesktopMode();
     }
 
-    if (!vm.isValid() || width < 1024 || height < 768)
+    if (!vm.isValid() || width < 800 || height < 600)
     {
-        if (width < 1024 || height < 768) //less than min resolution
+        if (width < 800 || height < 600) //less than min resolution
         {
             vm = sf::VideoMode::getDesktopMode();
             m_settings.setValue("width", int(vm.width), "Video");
@@ -88,9 +88,9 @@ void GalacticEmpires::loadSettings()
         }
 
         //If after all that the resolution is still below minimum then the user's machine can't support higher.
-        if (vm.width < 1024 || vm.height < 768)
+        if (vm.width < 800 || vm.height < 600)
         {
-            throw std::runtime_error("Your monitor does not meet minimum requirements\nYour settings: width = " + toString(vm.width) + ", height = " + toString(vm.height) + "\nMinimum settings: width = 1024, height = 768");
+            throw std::runtime_error("Your monitor does not meet minimum requirements\nYour settings: width = " + toString(vm.width) + ", height = " + toString(vm.height) + "\nMinimum settings: width = 800, height = 600");
         }
     }
 
