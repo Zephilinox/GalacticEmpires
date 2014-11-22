@@ -50,6 +50,9 @@ private:
     sf::CircleShape m_shape;
     coordinates m_hoverHex;
     coordinates m_clickHex;
+
+	sf::Color darkerHexCol = sf::Color::Black;
+	sf::Color lighterHexCol = sf::Color::White;
 };
 
 #endif //SOLARSYSTEM_HPP

@@ -30,7 +30,7 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
 	hexPic.setOrigin(m_hexRadius, m_hexRadius);
 	hexPic.setFillColor(sf::Color::White);
 	hexPic.setOutlineColor(sf::Color::Black);
-	hexPic.setOutlineThickness(-2 * SIZE_FACTOR);
+	hexPic.setOutlineThickness(-4 * SIZE_FACTOR);
 	hexPic.setPosition(0, 0);
 
 	sf::RenderTexture rt;
@@ -43,14 +43,23 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
 
 	m_hexTex.loadFromFile("data/textures/hex.png");
 
+	//Colour stuff
+	darkerHexCol = sf::Color(std::rand() % 200, std::rand() % 200, std::rand() % 200, 255);
+	lighterHexCol = darkerHexCol;
+	lighterHexCol.r += 56;
+	lighterHexCol.g += 56;
+	lighterHexCol.b += 56;
+
 	//Gen the hexes
     genMap();
 
 	//Gen the solar system shape
 	m_shape.setRadius(std::abs(m_map[coordinates(-m_systemRadius, 0)].getPosition().x) + m_hexRadius * 2);
 	m_shape.setOrigin(m_shape.getRadius(), m_shape.getRadius());
-	m_shape.setFillColor(sf::Color(std::rand() % 256, std::rand() % 256, std::rand() % 256, 50 + std::rand() % 50));
-	m_shape.setOutlineColor(sf::Color(0, 0, 0, 200));
+	sf::Color c = lighterHexCol;
+	c.a = 100 + std::rand() % 156;
+	m_shape.setFillColor(c);
+	m_shape.setOutlineColor(sf::Color(0, 0, 0, 255));
 	m_shape.setOutlineThickness(8 * SIZE_FACTOR);
     m_shape.setPosition(0, 0);
     m_shape.rotate(30);
@@ -72,7 +81,7 @@ bool SolarSystem::handleEvent(const sf::Event& e)
             {
                 Vector mousePos = m_galemp->getWindow()->mapPixelToCoords(sf::Mouse::getPosition(*m_galemp->getWindow()));
 
-                m_map[m_clickHex].setColor(sf::Color(0, 0, 0, 100));
+				m_map[m_clickHex].setColor(darkerHexCol);
                 m_clickHex = findClosestHex(mousePos);
                 m_map[m_clickHex].setColor(sf::Color(100, 100, 255, 255));
             }
@@ -88,7 +97,7 @@ bool SolarSystem::handleEvent(const sf::Event& e)
 
             if (solDistance < m_shape.getRadius())
             {
-                m_map[m_hoverHex].setColor(sf::Color(0, 0, 0, 100));
+				m_map[m_hoverHex].setColor(darkerHexCol);
                 m_hoverHex = findClosestHex(mousePos);
                 m_map[m_hoverHex].setColor(sf::Color(100, 255, 100, 255));
 
@@ -103,7 +112,7 @@ bool SolarSystem::handleEvent(const sf::Event& e)
             }
             else
             {
-                m_map[m_hoverHex].setColor(sf::Color(0, 0, 0, 100));
+				m_map[m_hoverHex].setColor(darkerHexCol);
             }
         }
 
@@ -150,7 +159,7 @@ void SolarSystem::genHexLine(int lineHeight, int radius) //I don't know why we u
 	//Sort of a prototype pattern, use this template to initialise all hexes for this line
 	sf::Sprite hexTemplate(m_hexTex);
     hexTemplate.setOrigin(m_hexRadius, m_hexRadius);
-    hexTemplate.setColor(sf::Color(0, 0, 0, 100));
+	hexTemplate.setColor(darkerHexCol);
     hexTemplate.setPosition(0, 0);
 
 	//The longest line is  the center, each line above or below it has one less hex in said line
