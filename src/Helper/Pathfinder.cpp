@@ -48,7 +48,26 @@ unsigned Pathfinder::calculateHeuristicCost(coordinates source, coordinates targ
 
 unsigned Pathfinder::calculateMovementCost(coordinates source, coordinates target)
 {
-	return m_movementCost;
+    coordinates lastDir;
+
+    auto node = m_nodes[source];
+    if (node.parentCoord != invalidCoordinates)
+    {
+        lastDir.x = node.parentCoord.x - source.x;
+        lastDir.y = node.parentCoord.y - source.y;
+    }
+
+    coordinates nextDir(source.x - target.x,
+                        source.y - target.y);
+
+    if (lastDir == nextDir)
+    {
+        return m_movementCost * 1.5;
+    }
+    else
+    {
+        return m_movementCost;
+    }
 }
 
 void Pathfinder::step(coordinates source, coordinates target)
@@ -59,6 +78,7 @@ void Pathfinder::step(coordinates source, coordinates target)
 		pathFound = false;
 		m_openList.clear();
 		m_closedList.clear();
+		m_nodes.clear();
 		return;
 	}
 	std::cout << "[" << source.x << ", " << source.y << "] -> [" << target.x << ", " << target.y << "]\n";
@@ -94,16 +114,9 @@ void Pathfinder::step(coordinates source, coordinates target)
 		while (m_map->validCoordinate(parentCoord))
 		{
 			m_map->getHexMap()[parentCoord].setColor(sf::Color::Yellow);
-			auto parentCoord2 = m_nodes[parentCoord].parentCoord;
-			if (parentCoord == m_nodes[parentCoord2].parentCoord)
-            {
-                parentCoord = invalidCoordinates;
-            }
-            else
-            {
-                parentCoord = parentCoord2;
-            }
+			parentCoord = m_nodes[parentCoord].parentCoord;
 		}
+		m_map->getHexMap()[m_closedList.front()].setColor(sf::Color(255, 50, 255, 255));
 
 		pathFound = true;
 	}
@@ -131,28 +144,11 @@ void Pathfinder::step(coordinates source, coordinates target)
 					m_openList.push_back(nodeCoord);
 					//m_map->getHexMap()[nodeCoord].setColor(sf::Color::White);
 				}
-				else if (node.g > calculateMovementCost(m_closedList.back(), nodeCoord)) //I think this is unnecessary
-				{
-					node.parentCoord = m_closedList.back();
-					node.h = calculateHeuristicCost(nodeCoord, target);
-					node.g = calculateMovementCost(node.parentCoord, nodeCoord);
-				}
 			}
 		}
 	}
 
 	step(source, target);
-
-	/*auto nodes = getAdjacentNodes(source);
-	auto index = getLowestScoreNodeIndex(nodes, target);
-	m_map->getHexMap()[nodes[index]].setColor(sf::Color::Black);
-
-	while (nodes[index] != target)
-	{
-		nodes = getAdjacentNodes(nodes[index]);
-		index = getLowestScoreNodeIndex(nodes, target);
-		m_map->getHexMap()[nodes[index]].setColor(sf::Color::Black);
-	}*/
 }
 
 std::vector<coordinates> Pathfinder::getAdjacentNodes(coordinates pos)
