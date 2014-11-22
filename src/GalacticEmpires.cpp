@@ -9,7 +9,7 @@
 #include "State/SplashState.hpp"
 
 GalacticEmpires::GalacticEmpires()
-    : m_window(sf::VideoMode(1280, 720, 32), "Galactic Empires")
+    : m_window(sf::VideoMode(1024, 768, 32), "Galactic Empires")
     , m_guiManager(&m_window)
     , m_curState(nullptr)
     , m_prevFrameTime(sf::seconds(1.f/60.f))

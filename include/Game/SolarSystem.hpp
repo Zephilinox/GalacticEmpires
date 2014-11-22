@@ -8,24 +8,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "GalacticEmpires.hpp"
-
-typedef sf::Vector2i coordinates;
-
-namespace std
-{
-    template <>
-    struct hash<coordinates>
-    {
-        std::size_t operator()(const coordinates& coord) const
-        {
-            return coord.x ^ coord.y;
-        }
-    };
-}
-
-typedef std::unordered_map<coordinates, sf::Sprite> HexMap;
-
-const coordinates invalidHexCoordinates = coordinates(std::numeric_limits<int>::max(), std::numeric_limits<int>::max());
+#include "SolarSystemMap.hpp"
 
 class SolarSystem : public sf::Drawable
 {
@@ -36,23 +19,19 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
-    void genMap();
-    void genHexLine(int lineHeight, int radius);
-    coordinates findClosestHex(sf::Vector2f pos);
-
     GalacticEmpires* m_galemp;
-	sf::Texture m_hexTex;
 
-    int m_systemRadius;
-    float m_hexRadius;
+    SolarSystemMap m_map;
 
-    HexMap m_map;
+    unsigned m_systemRadius;
+    unsigned m_hexRadius;
+
     sf::CircleShape m_shape;
+
+	sf::Color m_darkerHexCol = sf::Color::Black;
+	sf::Color m_lighterHexCol = sf::Color::White;
     coordinates m_hoverHex;
     coordinates m_clickHex;
-
-	sf::Color darkerHexCol = sf::Color::Black;
-	sf::Color lighterHexCol = sf::Color::White;
 };
 
 #endif //SOLARSYSTEM_HPP

@@ -5,8 +5,8 @@
 
 Pathfinder::Pathfinder()
 	: m_movementCost(10)
-	, m_sourceNodePosition(invalidHexCoordinates)
-	, m_targetNodePosition(invalidHexCoordinates)
+	, m_sourceNodePosition(invalidCoordinates)
+	, m_targetNodePosition(invalidCoordinates)
 	, m_pathFound(false)
 {
 }
@@ -34,7 +34,7 @@ unsigned Pathfinder::calculateHeuristicCost(coordinates source, coordinates targ
 	targetCubeCoordinates.x = target.x;
 	targetCubeCoordinates.z = target.y;
 	targetCubeCoordinates.y = -1 * (targetCubeCoordinates.x + targetCubeCoordinates.z);
-	
+
 	//cube manhattan distance
 	int distance =	std::abs(sourceCubeCoordinates.x - targetCubeCoordinates.x) +
 					std::abs(sourceCubeCoordinates.y - targetCubeCoordinates.y) +
