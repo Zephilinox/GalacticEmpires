@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<GUILayout version="4">
+	<Window type="DefaultWindow" name="root">
+		<Window type="TaharezLook/FrameWindow" name="OptionsMenu">
+			<Property name="Position" value="{ {0.30, 0}, {0.25, 0} }" />
+			<Property name="Size" value="{ {0.4, 0}, {0.50, 0} }" />
+			<Property name="Text" value="Options" />
+			
+			<Window type="TaharezLook/MultiColumnList" name="OptionsList">
+				<Property name="Position" value="{ {0.1, 0}, {0.1, 0} }" />
+				<Property name="Size" value="{ {0.8, 0}, {0.8, 0} }" />
+			</Window>
+		</Window>
+	</Window>
+</GUILayout>

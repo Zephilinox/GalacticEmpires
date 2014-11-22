@@ -81,7 +81,7 @@ void Pathfinder::step(coordinates source, coordinates target)
 		m_nodes.clear();
 		return;
 	}
-	std::cout << "[" << source.x << ", " << source.y << "] -> [" << target.x << ", " << target.y << "]\n";
+	//std::cout << "[" << source.x << ", " << source.y << "] -> [" << target.x << ", " << target.y << "]\n";
 
 	//Fill out our node list
 	for (const auto& hexPair : m_map->getHexMap())
@@ -190,6 +190,6 @@ unsigned Pathfinder::getLowestScoreNodeIndex(std::vector<coordinates> nodes, coo
 		}
 	}
 
-    std::cout << "[" << nodes[lowestScoreNode].x << ", " << nodes[lowestScoreNode].y << "] = " << lowestScore << "\n";
+    //std::cout << "[" << nodes[lowestScoreNode].x << ", " << nodes[lowestScoreNode].y << "] = " << lowestScore << "\n";
 	return lowestScoreNode;
 }

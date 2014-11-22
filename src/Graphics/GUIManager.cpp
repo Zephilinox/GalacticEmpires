@@ -23,9 +23,10 @@ GUIManager::GUIManager(sf::RenderWindow* window)
     CEGUI::ScriptModule::setDefaultResourceGroup("lua_scripts");
 
     CEGUI::SchemeManager::getSingleton().createFromFile("AlfiskoSkin.scheme");
+    CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
     CEGUI::FontManager::getSingleton().createFromFile("DejaVuSans-10.font");
 
-    CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("AlfiskoSkin/MouseArrow");
+    CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
 
     initialiseMaps();
 }
