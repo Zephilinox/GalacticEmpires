@@ -13,10 +13,10 @@ Camera::Camera(GalacticEmpires* galemp)
     , m_panZonePercent(0.1f)
 	, m_panSpeed(4.f * SIZE_FACTOR)
 	, m_moveSpeed(512.f * SIZE_FACTOR)
-    , m_updateWindow(false)
+    , m_updateWindow(true)
+    , m_resetView(true)
 {
     m_view.setCenter(0, 0);
-    m_updateWindow = true; //assigned here for clarity
 
 	m_zoomLimits[0] = 0.49f * SIZE_FACTOR;
 	m_zoomLimits[1] = 1.51f * SIZE_FACTOR;
@@ -41,12 +41,8 @@ void Camera::handleEvent(const sf::Event& e)
 
         case sf::Event::Resized:
         {
-            m_view.setSize(m_galemp->getWindow()->getSize().x * m_zoomValue, m_galemp->getWindow()->getSize().y * m_zoomValue);
-            m_panBorderLimits[0] = m_galemp->getWindow()->getSize().x * m_panZonePercent;
-            m_panBorderLimits[1] = m_galemp->getWindow()->getSize().x * (1.f-m_panZonePercent);
-            m_panBorderLimits[2] = m_galemp->getWindow()->getSize().y * m_panZonePercent;
-            m_panBorderLimits[3] = m_galemp->getWindow()->getSize().y * (1.f-m_panZonePercent);
             m_updateWindow = true;
+            m_resetView = true;
             break;
         }
 
@@ -61,6 +57,13 @@ void Camera::handleEvent(const sf::Event& e)
             {
                 zoom(0.1f);
             }
+
+            if (e.key.code == sf::Keyboard::F11 || e.key.code == sf::Keyboard::F12)
+            {
+                m_resetView = true;
+                m_updateWindow = true;
+            }
+
             break;
         }
 
@@ -123,9 +126,20 @@ void Camera::update(double dt)
         m_updateWindow = true;
     }
 
+    if (m_resetView)
+    {
+        m_view.setSize(m_galemp->getWindow()->getSize().x * m_zoomValue, m_galemp->getWindow()->getSize().y * m_zoomValue);
+        m_panBorderLimits[0] = m_galemp->getWindow()->getSize().x * m_panZonePercent;
+        m_panBorderLimits[1] = m_galemp->getWindow()->getSize().x * (1.f-m_panZonePercent);
+        m_panBorderLimits[2] = m_galemp->getWindow()->getSize().y * m_panZonePercent;
+        m_panBorderLimits[3] = m_galemp->getWindow()->getSize().y * (1.f-m_panZonePercent);
+        m_resetView = false;
+    }
+
     if (m_updateWindow)
     {
         m_galemp->getWindow()->setView(m_view);
+        m_updateWindow = false;
     }
 }
 

@@ -107,6 +107,7 @@ void GalacticEmpires::loadSettings()
 
     std::cout << m_window.getSize().x << ", " << m_window.getSize().y << "\n";
     CEGUI::System::getSingleton().notifyDisplaySizeChanged(CEGUI::Sizef(m_window.getSize().x, m_window.getSize().y));
+    m_window.setView(m_window.getDefaultView());
 }
 
 void GalacticEmpires::gameLoop()
@@ -150,6 +151,15 @@ void GalacticEmpires::handleEvent(const sf::Event& e)
                 if (e.key.code == sf::Keyboard::Escape)
                 {
                     m_stateMan.pop();
+                }
+
+                if (e.key.code == sf::Keyboard::F11)
+                {
+                    bool fullscreen = m_settings.getBool("fullscreen", "Video");
+                    m_settings.setValue("fullscreen", !fullscreen, "Video");
+                    m_settings.save();
+
+                    loadSettings();
                 }
 
                 if (e.key.code == sf::Keyboard::F12)

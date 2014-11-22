@@ -32,6 +32,7 @@ private:
     float m_moveSpeed;
 
     bool m_updateWindow;
+    bool m_resetView;
 };
 
 #endif //CAMERA_HPP
