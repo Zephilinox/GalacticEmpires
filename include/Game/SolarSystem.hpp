@@ -9,6 +9,7 @@
 
 #include "GalacticEmpires.hpp"
 #include "SolarSystemMap.hpp"
+#include "Helper/Pathfinder.hpp"
 
 class SolarSystem : public sf::Drawable
 {
@@ -32,6 +33,8 @@ private:
     sf::Color m_lighterHexCol = sf::Color::White;
     coordinates m_hoverHex;
     coordinates m_clickHex;
+
+	Pathfinder m_pathfinder;
 };
 
 #endif //SOLARSYSTEM_HPP

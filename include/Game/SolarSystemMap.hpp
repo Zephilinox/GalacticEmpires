@@ -38,6 +38,7 @@ public:
     void genMap(unsigned systemRadius, unsigned hexRadius);
 
     coordinates findClosestHex(sf::Vector2f pos);
+	bool validCoordinate(coordinates coord);
 
     void setColor(sf::Color c);
 

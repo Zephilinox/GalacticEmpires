@@ -76,6 +76,21 @@ coordinates SolarSystemMap::findClosestHex(sf::Vector2f pos)
     return closestHexCoord;
 }
 
+bool SolarSystemMap::validCoordinate(coordinates coord)
+{
+	if (coord == invalidCoordinates)
+	{
+		return false;
+	}
+
+	if (m_map.count(coord))
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void SolarSystemMap::setColor(sf::Color c)
 {
     for (auto& hexPair : m_map)

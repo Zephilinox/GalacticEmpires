@@ -3,11 +3,12 @@
 #include <iostream>
 #include <limits>
 
-Pathfinder::Pathfinder()
+Pathfinder::Pathfinder(SolarSystemMap* map)
 	: m_movementCost(10)
 	, m_sourceNodePosition(invalidCoordinates)
 	, m_targetNodePosition(invalidCoordinates)
 	, m_pathFound(false)
+	, m_map(map)
 {
 }
 
@@ -51,9 +52,18 @@ unsigned Pathfinder::calculateMovementCost(coordinates source, coordinates targe
 	return m_movementCost;
 }
 
-void Pathfinder::step()
+void Pathfinder::step(coordinates source, coordinates target)
 {
+	auto nodes = getAdjacentNodes(source);
+	auto index = getLowestScoreNodeIndex(nodes, target);
+	m_map->getHexMap()[nodes[index]].setColor(sf::Color::Black);
 
+	while (nodes[index] != target)
+	{
+		nodes = getAdjacentNodes(nodes[index]);
+		index = getLowestScoreNodeIndex(nodes, target);
+		m_map->getHexMap()[nodes[index]].setColor(sf::Color::Black);
+	}
 }
 
 std::vector<coordinates> Pathfinder::getAdjacentNodes(coordinates pos)
@@ -70,7 +80,7 @@ std::vector<coordinates> Pathfinder::getAdjacentNodes(coordinates pos)
 
 	for (coordinates pos : nodePositions)
 	{
-		if (true) //valid pos
+		if (m_map->validCoordinate(pos))
 		{
 			nodes.push_back(pos);
 		}
@@ -79,16 +89,17 @@ std::vector<coordinates> Pathfinder::getAdjacentNodes(coordinates pos)
 	return nodes;
 }
 
-unsigned Pathfinder::getLowestScoreNodeIndex(std::vector<coordinates> nodes)
+unsigned Pathfinder::getLowestScoreNodeIndex(std::vector<coordinates> nodes, coordinates target)
 {
 	unsigned lowestScore = std::numeric_limits<unsigned>::max();
 	unsigned lowestScoreNode = 0;
 
 	for (unsigned i = 0; i < nodes.size(); ++i)
 	{
-		if (true) //heuristic + move cost < lowest score
+		if (calculateHeuristicCost(nodes[i], target) < lowestScore) //heuristic + move cost < lowest score
 		{
 			//set lowest score to heuristic + move cost
+			lowestScore = calculateHeuristicCost(nodes[i], target);
 			lowestScoreNode = i;
 		}
 	}
