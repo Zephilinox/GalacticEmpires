@@ -28,8 +28,8 @@ private:
 
     sf::CircleShape m_shape;
 
-	sf::Color m_darkerHexCol = sf::Color::Black;
-	sf::Color m_lighterHexCol = sf::Color::White;
+    sf::Color m_darkerHexCol = sf::Color::Black;
+    sf::Color m_lighterHexCol = sf::Color::White;
     coordinates m_hoverHex;
     coordinates m_clickHex;
 };
