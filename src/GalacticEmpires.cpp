@@ -105,7 +105,7 @@ void GalacticEmpires::loadSettings()
 
     m_window.setMouseCursorVisible(false);
 
-    m_window.resetGLStates(); //This is required to show SFGUI if we don't draw with SFML at any point
+	CEGUI::System::getSingleton().notifyDisplaySizeChanged(CEGUI::Sizef(m_window.getSize().x, m_window.getSize().y));
 }
 
 void GalacticEmpires::gameLoop()
