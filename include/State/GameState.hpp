@@ -6,7 +6,7 @@
 #include "State/BaseState.hpp"
 #include "Game/Universe.hpp"
 #include "GalacticEmpires.hpp"
-#include "Helper/Camera.hpp"
+#include "Graphics/Camera.hpp"
 
 class GameState : public BaseState
 {

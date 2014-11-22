@@ -8,7 +8,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "GalacticEmpires.hpp"
-#include "SolarSystemMap.hpp"
+#include "Game/SolarSystemMap.hpp"
 
 class SolarSystem : public sf::Drawable
 {

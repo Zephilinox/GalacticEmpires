@@ -1,4 +1,4 @@
-#include "Math/Vector.hpp"
+#include "Helper/Math/Vector.hpp"
 
 Vector::Vector(double argX, double argY)
     : x(argX)

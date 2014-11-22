@@ -1,4 +1,4 @@
-#include "FPSDisplay.hpp"
+#include "Graphics/FPSDisplay.hpp"
 
 #include <cmath>
 

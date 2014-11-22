@@ -1,4 +1,4 @@
-#include "Pathfinder.hpp"
+#include "Helper/Pathfinder.hpp"
 
 #include <iostream>
 #include <limits>

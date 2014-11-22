@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cmath>
 
-#include "Math/Vector.hpp"
+#include "Helper/Math/Vector.hpp"
 #include "Helper/LuaState.hpp"
 #include "Helper/Utility.hpp"
 #include "Helper/Constants.hpp"

@@ -1,4 +1,4 @@
-#include "TextHandler.hpp"
+#include "Graphics/TextHandler.hpp"
 
 #include <exception>
 

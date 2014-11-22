@@ -1,4 +1,4 @@
-#include "Helper/GUIManager.hpp"
+#include "Graphics/GUIManager.hpp"
 
 #include <iostream>
 

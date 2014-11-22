@@ -1,6 +1,6 @@
-#include "SolarSystemMap.hpp"
+#include "Game/SolarSystemMap.hpp"
 
-#include "Math/Vector.hpp"
+#include "Helper/Math/Vector.hpp"
 #include "Helper/Constants.hpp"
 
 SolarSystemMap::SolarSystemMap()

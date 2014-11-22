@@ -4,9 +4,9 @@
 #include <SFML/Graphics.hpp>
 
 #include "Helper/Settings.hpp"
-#include "Helper/GUIManager.hpp"
+#include "Graphics/GUIManager.hpp"
 #include "State/StateManager.hpp"
-#include "FPSDisplay.hpp"
+#include "Graphics/FPSDisplay.hpp"
 
 class GalacticEmpires
 {

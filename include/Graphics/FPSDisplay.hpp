@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "TextHandler.hpp"
+#include "Graphics/TextHandler.hpp"
 
 class FPSDisplay : public sf::Drawable
 {
