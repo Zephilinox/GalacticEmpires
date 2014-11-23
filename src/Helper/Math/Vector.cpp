@@ -1,6 +1,6 @@
 #include "Helper/Math/Vector.hpp"
 
-Vector::Vector(double argX, double argY)
+Vector::Vector(float argX, float argY)
     : x(argX)
     , y(argY)
 {
@@ -17,22 +17,22 @@ Vector::operator sf::Vector2f()
     return sf::Vector2f(this->x, this->y);
 }
 
-double Vector::radToDeg(double argRad)
+float Vector::radToDeg(float argRad)
 {
     return argRad * (180.f / PI);
 }
 
-double Vector::degToRad(double argDeg)
+float Vector::degToRad(float argDeg)
 {
     return argDeg * (PI / 180.f);
 }
 
-Vector Vector::degToVector(double deg)
+Vector Vector::degToVector(float deg)
 {
     return radToVector(degToRad(deg));
 }
 
-Vector Vector::radToVector(double rad)
+Vector Vector::radToVector(float rad)
 {
     return Vector(std::sin(rad), -std::cos(rad));
 }
@@ -88,61 +88,61 @@ Vector& Vector::operator/=(const Vector& argVec)
     return *this;
 }
 
-Vector operator+(const Vector& vec, double argScalar)
+Vector operator+(const Vector& vec, float argScalar)
 {
     return Vector(vec.x + argScalar, vec.y + argScalar);
 }
 
-Vector& Vector::operator+=(double argScalar)
+Vector& Vector::operator+=(float argScalar)
 {
     *this = *this + argScalar;
     return *this;
 }
 
-Vector operator-(const Vector& vec, double argScalar)
+Vector operator-(const Vector& vec, float argScalar)
 {
     return Vector(vec.x - argScalar, vec.y - argScalar);
 }
 
-Vector& Vector::operator-=(double argScalar)
+Vector& Vector::operator-=(float argScalar)
 {
     *this = *this - argScalar;
     return *this;
 }
 
-Vector operator*(const Vector& vec, double argScalar)
+Vector operator*(const Vector& vec, float argScalar)
 {
     return Vector(vec.x * argScalar, vec.y * argScalar);
 }
 
-Vector& Vector::operator*=(double argScalar)
+Vector& Vector::operator*=(float argScalar)
 {
     *this = *this * argScalar;
     return *this;
 }
 
-Vector operator/(const Vector& vec, double argScalar)
+Vector operator/(const Vector& vec, float argScalar)
 {
     return Vector(vec.x / argScalar, vec.y / argScalar);
 }
 
-Vector& Vector::operator/=(double argScalar)
+Vector& Vector::operator/=(float argScalar)
 {
     *this = *this / argScalar;
     return *this;
 }
 
-double Vector::dot(const Vector& argVec)
+float Vector::dot(const Vector& argVec)
 {
     return (x * argVec.x) + (y * argVec.y);
 }
 
-double Vector::length()
+float Vector::length()
 {
     return std::sqrt(x * x + y * y);
 }
 
-double Vector::lengthSquared()
+float Vector::lengthSquared()
 {
     return x * x + y * y;
 }
@@ -184,58 +184,58 @@ Vector Vector::turnedRight()
     return vec;
 }
 
-void Vector::rotateWithDeg(double argDeg)
+void Vector::rotateWithDeg(float argDeg)
 {
     argDeg = Vector::degToRad(argDeg);
 
     //we use them both twice so store them, sin and cos are expensive calls.
-    double sinResult = std::sin(argDeg);
-    double cosResult = std::cos(argDeg);
+    float sinResult = std::sin(argDeg);
+    float cosResult = std::cos(argDeg);
 
     this->x = (this->x * cosResult) - (this->y * sinResult);
     this->y = (this->x * sinResult) + (this->y * cosResult);
 }
 
-Vector Vector::rotatedWithDeg(double argDeg)
+Vector Vector::rotatedWithDeg(float argDeg)
 {
     argDeg = degToRad(argDeg);
 
     //we use them both twice so store them, sin and cos are expensive calls.
-    double sinResult = std::sin(argDeg);
-    double cosResult = std::cos(argDeg);
+    float sinResult = std::sin(argDeg);
+    float cosResult = std::cos(argDeg);
 
     Vector vec((this->x * cosResult) - (this->y * sinResult), (this->x * sinResult) + (this->y * cosResult));
 
     return vec;
 }
 
-void Vector::rotateWithRad(double argRad)
+void Vector::rotateWithRad(float argRad)
 {
     //we use them both twice so store them, sin and cos are expensive calls.
-    double sinResult = std::sin(argRad);
-    double cosResult = std::cos(argRad);
+    float sinResult = std::sin(argRad);
+    float cosResult = std::cos(argRad);
 
     this->x = (this->x * cosResult) - (this->y * sinResult);
     this->y = (this->x * sinResult) + (this->y * cosResult);
 }
 
-Vector Vector::rotatedWithRad(double argRad)
+Vector Vector::rotatedWithRad(float argRad)
 {
     //we use them both twice so store them, sin and cos are expensive calls.
-    double sinResult = std::sin(argRad);
-    double cosResult = std::cos(argRad);
+    float sinResult = std::sin(argRad);
+    float cosResult = std::cos(argRad);
 
     Vector vec((this->x * cosResult) - (this->y * sinResult), (this->x * sinResult) + (this->y * cosResult));
 
     return vec;
 }
 
-double Vector::degrees()
+float Vector::degrees()
 {
     return std::atan2(x, -y) * (180.f / PI);
 }
 
-double Vector::radians()
+float Vector::radians()
 {
     return std::atan2(x, -y);
 }

@@ -59,9 +59,11 @@ bool OptionsMenuState::applyChanges(const CEGUI::EventArgs& e)
 
     m_galemp->getSettings()->setValue("width", fromString<int>(ebWidthValue->getText().c_str()), "Video");
     m_galemp->getSettings()->setValue("height", fromString<int>(ebHeightValue->getText().c_str()), "Video");
+	return true;
 }
 
 bool OptionsMenuState::saveChanges(const CEGUI::EventArgs& e)
 {
     m_galemp->getSettings()->save();
+	return true;
 }

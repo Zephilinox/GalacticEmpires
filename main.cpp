@@ -6,7 +6,7 @@
 
 int main()
 {
-    std::srand(std::time(0));
+    std::srand(unsigned(std::time(nullptr)));
 
     try
     {

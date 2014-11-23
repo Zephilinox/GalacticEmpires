@@ -28,11 +28,12 @@ void GalacticEmpires::run()
 void GalacticEmpires::handleError(std::string err)
 {
     //If it is the same exception thrown, just ignore it
-    if (m_exceptionErrorMessage != err)
+	if (m_exceptionErrorMessage != err || m_errorTimer.getElapsedTime() >= sf::seconds(1))
     {
+		m_errorTimer.restart();
         m_exceptionErrorMessage = err;
         std::cout << err << "\n";
-    }
+	}
 }
 
 sf::RenderWindow* GalacticEmpires::getWindow()
@@ -106,12 +107,12 @@ void GalacticEmpires::loadSettings()
     m_window.setMouseCursorVisible(false);
 
     std::cout << m_window.getSize().x << ", " << m_window.getSize().y << "\n";
-    CEGUI::System::getSingleton().notifyDisplaySizeChanged(CEGUI::Sizef(m_window.getSize().x, m_window.getSize().y));
+    CEGUI::System::getSingleton().notifyDisplaySizeChanged(CEGUI::Sizef(float(m_window.getSize().x), float(m_window.getSize().y)));
 }
 
 void GalacticEmpires::gameLoop()
 {
-    m_frameTime.restart();
+    m_frameTimer.restart();
     while (m_window.isOpen())
     {
         m_curState = m_stateMan.top(); //Guarantee that states will live until the end of one game loop.
@@ -124,8 +125,8 @@ void GalacticEmpires::gameLoop()
         update(m_prevFrameTime.asSeconds());
         draw();
 
-        m_prevFrameTime = m_frameTime.getElapsedTime();
-        m_frameTime.restart();
+        m_prevFrameTime = m_frameTimer.getElapsedTime();
+        m_frameTimer.restart();
     }
 }
 

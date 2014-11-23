@@ -15,7 +15,7 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
     , m_shape(0, 6)
     , m_hoverHex(invalidCoordinates)
     , m_clickHex(invalidCoordinates)
-    , m_pathfinder(&m_map)
+    , m_pathfinder(nullptr)
 {
     //Lua stuff
     LuaState luaState;
@@ -39,16 +39,16 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
     if (m_hexRadius*2 != hexTex.getSize().x)
     {
         std::cout << "Could not find valid hex texture, automatically generating...\n";
-        sf::CircleShape hexPic(m_hexRadius, 6);
-        hexPic.setOrigin(m_hexRadius, m_hexRadius);
+        sf::CircleShape hexPic(float(m_hexRadius), 6);
+		hexPic.setOrigin(float(m_hexRadius), float(m_hexRadius));
         hexPic.setFillColor(sf::Color::White);
         hexPic.setOutlineColor(sf::Color::Black);
-        hexPic.setOutlineThickness(-4 * SIZE_FACTOR);
+		hexPic.setOutlineThickness(-4 * float(SIZE_FACTOR));
         hexPic.setPosition(0, 0);
 
         sf::RenderTexture rt;
         rt.create(m_hexRadius * 2, m_hexRadius * 2);
-        rt.setView(sf::View(sf::Vector2f(0, 0), sf::Vector2f(m_hexRadius * 2, m_hexRadius * 2)));
+        rt.setView(sf::View(sf::Vector2f(0, 0), sf::Vector2f(float(m_hexRadius) * 2, float(m_hexRadius * 2))));
         rt.clear(sf::Color::Transparent);
         rt.draw(hexPic);
         rt.display();
@@ -60,7 +60,7 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
     m_map.setColor(m_darkerHexCol);
 
     //Gen the solar system shape
-    m_shape.setRadius(std::abs(m_map[coordinates(-m_systemRadius, 0)].getPosition().x) + m_hexRadius * 2);
+    m_shape.setRadius(std::abs(m_map[coordinates(int(m_systemRadius)*-1, 0)].getPosition().x) + m_hexRadius * 2);
     m_shape.setOrigin(m_shape.getRadius(), m_shape.getRadius());
     sf::Color c = m_lighterHexCol;
     c.a = 100 + std::rand() % 156;
@@ -158,7 +158,7 @@ bool SolarSystem::handleEvent(const sf::Event& e)
     return false;
 }
 
-void SolarSystem::update(double dt)
+void SolarSystem::update(float dt)
 {
 
 }

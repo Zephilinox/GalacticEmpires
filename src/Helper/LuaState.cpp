@@ -80,3 +80,22 @@ lua_State* LuaState::getRawState()
 {
     return m_luaState;
 }
+
+int LuaState::traceback(lua_State* L)
+{
+	const char *msg = lua_tostring(L, 1);
+	//fprintf(stderr, "Traceback msg: %s\n", msg); //cout breaks function
+	if (msg)
+	{
+		luaL_traceback(L, L, msg, 1);
+	}
+	else if (!lua_isnoneornil(L, 1))
+	{
+		if (!luaL_callmeta(L, 1, "__tostring"))
+		{
+			lua_pushliteral(L, "(no error message)");
+		}
+	}
+
+	return 1;
+}

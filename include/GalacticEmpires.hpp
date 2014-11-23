@@ -36,10 +36,11 @@ private:
     FPSDisplay m_fps;
 
     sf::Event m_event;
-    sf::Clock m_frameTime;
+    sf::Clock m_frameTimer;
     sf::Time m_prevFrameTime;
 
     std::string m_exceptionErrorMessage;
+	sf::Clock m_errorTimer;
 
     Settings m_settings;
 

@@ -14,8 +14,6 @@ FPSDisplay::FPSDisplay()
 
 bool FPSDisplay::handleEvent(const sf::Event& e)
 {
-    m_fpsText.handleEvent(e);
-
     switch (e.type)
     {
         case sf::Event::KeyPressed:
@@ -43,7 +41,7 @@ void FPSDisplay::update(float dt)
     if (m_updateClock.getElapsedTime() > sf::seconds(1.f / updatesPerSecond))
     {
         //Calculate average FPS based on values from the last second
-        m_FPSValues.push_back(std::floor(1.f / dt));
+        m_FPSValues.push_back(unsigned(std::floor(1.f / dt)));
         if (m_FPSValues.size() > updatesPerSecond)
         {
             m_FPSValues.pop_front();
@@ -54,11 +52,11 @@ void FPSDisplay::update(float dt)
         {
             avgFPS += fps;
         }
-        avgFPS = std::floor(avgFPS/m_FPSValues.size());
+        avgFPS = unsigned(std::floor(avgFPS/m_FPSValues.size()));
 
         //Update the FPS
         m_fpsText.setText(toString(avgFPS));
-        m_fpsText.update(dt);
+        m_fpsText.update();
         m_updateClock.restart();
     }
 }
@@ -71,7 +69,7 @@ void FPSDisplay::draw(sf::RenderTarget& target, sf::RenderStates states) const
         sf::View oldView = target.getView();
         target.setView(target.getDefaultView());
 
-        target.draw(m_fpsText);
+        target.draw(m_fpsText, states);
 
         target.setView(oldView);
     }

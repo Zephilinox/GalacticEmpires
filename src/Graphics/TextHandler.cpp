@@ -16,12 +16,7 @@ TextHandler::TextHandler(std::string textString, std::string fontLocation, unsig
     updatePosition();
 }
 
-bool TextHandler::handleEvent(const sf::Event& event)
-{
-    return false;
-}
-
-void TextHandler::update(float dt)
+void TextHandler::update()
 {
     updatePosition();
 }

@@ -74,7 +74,7 @@ void Camera::handleEvent(const sf::Event& e)
     }
 }
 
-void Camera::update(double dt)
+void Camera::update(float dt)
 {
     sf::Vector2u mousePos(sf::Mouse::getPosition(*m_galemp->getWindow()));
 

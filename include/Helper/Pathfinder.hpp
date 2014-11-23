@@ -28,7 +28,7 @@ public:
 
 private:
     std::vector<coordinates> getAdjacentNodes(coordinates pos);
-    unsigned getLowestScoreNodeIndex(std::vector<coordinates> nodes, coordinates target);
+    unsigned getLowestScoreNodeIndex(std::vector<coordinates> nodes);
 
     const unsigned m_movementCost;
 

@@ -10,7 +10,7 @@ class Camera
 public:
     Camera(GalacticEmpires* galemp);
     void handleEvent(const sf::Event& e);
-    void update(double dt);
+    void update(float dt);
 
     void resetZoom();
 

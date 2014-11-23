@@ -165,6 +165,8 @@ solution("GalacticEmpires")
         if system == "windows" then
 			if environment == "mingw" then
 				linkoptions {"-static-libstdc++"}
+			elseif environment == "msvc" then
+					buildoptions	("/wd4275 /wd4512")
 			end
 			
             includedirs (include_dirs_libs)

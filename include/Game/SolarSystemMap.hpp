@@ -31,8 +31,6 @@ public:
     SolarSystemMap();
     sf::Sprite& operator[](coordinates coord);
 
-    bool handleEvent(const sf::Event& e);
-    void update(double dt);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     void genMap(unsigned systemRadius, unsigned hexRadius);

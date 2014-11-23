@@ -5,19 +5,19 @@
 
 #include <SFML/Graphics.hpp>
 
-const double PI = 3.141592653;
+const float PI = 3.141592653f;
 
 class Vector
 {
 public:
-    Vector(double x = 0, double y = 0);
+	Vector(float x = 0, float y = 0);
     Vector(sf::Vector2f vec);
     operator sf::Vector2f();
 
-    static double radToDeg(double rad);
-    static double degToRad(double deg);
-    static Vector degToVector(double deg);
-    static Vector radToVector(double rad);
+    static float radToDeg(float rad);
+    static float degToRad(float deg);
+    static Vector degToVector(float deg);
+    static Vector radToVector(float rad);
 
     Vector& operator=(const Vector& vec);
     Vector& operator+=(const Vector& vec);
@@ -25,17 +25,17 @@ public:
     Vector& operator*=(const Vector& vec);
     Vector& operator/=(const Vector& vec);
 
-    Vector& operator+=(double scalar);
-    Vector& operator-=(double scalar);
-    Vector& operator*=(double scalar);
-    Vector& operator/=(double scalar);
+    Vector& operator+=(float scalar);
+    Vector& operator-=(float scalar);
+    Vector& operator*=(float scalar);
+    Vector& operator/=(float scalar);
 
-    double x;
-    double y;
+    float x;
+    float y;
 
-    double dot(const Vector& vec);
-    double length(); //Uses square root
-    double lengthSquared(); //Doesn't use square root
+    float dot(const Vector& vec);
+    float length(); //Uses square root
+    float lengthSquared(); //Doesn't use square root
     void normalize();
     Vector normalized();
 
@@ -47,14 +47,14 @@ public:
     void turnRight();
     Vector turnedRight();
 
-    void rotateWithDeg(double deg);
-    Vector rotatedWithDeg(double deg);
+    void rotateWithDeg(float deg);
+    Vector rotatedWithDeg(float deg);
 
-    void rotateWithRad(double rad);
-    Vector rotatedWithRad(double rad);
+    void rotateWithRad(float rad);
+    Vector rotatedWithRad(float rad);
 
-    double degrees();
-    double radians();
+    float degrees();
+    float radians();
 };
 
 Vector operator+(const Vector& vec, const Vector& vec2);
@@ -62,9 +62,9 @@ Vector operator-(const Vector& vec, const Vector& vec2);
 Vector operator*(const Vector& vec, const Vector& vec2);
 Vector operator/(const Vector& vec, const Vector& vec2);
 
-Vector operator+(const Vector& vec, double scalar);
-Vector operator-(const Vector& vec, double scalar);
-Vector operator*(const Vector& vec, double scalar);
-Vector operator/(const Vector& vec, double scalar);
+Vector operator+(const Vector& vec, float scalar);
+Vector operator-(const Vector& vec, float scalar);
+Vector operator*(const Vector& vec, float scalar);
+Vector operator/(const Vector& vec, float scalar);
 
 #endif

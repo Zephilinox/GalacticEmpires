@@ -76,13 +76,13 @@ bool GUIManager::handleEvent(const sf::Event& e)
 
         case sf::Event::MouseWheelMoved:
         {
-            context.injectMouseWheelChange(e.mouseWheel.delta);
+            context.injectMouseWheelChange(float(e.mouseWheel.delta));
             break;
         }
 
         case sf::Event::Resized:
         {
-            CEGUI::System::getSingleton().notifyDisplaySizeChanged(CEGUI::Sizef(e.size.width, e.size.height));
+            CEGUI::System::getSingleton().notifyDisplaySizeChanged(CEGUI::Sizef(float(e.size.width), float(e.size.height)));
             break;
         }
 

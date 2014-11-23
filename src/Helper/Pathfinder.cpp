@@ -10,6 +10,10 @@ Pathfinder::Pathfinder(SolarSystemMap* map)
     , m_pathFound(false)
     , m_map(map)
 {
+    if (!m_map)
+    {
+        throw std::runtime_error("[Pathfinder::Pathfinder] SolarSystemMap pointer is null!");
+    }
 }
 
 bool Pathfinder::handleEvent(const sf::Event& e)
@@ -122,7 +126,7 @@ void Pathfinder::step(coordinates source, coordinates target)
     }
     else
     {
-        unsigned lowestScoreNodeIndex = getLowestScoreNodeIndex(m_openList, target);
+        unsigned lowestScoreNodeIndex = getLowestScoreNodeIndex(m_openList);
         m_closedList.push_back(m_openList[lowestScoreNodeIndex]);
 
         m_map->getHexMap()[m_openList[lowestScoreNodeIndex]].setColor(sf::Color::Magenta);
@@ -176,7 +180,7 @@ std::vector<coordinates> Pathfinder::getAdjacentNodes(coordinates pos)
     return nodes;
 }
 
-unsigned Pathfinder::getLowestScoreNodeIndex(std::vector<coordinates> nodes, coordinates target)
+unsigned Pathfinder::getLowestScoreNodeIndex(std::vector<coordinates> nodes)
 {
     unsigned lowestScore = std::numeric_limits<unsigned>::max();
     unsigned lowestScoreNode = 0;
