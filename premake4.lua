@@ -169,6 +169,9 @@ solution("GalacticEmpires")
 			
             includedirs (include_dirs_libs)
             libdirs     ("builds/".._ACTION.."/dll")
+	elseif system == "linux" then
+	    includedirs ("/usr/include/cegui-0")
+	    libdirs	("/usr/lib/cegui-0.8")
         end
         
         configuration("Debug")
