@@ -4,7 +4,7 @@
 #include <limits>
 
 Pathfinder::Pathfinder(SolarSystemMap* map)
-    : m_movementCost(10)
+    : m_movementCost(10000)
     , m_sourceNodePosition(invalidCoordinates)
     , m_targetNodePosition(invalidCoordinates)
     , m_pathFound(false)

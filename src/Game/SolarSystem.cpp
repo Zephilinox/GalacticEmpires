@@ -15,7 +15,7 @@ SolarSystem::SolarSystem(GalacticEmpires* galemp)
     , m_shape(0, 6)
     , m_hoverHex(invalidCoordinates)
     , m_clickHex(invalidCoordinates)
-    , m_pathfinder(nullptr)
+    , m_pathfinder(&m_map)
 {
     //Lua stuff
     LuaState luaState;
