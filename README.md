@@ -25,16 +25,16 @@ Libraries
 =========
 
 * SFML 2.1
- * Windowing and Graphics API 
+    * Windowing and Graphics API 
 * CEGUI 0.8.4
- * GUI API
+    * GUI API
 * INIParser
- * INI Reading and Writing
+    * INI Reading and Writing
 * Thor
- * High-level functionality for SFML
+    * High-level functionality for SFML
 * Aurora
- * Required by Thor
+    * Required by Thor
 * Lua 5.2.3
- * Scripting and data storage
+    * Scripting and data storage
 * LuaBridge
- * Aids in accessing the Lua Stack
+    * Aids in accessing the Lua Stack
